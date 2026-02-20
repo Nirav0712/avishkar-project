@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <>
       {/* Top Bar */}
-      <div className="bg-[#E3572B] text-white py-2.5 text-sm">
+      {/* <div className="bg-[#E3572B] text-white py-2.5 text-sm">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-2">
             <div className="flex gap-6">
@@ -75,7 +75,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Header */}
       <header className="bg-[#0f1e3d] shadow-md sticky top-0 z-50 transition-all">
@@ -120,7 +120,7 @@ export default function Header() {
                   href="/project"
                   className="block text-white text-light font-lg hover:text-orange-600 transition-colors"
                 >
-                 Projects
+                  Projects
                 </Link>
               </li>
               <li>
@@ -128,10 +128,10 @@ export default function Header() {
                   href="/blog"
                   className="block text-white text-light font-lg hover:text-orange-600 transition-colors"
                 >
-                  Buy
+                  Blog
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="/blog"
                   className="block text-white text-light font-lg hover:text-orange-600 transition-colors"
@@ -146,7 +146,7 @@ export default function Header() {
                 >
                   Rent
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   href="/contact"
@@ -159,8 +159,8 @@ export default function Header() {
 
             <div className="flex items-center gap-4">
               {/* Search Icon */}
-              <button className="w-12 h-12 rounded-full border border-white/70 flex items-center justify-center text-white hover:bg-white/10 transition">
-                <i className="fas fa-search text-lg"></i>
+              <button className="w-12 h-12 rounded-full border border-white/70 flex items-center justify-center text-[#b7d39b] hover:text-[#12233D] hover:bg-[#b7d39b]">
+                <i className="fas fa-search text-lg  hover:bg-[#b7d39b]"></i>
               </button>
 
               {/* Add Properties Button */}

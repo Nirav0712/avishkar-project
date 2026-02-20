@@ -33,7 +33,7 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-6">Quick Link</h4>
 
             <ul className="space-y-3 text-white/70">
-              {["About", "Properties", "New Properties", "Contact", "Blog"].map(
+              {["Home","About", "Properties", "New Projects", "Blog", "Contact"].map(
                 (item, i) => (
                   <li key={i} className="flex items-center gap-2 hover:text-orange-500 transition">
                     <span className="text-orange-500 text-sm">»</span>
@@ -67,7 +67,7 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-6">Gallery</h4>
 
-            <div className="grid grid-cols-3 gap-3  w-[300px] ">
+            <div className="grid grid-cols-3 gap-3  w-300px ">
               {[
                 "photo-1505761671935-60b3a7427bad",
                 "photo-1501183638710-841dd1904471",
@@ -80,7 +80,7 @@ export default function Footer() {
                   <img
                     src={`https://images.unsplash.com/${id}`}
                     alt="gallery"
-                    className="w-full h-[70px] object-cover hover:scale-110 transition duration-300 hover:text-orange-500 group-hover:scale-110"
+                    className="w-full h-70px object-cover hover:scale-110 transition duration-300 hover:text-orange-500 group-hover:scale-110"
                   />
                 </div>
               ))}
@@ -93,7 +93,7 @@ export default function Footer() {
           <div className="bg-[#E4572E] text-white rounded-full px-8 py-4 flex flex-col md:flex-row justify-between items-center text-sm">
 
             <p>
-              © 2025 Copyrights by TDC. All Rights Reserved
+              © 2025 Copyrights by Avishkar. Developed by TDC
             </p>
 
             <div className="flex gap-6 mt-2 md:mt-0">
