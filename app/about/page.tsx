@@ -62,13 +62,13 @@ export default function AboutPage() {
 
 
       {/* Meet Our Founder Section */}
-      <section className="py-20 bg-gray-100 py-4 relative w-80% mx-auto">
+      <section className="py-20 bg-gray-100 relative w-80% mx-auto">
         <div className="container mx-auto px-4 -mt-30 ">
-          <div className="bg-[#FFF8F2] rounded-2xl overflow-hidden shadow-lg border border-orange-600 border-3">
+          <div className="bg-[#FFF8F2] rounded-2xl overflow-hidden shadow-lg border border-orange-600">
             {/* Row 1 */}
-            <div className="grid md:grid-cols-2 items-center h-[700px]">
+            <div className="grid md:grid-cols-2 items-center h-175">
               {/* Left Image */}
-              <div className="relative h-[700px]">
+              <div className="relative h-175">
                 <Image
                   src="/images/team/Founder1.jpg"
                   alt="Founder"
@@ -102,7 +102,7 @@ export default function AboutPage() {
             </div>
 
             {/* Row 2 (Reversed Layout) */}
-            <div className="grid md:grid-cols-2 items-center h-[700px]">
+            <div className="grid md:grid-cols-2 items-center h-175">
               {/* Left Content */}
               <div className="p-10 order-2 md:order-1">
                 <p className="text-orange-600 font-semibold mb-3">
@@ -125,7 +125,7 @@ export default function AboutPage() {
               </div>
 
               {/* Right Image */}
-              <div className="relative h-[700px] order-1 md:order-2">
+              <div className="relative h-175 order-1 md:order-2">
                 <Image
                   src="/images/team/Founder2.jpg" // replace with your second image
                   alt="Founder"

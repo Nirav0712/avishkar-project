@@ -11,6 +11,7 @@ import Testimonial from "./components/Testimonial";
 import PropertyShowCase from "./components/PropertyShowCase";
 import Partner from "./components/Partner";
 import Information from "./components/Information";
+import Facilities from "./components/Facilities";
 
 export default function HomePage() {
   const [properties, setProperties] = useState<Property[]>([]);
@@ -449,8 +450,8 @@ export default function HomePage() {
           {/* Cards */}
           <div className="grid md:grid-cols-3 gap-10">
             {/* Card 1 */}
-            <div className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-[380px] mx-auto">
-              <div className="relative h-[250px]">
+            <div className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-95 mx-auto">
+              <div className="relative h-62.5">
                 <img
                   src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6"
                   className="w-full h-full object-cover"
@@ -482,8 +483,8 @@ export default function HomePage() {
             </div>
 
             {/* Card 2 */}
-            <div className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-[380px] mx-auto">
-              <div className="relative h-[250px]">
+            <div className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-95 mx-auto">
+              <div className="relative h-62.5">
                 <img
                   src="https://images.unsplash.com/photo-1501183638710-841dd1904471"
                   className="w-full h-full object-cover"
@@ -515,8 +516,8 @@ export default function HomePage() {
             </div>
 
             {/* Card 3 */}
-            <div className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-[380px] mx-auto">
-              <div className="relative h-[250px]">
+            <div className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-95 mx-auto">
+              <div className="relative h-62.5">
                 <img
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
                   className="w-full h-full object-cover"
@@ -707,6 +708,9 @@ export default function HomePage() {
               </p>
             </div> */}
 
+
+      {/* facilities section  */}
+      <Facilities />
 
       {/* Testimonials */}
       <Testimonial />
