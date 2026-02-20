@@ -8,32 +8,32 @@ const Facilities = () => {
     {
       title: "Commercial",
       properties: "6 Properties",
-      icon: "/images/icon-commercial.png",
+      icon: "/images/facilities/icon-commercial.png",
     },
     {
       title: "Bungalow",
       properties: "8 Properties",
-      icon: "/images/icon-bungalow.png",
+      icon: "/images/facilities/icon-bunglow.png",
     },
     {
       title: "Apartment",
       properties: "6 Properties",
-      icon: "/images/icon-apartment.png",
+      icon: "/images/facilities/icon-aepartment.png",
     },
     {
       title: "Plot",
       properties: "4 Properties",
-      icon: "/images/icon-plot.png",
+      icon: "/images/facilities/icon-plot.png",
     },
     {
       title: "Commercial",
       properties: "6 Properties",
-      icon: "/images/icon-commercial.png",
+      icon: "/images/facilities/icon-commercial.png",
     },
     {
       title: "Bungalow",
       properties: "8 Properties",
-      icon: "/images/icon-bungalow.png",
+      icon: "/images/facilities/icon-bunglow.png",
     },
   ];
 

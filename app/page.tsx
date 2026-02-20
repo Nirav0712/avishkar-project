@@ -22,9 +22,9 @@ export default function HomePage() {
   const heroImages = [
     "https://plus.unsplash.com/premium_photo-1746387628298-af5695a3f935?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHByb3BlcnRpZXN8ZW58MHx8MHx8fDA%3D",
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
-    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80",
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80",
-    "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGhvbWV8ZW58MHx8MHx8fDA%3D",
+    "https://images.unsplash.com/photo-1635108199395-8cd24af60af1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fHByb3BlcnRpZXN8ZW58MHx8MHx8fDA%3D",
+    "https://images.unsplash.com/photo-1756435292384-1bf32eff7baf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjU0fHxwcm9wZXJ0aWVzfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1602941525421-8f8b81d3edbb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvcGVydGllc3xlbnwwfHwwfHx8MA%3D%3D",
   ];
   const sliderImages = [
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=80",
@@ -239,6 +239,8 @@ export default function HomePage() {
       {/* our partners */}
       <Partner />
       {/* Featured Properties */}
+
+      
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -328,10 +330,10 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold text-secondary mb-4">
-              Explore Properties by City
+              Explore Properties by Area
             </h2>
             <p className="text-xl text-gray-600">
-              Premium real estate across India's top metro cities
+             Exclusive real estate in India’s major urban hubs
             </p>
           </div>
 
@@ -542,7 +544,7 @@ export default function HomePage() {
                   <span>🛁 Bath 2</span>
                 </div>
 
-                <button className="w-full bg-orange-500 text-white py-3 rounded-full hover:bg-[#1f2d3d] transition">
+                <button className="w-full bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-orange-500  transition">
                   Details
                 </button>
               </div>

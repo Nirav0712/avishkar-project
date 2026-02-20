@@ -19,12 +19,36 @@ export default function Footer() {
             </p>
 
             <div className="flex gap-4 mt-6">
-              <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
+              {/* <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
                 <i className="fab fa-facebook-f text-sm"></i>
-              </div>
-              <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
+              </div> */}
+              <a
+                href="https://facebook.com/yourpage"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
+                  <i className="fab fa-facebook-f text-sm"></i>
+                </div>
+              </a>
+
+
+
+
+              {/* <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
                 <i className="fab fa-instagram text-sm"></i>
-              </div>
+              </div> */}
+
+
+              <a
+                href="https://instagram.com/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
+                  <i className="fab fa-instagram text-sm"></i>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -33,7 +57,7 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-6">Quick Link</h4>
 
             <ul className="space-y-3 text-white/70">
-              {["Home","About", "Properties", "New Projects", "Blog", "Contact"].map(
+              {["Home", "About", "Properties", "New Projects", "Blog", "Contact"].map(
                 (item, i) => (
                   <li key={i} className="flex items-center gap-2 hover:text-orange-500 transition">
                     <span className="text-orange-500 text-sm">»</span>
@@ -93,17 +117,33 @@ export default function Footer() {
           <div className="bg-[#E4572E] text-white rounded-full px-8 py-4 flex flex-col md:flex-row justify-between items-center text-sm">
 
             <p>
-              © 2025 Copyrights by Avishkar. Developed by TDC
+              © 2025 Copyrights by Avishkar. Developed by
+              <a href="https://thedigitalconnect.in/" className="hover:underline text-white hover:text-white transition">
+               .The Digital Connect
+              </a>
             </p>
 
-            <div className="flex gap-6 mt-2 md:mt-0">
+            {/* <div className="flex gap-6 mt-2 md:mt-0">
               <Link href="#" className="hover:underline">
                 Terms & Conditions
               </Link>
               <Link href="#" className="hover:underline">
                 Privacy Policy
               </Link>
+            </div> */}
+
+            <div className="flex gap-6 mt-2 md:mt-0">
+
+              <a href="/terms" className="hover:underline text-gray-600 hover:text-orange-500 transition">
+                Terms & Conditions
+              </a>
+
+              <a href="/privacy" className="hover:underline text-gray-600 hover:text-orange-500 transition">
+                Privacy Policy
+              </a>
+
             </div>
+
 
           </div>
         </div>
