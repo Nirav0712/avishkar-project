@@ -21,53 +21,53 @@ export default function AboutPage() {
       <Header />
       {/* Hero Section */}
       <section className="bg-[#162544] py-12 ">
-      <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6">
 
-        <div className="relative rounded-2xl overflow-hidden h-67.5  mb-10">
+          <div className="relative rounded-2xl overflow-hidden h-67.5  mb-10">
 
-          {/* Background Image */}
-          <Image
-            src="/images/About/AboutBg.jpg" 
-            alt="About Page"
-            width={1600}
-            height={600}
-            className="w-full h-87.5 md:h-112.5 object-cover"
-          />
+            {/* Background Image */}
+            <Image
+              src="/images/About/AboutBg.jpg"
+              alt="About Page"
+              width={1600}
+              height={600}
+              className="w-full h-87.5 md:h-112.5 object-cover"
+            />
 
-          {/* Dark Overlay */}
-          {/* <div className="absolute inset-0 bg-black/50"></div> */}
+            {/* Dark Overlay */}
+            {/* <div className="absolute inset-0 bg-black/50"></div> */}
 
-          {/* Center Content */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
+            {/* Center Content */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
 
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              About Page
-            </h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                About Page
+              </h1>
 
-            {/* Breadcrumb */}
-            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full text-sm md:text-base">
-              <Link href="/" className="hover:text-orange-400 transition">
-                Home
-              </Link>
-              <span>/</span>
-              <span className="text-orange-400">About Page</span>
+              {/* Breadcrumb */}
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full text-sm md:text-base">
+                <Link href="/" className="hover:text-orange-400 transition">
+                  Home
+                </Link>
+                <span>/</span>
+                <span className="text-orange-400">About Page</span>
+              </div>
+
             </div>
 
           </div>
 
         </div>
-
-      </div>
-    </section>
+      </section>
 
 
       {/* Meet Our Founder Section */}
-      <section className="py-20 bg-gray-100 relative w-80% mx-auto">
+      {/* <section className="py-20 bg-white relative w-80% mx-auto">
         <div className="container mx-auto px-4 -mt-30 ">
-          <div className="bg-[#FFF8F2] rounded-2xl overflow-hidden shadow-lg border border-orange-600">
-            {/* Row 1 */}
+          <div className="bg-white rounded-2xl overflow-hidden shadow-lg ">
+       
             <div className="grid md:grid-cols-2 items-center h-175">
-              {/* Left Image */}
+   
               <div className="relative h-175">
                 <Image
                   src="/images/team/Founder1.jpg"
@@ -77,7 +77,7 @@ export default function AboutPage() {
                 />
               </div>
 
-              {/* Right Content */}
+          
               <div className="p-10">
                 <p className="text-orange-600 font-semibold mb-3">
                   Meet Our Founder
@@ -101,9 +101,9 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Row 2 (Reversed Layout) */}
+      
             <div className="grid md:grid-cols-2 items-center h-175">
-              {/* Left Content */}
+             
               <div className="p-10 order-2 md:order-1">
                 <p className="text-orange-600 font-semibold mb-3">
                   Meet Our Founder
@@ -124,7 +124,7 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              {/* Right Image */}
+          
               <div className="relative h-175 order-1 md:order-2">
                 <Image
                   src="/images/team/Founder2.jpg" // replace with your second image
@@ -136,9 +136,92 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+      </section> */}
+
+      <section className="py-20 bg-white relative w-80% mx-auto">
+        <div className="container mx-auto px-4 ">
+          <div className="bg-white rounded-2xl overflow-hidden  ">
+
+            <div className="grid md:grid-cols-2 items-center h-185">
+              <div className="relative w-full  h-175  rounded-2xl overflow-hidden border-2 border-[#16243E]-500 shadow-xl group transform transition duration-500 hover:-translate-y-3">
+                <Image
+                  src="/images/team/Founder1.jpg"
+                  alt="Founder"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </div>
+              <div className="p-30">
+                <p className="text-orange-600 font-semibold mb-3">
+                  Meet Our Founder
+                </p>
+                {/* <h2 className="text-5xl  font-bold text-[#16243E] mb-10 "> */}
+                <h2 className="text-3xl md:text-4xl font-bold text-[#16243E] mb-6">
+                  Ajay Prajapati
+                </h2>
+                <p className="text-gray-500 leading-relaxed mb-4 line-height-50 word-spacing-2 text-xl">
+                  The foundation of Avishkar Realty was laid by a visionary
+                  leader with a deep passion for real estate and a commitment to
+                  delivering excellence. With years of experience in property
+                  consulting, investments, and project management, our founder
+                  has built a trusted brand that prioritizes transparency,
+                  innovation, and client satisfaction.
+                </p>
+                <p className="text-gray-500 leading-relaxed line-height-50 word-spacing-2 text-xl">
+                  Driven by the belief that real estate is not just about
+                  property but about creating long-term value, our founder
+                  ensures every deal is built on trust, integrity, and results.
+                </p>
+              </div>
+            </div>
+
+
+            <div className="grid md:grid-cols-2 items-center pt-8 h-195">
+              <div className="p-10 order-2 md:order-1 pr-30">
+                <p className="text-orange-600 font-semibold mb-3">
+                  Meet Our Founder
+                </p>
+                {/* <h2 className="text-5xl font-bold text-[#16243E] mb-10 "> */}
+                   <h2 className="text-3xl md:text-6xl font-bold text-[#16243E] mb-6">
+                  Dashrathbhai Prajapati
+                </h2>
+                <p className="text-gray-500 leading-relaxed line-height-50 word-spacing-2 mb-4 text-xl">
+                  Our founder continues to guide the company with strategic
+                  insight and a client-first approach — ensuring that every real
+                  estate transaction delivers exceptional value and long-term
+                  success.
+                </p>
+                <p className="text-gray-500 leading-relaxed line-height-50 word-spacing-2 text-xl">
+                  With a strong focus on integrity and innovation, we aim to
+                  redefine the property experience for buyers, sellers, and
+                  investors alike.
+                </p>
+              </div>
+              <div className="relative w-full h-175 order-1 md:order-2 rounded-2xl overflow-hidden border-2 border-[#16243E]-500 shadow-xl group transform transition duration-500 hover:-translate-y-3">
+                <Image
+                  src="/images/team/Founder2.jpg"
+                  alt="Founder"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </div>
+              {/* <div className="relative h-175 order-1 md:order-2 rounded-2xl overflow-hidden border-4 border-orange-500">
+                <Image
+                  src="/images/team/Founder2.jpg"
+                  alt="Founder"
+                  fill
+                  className="object-cover "
+                />
+              </div> */}
+            </div>
+          </div>
+        </div>
       </section>
 
-       {/* our partners */}
+
+
+
+      {/* our partners */}
       <Partner />
 
 
@@ -146,8 +229,8 @@ export default function AboutPage() {
       <Achivement />
 
 
-    {/* property showcase */}
-     <PropertyShowCase />
+      {/* property showcase */}
+      <PropertyShowCase />
 
 
 
@@ -336,8 +419,8 @@ export default function AboutPage() {
       <Facilities />
 
       {/* Call to Action */}
-     <Information />
-     
+      <Information />
+
       <Footer />
     </>
   );
