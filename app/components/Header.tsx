@@ -84,7 +84,7 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="text-2xl font-bold text-secondary">
               {/* Veer<span className="text-primary">RealEstate</span> */}
-              <img src="/logo.png" alt="logo" className="w-50 h-auto" />
+              <img src="/images/logo.png" alt="logo" className="w-50 h-auto" />
             </Link>
 
             {/* Desktop Menu */}
