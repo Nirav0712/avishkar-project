@@ -240,7 +240,7 @@ export default function HomePage() {
       <Partner />
       {/* Featured Properties */}
 
-      
+
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -333,7 +333,7 @@ export default function HomePage() {
               Explore Properties by Area
             </h2>
             <p className="text-xl text-gray-600">
-             Exclusive real estate in India’s major urban hubs
+              Exclusive real estate in India’s major urban hubs
             </p>
           </div>
 
@@ -427,21 +427,57 @@ export default function HomePage() {
                   flex flex-col sm:flex-row 
                   gap-3 w-full md:w-auto">
 
-              <button className="w-full sm:w-auto px-5 py-2 rounded-lg 
+              {/* <button className="w-full sm:w-auto px-5 py-2 rounded-lg 
                        text-gray-700 font-medium 
                        hover:bg-gray-100 transition">
                 Commercial
+              </button> */}
+              <button
+                type="button"
+                onClick={() => console.log("Commercial clicked")}
+                className="w-full sm:w-auto px-5 py-2 rounded-lg
+             text-gray-700 font-medium
+             hover:bg-orange-500 hover:text-white
+             active:bg-orange-600
+             cursor-pointer transition"
+              >
+                Commercial
               </button>
 
-              <button className="w-full sm:w-auto px-5 py-2 rounded-lg 
-                       text-gray-700 font-medium 
-                       hover:bg-gray-100 transition">
+              <button
+                type="button"
+                onClick={() => console.log("Commercial clicked")}
+                className="w-full sm:w-auto px-5 py-2 rounded-lg
+             text-gray-700 font-medium
+             hover:bg-orange-500 hover:text-white
+             active:bg-orange-600
+             cursor-pointer transition"
+              >
                 Industrial
               </button>
 
-              <button className="w-full sm:w-auto px-5 py-2 rounded-lg 
+
+
+              {/* <button className="w-full sm:w-auto px-5 py-2 rounded-lg 
+                       text-gray-700 font-medium 
+                       hover:bg-gray-100 transition">
+                Industrial
+              </button> */}
+
+              {/* <button className="w-full sm:w-auto px-5 py-2 rounded-lg 
                        bg-orange-500 text-white font-medium">
                 Residential
+              </button> */}
+
+              <button
+                type="button"
+                onClick={() => console.log("Commercial clicked")}
+                className="w-full sm:w-auto px-5 py-2 rounded-lg
+             text-gray-700 font-medium
+             hover:bg-orange-500 hover:text-white
+             active:bg-orange-600
+             cursor-pointer transition"
+              >   Residential
               </button>
 
             </div>
@@ -549,6 +585,40 @@ export default function HomePage() {
                 </button>
               </div>
             </div>
+
+
+            {/*Card 4 */}
+            {/* <div className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-95 mx-auto">
+              <div className="relative h-62.5">
+                <img
+                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
+                  className="w-full h-full object-cover"
+                  alt="property"
+                />
+                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow">
+                  ❤️
+                </div>
+              </div>
+
+              <div className="p-6">
+                <h3 className="text-xl font-semibold text-[#1f2d3d] mb-2">
+                  Parvam 1,2 BHK
+                </h3>
+
+                <p className="text-gray-600 text-sm mb-4">
+                  Ahmedabad, Gujarat, India
+                </p>
+
+                <div className="flex justify-between text-gray-600 text-sm mb-6">
+                  <span>🛏 Bed 2</span>
+                  <span>🛁 Bath 2</span>
+                </div>
+
+                <button className="w-full bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-orange-500  transition">
+                  Details
+                </button>
+              </div>
+            </div> */}
           </div>
         </div>
       </section>

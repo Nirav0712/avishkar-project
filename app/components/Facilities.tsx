@@ -11,14 +11,14 @@ const Facilities = () => {
       icon: "/images/facilities/icon-commercial.png",
     },
     {
-      title: "Bungalow",
+      title: "Bunglow",
       properties: "8 Properties",
       icon: "/images/facilities/icon-bunglow.png",
     },
     {
       title: "Apartment",
       properties: "6 Properties",
-      icon: "/images/facilities/icon-aepartment.png",
+      icon: "/images/facilities/icon-apartment.png",
     },
     {
       title: "Plot",
@@ -31,10 +31,11 @@ const Facilities = () => {
       icon: "/images/facilities/icon-commercial.png",
     },
     {
-      title: "Bungalow",
+      title: "Bunglow",
       properties: "8 Properties",
       icon: "/images/facilities/icon-bunglow.png",
     },
+    
   ];
 
   const itemsPerView = 3;
