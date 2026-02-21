@@ -6,35 +6,54 @@ import Image from "next/image";
 const Testimonial = () => {
   const testimonials = [
     {
-      name: "Rajesh Kumar",
+      name: "Yogesh Bhati",
       role: "Villa Owner",
       image: "https://randomuser.me/api/portraits/men/43.jpg",
-      text: "VeerRealEstate helped us find our dream villa in Mumbai. The team was professional and understood our requirements perfectly!",
+      text: "Recently i bought home in Gota through Avishkar Realty, very genuine and trust worthy place to buy property, owner and staff is very Supportive and helpful during entire process of buying property. Special thankful to Mr. Manishbhai Maheshwari for kind Support. Must visit once while buying new property through Broker.",
     },
     {
-      name: "Priya Sharma",
+      name: "Anamika Patel",
       role: "Apartment Owner",
       image: "https://randomuser.me/api/portraits/women/68.jpg",
-      text: "Excellent service! Found the perfect 3BHK in Bangalore within two weeks.",
+      text: "Excellent experience. Get each n every information and documents in less time. Got good deal within timeframe. Thanks a lot for your help and awesome service.",
     },
     {
-      name: "Amit Patel",
+      name: "Chirag Maheshwary3m,",
       role: "Commercial Investor",
       image: "https://randomuser.me/api/portraits/men/79.jpg",
-      text: "Great experience with land purchase and responsive agents.",
+      text: "Best experience i have ever got while purchasing property 😉❤️🙏 Nice people in office Specially Manish bhai and Ajay bhai",
     },
     {
-      name: "Anjali Verma",
+      name: "Dhruvam Gandhi",
       role: "Home Buyer",
       image: "https://randomuser.me/api/portraits/women/12.jpg",
-      text: "Very smooth and transparent property process. Highly recommended!",
+      text: "Got good deal within timeframe. Thanks a lot for your help and awesome service.",
     },
     {
-      name: "Karan Singh",
+      name: "Sandeep Bhavsar",
       role: "Investor",
       image: "https://randomuser.me/api/portraits/men/55.jpg",
-      text: "Professional team and detailed listings. Excellent support.",
+      text: "Excellent approach End to end help Politely spoken On time commitment",
     },
+     {
+      name: "Yogesh Bhati",
+      role: "Investor",
+      image: "https://randomuser.me/api/portraits/men/55.jpg",
+      text: "Recently i bought home in Gota through Avishkar Realty, very genuine and trust worthy place to buy property, owner and staff is very Supportive and helpful during entire process of buying property. Special thankful to Mr. Manishbhai Maheshwari for kind Support. Must visit once while buying new property through Broker.",
+    },
+    // {
+    //   name: "Sandeep Bhavsar",
+    //   role: "Investor",
+    //   image: "https://randomuser.me/api/portraits/men/55.jpg",
+    //   text: "Excellent approach End to end help Politely spoken On time commitment",
+    // },
+    // {
+    //   name: "Sandeep Bhavsar",
+    //   role: "Investor",
+    //   image: "https://randomuser.me/api/portraits/men/55.jpg",
+    //   text: "Excellent approach End to end help Politely spoken On time commitment",
+    // },
+    
   ];
 
   const [itemsPerSlide, setItemsPerSlide] = useState(3);
@@ -69,7 +88,7 @@ const Testimonial = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-100">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4 relative">
 
         <h2 className="text-4xl font-bold text-center mb-12">
@@ -97,7 +116,7 @@ const Testimonial = () => {
                   .map((testimonial, index) => (
                     <div
                       key={index}
-                      className={`bg-white p-6 rounded-xl shadow-md ${itemsPerSlide === 1 ? "w-full" : "w-1/3"} text-center`}
+                      className={`bg-[#16243E] p-6 rounded-xl shadow-md ${itemsPerSlide === 1 ? "w-full" : "w-1/3"} text-center`}
                     >
                       <Image
                         src={testimonial.image}
@@ -113,14 +132,14 @@ const Testimonial = () => {
                         ))}
                       </div>
 
-                      <p className="text-gray-600 italic mb-3 text-sm">
+                      <p className="text-white italic mb-3 text-sm">
                         “{testimonial.text}”
                       </p>
 
-                      <h4 className="font-semibold">
+                      <h4 className="text-white p-3">
                         {testimonial.name}
                       </h4>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-white">
                         {testimonial.role}
                       </p>
                     </div>
