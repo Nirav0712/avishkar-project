@@ -23,7 +23,7 @@ export default function AboutPage() {
       <section className="bg-[#162544] py-12 ">
       <div className="container mx-auto px-6">
 
-        <div className="relative rounded-2xl overflow-hidden h-[270px]  mb-10">
+        <div className="relative rounded-2xl overflow-hidden h-67.5  mb-10">
 
           {/* Background Image */}
           <Image
@@ -31,7 +31,7 @@ export default function AboutPage() {
             alt="About Page"
             width={1600}
             height={600}
-            className="w-full h-[350px] md:h-[450px] object-cover"
+            className="w-full h-87.5 md:h-112.5 object-cover"
           />
 
           {/* Dark Overlay */}

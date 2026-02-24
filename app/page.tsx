@@ -19,7 +19,7 @@ export default function HomePage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const heroImages = [
-    "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=80",
+    "https://plus.unsplash.com/premium_photo-1746387628298-af5695a3f935?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHByb3BlcnRpZXN8ZW58MHx8MHx8fDA%3D",
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
     "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80",
     "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80",
@@ -95,7 +95,7 @@ export default function HomePage() {
       <Header />
 
       {/* Hero Section with Auto-Scrolling Background */}
-      <section className="relative min-h-screen md:h-[820px] flex items-center justify-center overflow-hidden py-20 md:py-0">
+      <section className="relative min-h-screen md:h-205 flex items-center justify-center overflow-hidden py-20 md:py-0">
         {/* Background Image Carousel */}
         <div className="absolute inset-0">
           {heroImages.map((image, index) => (

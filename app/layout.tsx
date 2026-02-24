@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "VeerRealEstate - Find Your Dream Property",
+  title: "Avishkar - Find Your Dream Property",
   description: "Discover premium properties across India. VeerRealEstate offers villas, apartments, and commercial spaces in Mumbai, Bangalore, Gurgaon, and more.",
   keywords: ["real estate India", "property for sale", "apartments Mumbai", "villas Bangalore", "buy property India", "VeerRealEstate"],
 };
