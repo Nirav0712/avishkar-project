@@ -11,7 +11,7 @@ export default function Footer() {
 
           {/* Column 1 - About */}
           <div>
-            <img src="/logo.png" alt="logo" className="w-56 mb-6" />
+            <img src="/images/logo.png" alt="logo" className="w-56 mb-6" />
 
             <p className="text-white/70 leading-relaxed mb-6">
               Building modern, sustainable, and customer-focused real estate
