@@ -52,7 +52,7 @@ export default function ContactPage() {
            <section className="relative">
 
   {/* 🔥 Map Background */}
-  <div className="h-[500px] w-full">
+  <div className="h-125 w-full">
   <iframe
     src="https://www.google.com/maps?q=Status+Elysium,+23+Road,+Shree+Vishnudhara+Gardens,+Gota,+Ahmedabad,+Gujarat+382481&output=embed"
     className="w-full h-full"
@@ -66,7 +66,7 @@ export default function ContactPage() {
 
   {/* 🔥 Cards Section (Overlapping Map) */}
   <div className="relative -mt-32 pb-24">
-    <div className="max-w-[1350px] mx-auto px-6">
+    <div className="max-w-337.5 mx-auto px-6">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
 
         {/* Card 1 - Our Address */}
@@ -183,7 +183,8 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h3 className="font-semibold text-secondary mb-1">Our Office</h3>
-                                        <p className="text-gray-600">Office No. 301, Phoenix Tower<br />Senapati Bapat Road, Pune - 411016</p>
+                                        <p className="text-gray-600">  Status Elysium, 23, Road, nr. Shree Vishnudhara Gardens, Gota,
+                Ahmedabad, Gujarat 382481</p>
                                     </div>
                                 </div>
 
@@ -193,7 +194,7 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h3 className="font-semibold text-secondary mb-1">Phone</h3>
-                                        <p className="text-gray-600">+91 20 2567 8900</p>
+                                        <p className="text-gray-600">+91 70413 95595</p>
                                     </div>
                                 </div>
 
@@ -203,7 +204,7 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h3 className="font-semibold text-secondary mb-1">Email</h3>
-                                        <p className="text-gray-600">info@veerrealestate.com</p>
+                                        <p className="text-gray-600">avishkarrealty1@gmail.com</p>
                                     </div>
                                 </div>
 
@@ -226,18 +227,18 @@ export default function ContactPage() {
                             <div className="mt-8">
                                 <h3 className="font-semibold text-secondary mb-4">Follow Us</h3>
                                 <div className="flex gap-3">
-                                    <a href="#" className="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors">
+                                    <a href="https://www.facebook.com/avishkar.realty.in?mibextid=wwXIfr&rdid=25JQj9cHJt68kr8F&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1AjAyp2oT2%2F%3Fmibextid%3DwwXIfr#" className="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors">
                                         <i className="fab fa-facebook-f"></i>
                                     </a>
-                                    <a href="#" className="w-10 h-10 bg-blue-400 text-white rounded-lg flex items-center justify-center hover:bg-blue-500 transition-colors">
+                                    {/* <a href="#" className="w-10 h-10 bg-blue-400 text-white rounded-lg flex items-center justify-center hover:bg-blue-500 transition-colors">
                                         <i className="fab fa-twitter"></i>
-                                    </a>
-                                    <a href="#" className="w-10 h-10 bg-pink-600 text-white rounded-lg flex items-center justify-center hover:bg-pink-700 transition-colors">
+                                    </a> */}
+                                    <a href="https://www.instagram.com/ajay_prajapati_1709?igsh=YXZyOGhkdzR0NGkw&utm_source=qr" className="w-10 h-10 bg-pink-600 text-white rounded-lg flex items-center justify-center hover:bg-pink-700 transition-colors">
                                         <i className="fab fa-instagram"></i>
                                     </a>
-                                    <a href="#" className="w-10 h-10 bg-blue-700 text-white rounded-lg flex items-center justify-center hover:bg-blue-800 transition-colors">
+                                    {/* <a href="#" className="w-10 h-10 bg-blue-700 text-white rounded-lg flex items-center justify-center hover:bg-blue-800 transition-colors">
                                         <i className="fab fa-linkedin-in"></i>
-                                    </a>
+                                    </a> */}
                                 </div>
                             </div>
                         </div>
@@ -369,7 +370,7 @@ export default function ContactPage() {
             </div>
             <div>
               <h3 className="text-orange-600 font-semibold text-lg">
-                Call Emergency
+                Call
               </h3>
               <p className="text-gray-700 mt-1 text-sm">+91 70413 95595</p>
             </div>

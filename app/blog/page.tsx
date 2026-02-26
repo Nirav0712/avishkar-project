@@ -150,7 +150,7 @@ export default function BlogPage() {
             <section className="relative bg-linear-to-br from-secondary to-secondary-light text-white py-24">
                 <div className="container mx-auto px-4">
                     <div className="max-w-3xl mx-auto text-center">
-                        <h1 className="text-5xl md:text-6xl font-bold mb-6">Real Estate Insights & News</h1>
+                        <h1 className="text-5xl md:text-6xl font-bold mb-6">Blogs</h1>
                         <p className="text-xl md:text-2xl opacity-95">
                             Stay updated with the latest trends, tips, and insights from India's real estate market
                         </p>
@@ -260,12 +260,12 @@ export default function BlogPage() {
                             <input
                                 type="email"
                                 placeholder="Enter your email"
-                                className="flex-1 px-6 py-4 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+                                className="flex-1 px-6 py-4 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary"
                                 required
                             />
                             <button
                                 type="submit"
-                                className="bg-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+                                className="bg-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-orange-500 transition-colors"
                             >
                                 Subscribe
                             </button>

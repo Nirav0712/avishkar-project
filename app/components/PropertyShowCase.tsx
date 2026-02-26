@@ -144,11 +144,53 @@ export default function PropertyShowCase() {
                     />
                   ))}
                 </div>
+
+                {/* <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-3">
+  {sliderImages.map((_, i) => (
+    <div
+      key={i}
+      onClick={() => setCurrent(i)}
+      className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 
+        ${current === i 
+          ? "bg-orange-500 scale-110" 
+          : "bg-white/40 hover:bg-orange-500 hover:scale-110"
+        }`}
+    />
+  ))}
+</div> */}
+
+
+{/* 
+<div className="bg-[#162B4D] py-16 flex justify-center gap-16">
+
+
+  <div className="w-40 h-40 border border-white/40 rounded-full 
+                  flex flex-col items-center justify-center text-center
+                  transition-all duration-300 
+                  hover:scale-105 hover:border-orange-500 hover:shadow-lg">
+    <h2 className="text-3xl font-bold text-white">500+</h2>
+    <p className="text-white/80 text-sm mt-1">Satisfied Client</p>
+  </div>
+
+  
+  <div className="w-40 h-40 border border-white/40 rounded-full 
+                  flex flex-col items-center justify-center text-center
+                  transition-all duration-300 
+                  hover:scale-105 hover:border-orange-500 hover:shadow-lg">
+    <h2 className="text-3xl font-bold text-white">40+</h2>
+    <p className="text-white/80 text-sm mt-1">Projects</p>
+  </div>
+
+</div> */}
+
+
+
+
               </div>
             </div>
 
-            {/* Stats Circles */}
-            <div className="flex flex-wrap gap-6 md:gap-10 mt-10 md:mt-14 justify-center md:justify-center">
+           {/*} Stats Circles */}
+             <div className="flex flex-wrap gap-6 md:gap-10 mt-10 md:mt-14 justify-center md:justify-center">
               <div className="w-32 h-32 rounded-full border border-gray-400 flex flex-col items-center justify-center hover:border-[#c2df93] transition">
                 <span className="text-2xl font-bold">500+</span>
                 <span className="text-sm text-gray-300 text-center">
@@ -163,6 +205,7 @@ export default function PropertyShowCase() {
                 </span>
               </div>
             </div>
+
 
           </div>
         </div>

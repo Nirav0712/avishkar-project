@@ -19,12 +19,31 @@ export default function Footer() {
             </p>
 
             <div className="flex gap-4 mt-6">
-              <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
+              {/* <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
                 <i className="fab fa-facebook-f text-sm"></i>
-              </div>
-              <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
+              </div> */}
+              <a
+                href="https://www.facebook.com/avishkar.realty.in?mibextid=wwXIfr&rdid=25JQj9cHJt68kr8F&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1AjAyp2oT2%2F%3Fmibextid%3DwwXIfr#"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
+                  <i className="fab fa-facebook-f text-sm"></i>
+                </div>
+              </a>
+
+              {/* <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
                 <i className="fab fa-instagram text-sm"></i>
-              </div>
+              </div> */}
+              <a
+                href="https://www.instagram.com/ajay_prajapati_1709?igsh=YXZyOGhkdzR0NGkw&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
+                  <i className="fab fa-instagram text-sm"></i>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -32,8 +51,8 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-6">Quick Link</h4>
 
-            <ul className="space-y-3 text-white/70">
-              {["About", "Properties", "New Properties", "Contact", "Blog"].map(
+            {/* <ul className="space-y-3 text-white/70">
+              {["Home", "About", "Properties", "New Projects", "Blog", "Contact"].map(
                 (item, i) => (
                   <li key={i} className="flex items-center gap-2 hover:text-orange-500 transition">
                     <span className="text-orange-500 text-sm">»</span>
@@ -41,6 +60,27 @@ export default function Footer() {
                   </li>
                 )
               )}
+            </ul> */}
+
+            <ul className="space-y-3 text-white/70">
+              {[
+                { name: "Home", url: "/" },
+                { name: "About", url: "/about" },
+                { name: "Properties", url: "/properties" },
+                { name: "New Projects", url: "/new-projects" },
+                { name: "Blog", url: "/blog" },
+                { name: "Contact", url: "/contact" },
+              ].map((item, i) => (
+                <li
+                  key={i}
+                  className="flex items-center gap-2 hover:text-orange-500 transition-colors duration-300"
+                >
+                  <span className="text-orange-500 text-sm">»</span>
+                  <Link href={item.url} className="hover:text-orange-500">
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -61,26 +101,28 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+
+
           </div>
 
           {/* Column 4 - Gallery */}
           <div>
             <h4 className="text-lg font-semibold mb-6">Gallery</h4>
 
-            <div className="grid grid-cols-3 gap-3  w-[300px] ">
+            <div className="grid grid-cols-3 gap-3  w-300px ">
               {[
                 "photo-1505761671935-60b3a7427bad",
                 "photo-1501183638710-841dd1904471",
-                "photo-1549880338-65ddcdfd017b",
+                "photo-1512917774080-9991f1c4c750",
                 "photo-1493809842364-78817add7ffb",
-                "photo-1491553895911-0055eca6402d",
+                "photo-1570129477492-45c003edd2be",
                 "photo-1505761671935-60b3a7427bad",
               ].map((id, i) => (
                 <div key={i} className="overflow-hidden rounded hover:text-orange-500">
                   <img
                     src={`https://images.unsplash.com/${id}`}
                     alt="gallery"
-                    className="w-full h-[70px] object-cover hover:scale-110 transition duration-300 hover:text-orange-500 group-hover:scale-110"
+                    className="w-full h-70px object-cover hover:scale-110 transition duration-300 hover:text-orange-500 group-hover:scale-110"
                   />
                 </div>
               ))}
@@ -93,17 +135,33 @@ export default function Footer() {
           <div className="bg-[#E4572E] text-white rounded-full px-8 py-4 flex flex-col md:flex-row justify-between items-center text-sm">
 
             <p>
-              © 2025 Copyrights by TDC. All Rights Reserved
+              © 2025 Copyrights by Avishkar. Developed by
+              <a href="https://thedigitalconnect.in/" className="hover:underline text-white hover:text-white transition">
+                .The Digital Connect
+              </a>
             </p>
 
-            <div className="flex gap-6 mt-2 md:mt-0">
+            {/* <div className="flex gap-6 mt-2 md:mt-0">
               <Link href="#" className="hover:underline">
                 Terms & Conditions
               </Link>
               <Link href="#" className="hover:underline">
                 Privacy Policy
               </Link>
+            </div> */}
+
+            <div className="flex gap-6 mt-2 md:mt-0">
+
+              <a href="/terms" className="hover:underline text-white hover:text-orange-500 transition">
+                Terms & Conditions
+              </a>
+
+              <a href="/privacy" className="hover:underline text-white hover:text-orange-500 transition">
+                Privacy Policy
+              </a>
+
             </div>
+
 
           </div>
         </div>

@@ -63,7 +63,7 @@ const Projects = () => {
             <Header />
 
             {/* HERO SECTION WITH AUTO SCROLL */}
-            <section className="relative h-[400px] lg:h-[400px] flex items-center justify-center overflow-hidden">
+            <section className="relative h-100 lg:h-100 flex items-center justify-center overflow-hidden">
                 {/* Background Image Carousel */}
                 <div className="absolute inset-0">
                     {heroImages.map((image, index) => (
@@ -80,7 +80,7 @@ const Projects = () => {
                                 className="object-cover"
                                 priority={index === 0}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
+                            <div className="absolute inset-0 bg-linear-to-r from-black/70 to-black/50"></div>
                         </div>
                     ))}
                 </div>
@@ -129,7 +129,7 @@ const Projects = () => {
                             >
                                 {/* IMAGE SIDE */}
                                 <div className="lg:w-1/2">
-                                    <div className="relative h-[300px] lg:h-[400px] w-full rounded-2xl overflow-hidden shadow-xl">
+                                    <div className="relative h-75 lg:h-100 w-full rounded-2xl overflow-hidden shadow-xl">
                                         <Image
                                             src={project.image}
                                             alt={project.title}

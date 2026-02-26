@@ -83,7 +83,7 @@ export default function AboutPage() {
                   Meet Our Founder
                 </p>
                 <h2 className="text-5xl font-bold text-[#16243E] mb-10 ">
-                  Leadership built on trust and expertise
+               Ajay Prajapati
                 </h2>
                 <p className="text-gray-500 leading-relaxed mb-4 line-height-50 word-spacing-2">
                   The foundation of Avishkar Realty was laid by a visionary
@@ -109,7 +109,7 @@ export default function AboutPage() {
                   Meet Our Founder
                 </p>
                 <h2 className="text-5xl font-bold text-[#16243E] mb-10 ">
-                  Leadership built on trust and expertise
+              Dashrathbhai Prajapati
                 </h2>
                 <p className="text-gray-500 leading-relaxed line-height-50 word-spacing-2 mb-4">
                   Our founder continues to guide the company with strategic

@@ -51,7 +51,7 @@ const Achivement = () => {
               alt="Achievement"
               width={1200}
               height={600}
-              className="w-full h-[500px] object-cover rounded-2xl"
+              className="w-full h-125 object-cover rounded-2xl"
             />
 
             {/* Animated Play Button */}
@@ -66,7 +66,7 @@ const Achivement = () => {
                   onClick={() => setIsOpen(true)}
                   className="relative z-10 w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/40 hover:scale-110 transition duration-300"
                 >
-                  <div className="w-0 h-0 border-l-[18px] border-l-white border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent ml-1"></div>
+                  <div className="w-0 h-0 border-l-18 border-l-white border-t-12 border-t-transparent border-b-12 border-b-transparent ml-1"></div>
                 </button>
 
               </div>
