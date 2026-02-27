@@ -1,9 +1,11 @@
 'use client';
 
+
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getProperties, addProperty, updateProperty, deleteProperty, type Property, formatPrice } from '@/lib/properties';
+import { type Property, formatPrice } from '@/lib/properties';
+// import router from "next/router";
 
 export default function AdminDashboard() {
     const [properties, setProperties] = useState<Property[]>([]);
@@ -11,6 +13,8 @@ export default function AdminDashboard() {
     const [editingProperty, setEditingProperty] = useState<Property | null>(null);
     const [deleteId, setDeleteId] = useState<number | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isUploading, setIsUploading] = useState(false);
     const [formData, setFormData] = useState<Partial<Property>>({
         title: '',
         price: 0,
@@ -28,12 +32,22 @@ export default function AdminDashboard() {
     });
 
     useEffect(() => {
-        loadProperties();
+        fetchProperties();
     }, []);
 
-    const loadProperties = () => {
-        const props = getProperties();
-        setProperties(props);
+    const fetchProperties = async () => {
+        try {
+            setIsLoading(true);
+            const res = await fetch('/api/properties');
+            if (!res.ok) throw new Error('Failed to fetch properties');
+            const data = await res.json();
+            setProperties(data);
+        } catch (error) {
+            console.error('Error fetching properties:', error);
+            alert('Failed to load properties');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -45,17 +59,32 @@ export default function AdminDashboard() {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (editingProperty) {
-            updateProperty(editingProperty.id, formData);
-        } else {
-            addProperty(formData as Omit<Property, 'id'>);
-        }
+        try {
+            if (editingProperty) {
+                const res = await fetch(`/api/properties/${editingProperty.id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+                if (!res.ok) throw new Error('Failed to update property');
+            } else {
+                const res = await fetch('/api/properties', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+                if (!res.ok) throw new Error('Failed to create property');
+            }
 
-        loadProperties();
-        closeModal();
+            fetchProperties();
+            closeModal();
+        } catch (error) {
+            console.error('Error saving property:', error);
+            alert('Failed to save property');
+        }
     };
 
     const handleEdit = (property: Property) => {
@@ -69,13 +98,22 @@ export default function AdminDashboard() {
         setShowDeleteModal(true);
     };
 
-    const confirmDelete = () => {
+    const confirmDelete = async () => {
         if (deleteId !== null) {
-            deleteProperty(deleteId);
-            loadProperties();
-            alert('Property deleted successfully');
-            setShowDeleteModal(false);
-            setDeleteId(null);
+            try {
+                const res = await fetch(`/api/properties/${deleteId}`, {
+                    method: 'DELETE',
+                });
+                if (!res.ok) throw new Error('Failed to delete property');
+
+                fetchProperties();
+                alert('Property deleted successfully');
+                setShowDeleteModal(false);
+                setDeleteId(null);
+            } catch (error) {
+                console.error('Error deleting property:', error);
+                alert('Failed to delete property');
+            }
         }
     };
 
@@ -104,12 +142,75 @@ export default function AdminDashboard() {
         setEditingProperty(null);
     };
 
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files || e.target.files.length === 0) return;
+
+        const file = e.target.files[0];
+
+        // 5MB Limit Check
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File size exceeds 5MB limit. Please upload a smaller image.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        setIsUploading(true);
+
+        try {
+            // Replace with your actual Hostinger Upload PHP script URL
+            const uploadUrl = process.env.NEXT_PUBLIC_UPLOAD_API_URL || 'http://localhost/upload.php';
+
+            const res = await fetch(uploadUrl, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!res.ok) {
+                // Handle HTTP errors (404, 500, etc.)
+                throw new Error(`Server responded with ${res.status} ${res.statusText}`);
+            }
+
+            const data = await res.json();
+
+            if (data.success) {
+                setFormData(prev => ({ ...prev, image: data.url }));
+            } else {
+                alert('Upload failed: ' + data.message);
+            }
+        } catch (error: any) {
+            console.error('Error uploading image:', error);
+            // Specific handling for "Failed to fetch" which usually means network/CORS/URL issues
+            if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+                alert('Connection Failed: Could not reach the upload server.\n\n1. Check if NEXT_PUBLIC_UPLOAD_API_URL is set correctly in .env\n2. Ensure your Hostinger script is deployed and accessible.\n3. Check CORS settings.');
+            } else {
+                alert('Error uploading image: ' + (error.message || 'Unknown error'));
+            }
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    const handleLogout = async () => {
+        try {
+            await fetch('/api/logout', { method: 'POST' });
+            window.location.href = '/login';
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
+
     const stats = [
         { label: 'Total Properties', value: properties.length, icon: 'fa-home', color: 'primary' },
         { label: 'For Sale', value: properties.filter(p => p.status === 'For Sale').length, icon: 'fa-tag', color: 'success' },
         { label: 'For Rent', value: properties.filter(p => p.status === 'For Rent').length, icon: 'fa-key', color: 'info' },
         { label: 'Featured', value: properties.filter(p => p.featured).length, icon: 'fa-star', color: 'warning' },
     ];
+
+    if (isLoading) {
+        return <div className="flex h-screen items-center justify-center">Loading...</div>;
+    }
 
     return (
         <>
@@ -131,17 +232,27 @@ export default function AdminDashboard() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:bg-primary hover:text-secondary transition-colors">
-                                    <i className="fas fa-home w-5"></i>
-                                    Properties
-                                </Link>
-                            </li>
-                            <li>
                                 <Link href="/" className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:bg-primary hover:text-secondary transition-colors">
                                     <i className="fas fa-globe w-5"></i>
                                     View Website
                                 </Link>
                             </li>
+                            <li>
+                                <button
+                                    onClick={handleLogout}
+                                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:bg-red-500 hover:text-white transition-colors text-left"
+                                >
+                                    <i className="fas fa-sign-out-alt w-5"></i>
+                                    Logout
+                                </button>
+                            </li>
+
+                            {/* <li>
+                                <Link href="/admin/dashboard/register" className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:bg-primary hover:text-secondary transition-colors">
+                                    <i className="fas fa-user-plus w-5"></i>
+                                    Create Account
+                                </Link>
+                            </li> */}
                         </ul>
                     </nav>
                 </aside>
@@ -416,15 +527,56 @@ export default function AdminDashboard() {
                                 </div>
 
                                 <div className="md:col-span-2">
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Property Image</label>
+
+                                    {/* File Input */}
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <label className={`flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors ${isUploading ? 'opacity-50 pointer-events-none' : ''}`}>
+                                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                                {isUploading ? (
+                                                    <i className="fas fa-spinner fa-spin text-2xl text-primary mb-2"></i>
+                                                ) : (
+                                                    <i className="fas fa-cloud-upload-alt text-2xl text-gray-400 mb-2"></i>
+                                                )}
+                                                <p className="text-sm text-gray-500">
+                                                    {isUploading ? 'Uploading...' : 'Click to upload image'}
+                                                </p>
+                                            </div>
+                                            <input
+                                                type="file"
+                                                className="hidden"
+                                                accept="image/*"
+                                                onChange={handleImageUpload}
+                                                disabled={isUploading}
+                                            />
+                                        </label>
+                                    </div>
+
+                                    {/* Image Preview */}
+                                    {formData.image && (
+                                        <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-200 mb-4">
+                                            <Image
+                                                src={formData.image}
+                                                alt="Preview"
+                                                fill
+                                                className="object-cover"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setFormData(prev => ({ ...prev, image: '' }))}
+                                                className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors shadow-md"
+                                            >
+                                                <i className="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {/* Hidden Input for URL */}
                                     <input
-                                        type="url"
+                                        type="hidden"
                                         name="image"
                                         value={formData.image}
-                                        onChange={handleInputChange}
                                         required
-                                        placeholder="https://example.com/image.jpg"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                                     />
                                 </div>
 
@@ -498,3 +650,4 @@ export default function AdminDashboard() {
         </>
     );
 }
+
