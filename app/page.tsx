@@ -171,7 +171,7 @@ export default function HomePage() {
               </div>
 
               {/* Search Form */}
-              <form
+              {/* <form
                 onSubmit={handleSearch}
                 className="grid grid-cols-1 md:grid-cols-4 gap-4"
               >
@@ -215,6 +215,64 @@ export default function HomePage() {
                   <i className="fas fa-search"></i>
                   Search
                 </button>
+              </form> */}
+
+              <form
+                onSubmit={handleSearch}
+                className="backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-6 md:p-8 
+             grid grid-cols-1 md:grid-cols-4 gap-5 max-w-6xl mx-auto"
+              >
+
+                {/* Location Input */}
+                <input
+                  type="text"
+                  name="location"
+                  placeholder="Enter location or keyword"
+                  className="px-5 py-3 bg-white/20 border border-white/30 rounded-xl 
+               focus:outline-none focus:ring-2 focus:ring-white/50 
+               text-white placeholder:text-white/70 backdrop-blur-md"
+                />
+
+                {/* Property Type */}
+                <select
+                  name="type"
+                  className="px-5 py-3 bg-white/20 border border-white/30 rounded-xl 
+               focus:outline-none focus:ring-2 focus:ring-white/50 
+               text-white backdrop-blur-md"
+                >
+                  <option value="all" className="text-black">All Types</option>
+                  <option value="Villa" className="text-black">Villa</option>
+                  <option value="Apartment" className="text-black">Apartment</option>
+                  <option value="House" className="text-black">House</option>
+                  <option value="Condo" className="text-black">Condo</option>
+                  <option value="Land" className="text-black">Land</option>
+                </select>
+
+                {/* Bedrooms */}
+                <select
+                  name="bedrooms"
+                  className="px-5 py-3 bg-white/20 border border-white/30 rounded-xl 
+               focus:outline-none focus:ring-2 focus:ring-white/50 
+               text-white backdrop-blur-md"
+                >
+                  <option value="all" className="text-black">Bedrooms</option>
+                  <option value="1" className="text-black">1+</option>
+                  <option value="2" className="text-black">2+</option>
+                  <option value="3" className="text-black">3+</option>
+                  <option value="4" className="text-black">4+</option>
+                  <option value="5" className="text-black">5+</option>
+                </select>
+
+                {/* Search Button */}
+                <button
+                  type="submit"
+                  className="bg-linear-to-r from-orange-500 to-orange-600 
+               text-white px-8 py-3 rounded-xl font-semibold 
+               hover:scale-105 hover:shadow-xl transition-all duration-300"
+                >
+                  Search
+                </button>
+
               </form>
             </div>
           </div>

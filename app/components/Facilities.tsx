@@ -98,7 +98,7 @@ const Facilities = () => {
                   >
                     <div
                       className="bg-transparent border border-white/20 rounded-2xl p-10 text-center text-white
-                      transition-all duration-300 hover:border-orange-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-orange-500/20"
+                      transition-all duration-300 hover:border-[#c2df93] hover:-translate-y-3 hover:shadow-2xl hover:shadow-orange-500/20"
                     >
                       <div className="flex justify-center mb-8">
                         <Image
