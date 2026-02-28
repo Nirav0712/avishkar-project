@@ -60,8 +60,34 @@ export default function HomePage() {
   }, [heroImages.length]);
 
   useEffect(() => {
-    const allProperties = getProperties();
-    setProperties(allProperties);
+    const fetchFeaturedProperties = async () => {
+      try {
+        const response = await fetch('/api/properties');
+        if (response.ok) {
+          const data = await response.json();
+          const validData = data.map((p: any) => ({
+            ...p,
+            featured: p.featured === 1 || p.featured === true,
+            price: Number(p.price) || 0,
+            bedrooms: Number(p.bedrooms) || 0,
+            bathrooms: Number(p.bathrooms) || 0,
+            area: Number(p.area) || 0,
+            image: p.image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+          }));
+          console.log("Fetched database properties:", validData);
+          setProperties(validData);
+        } else {
+          // fallback to localStorage or dummy data if API fails
+          const allProperties = getProperties();
+          setProperties(allProperties);
+        }
+      } catch (error) {
+        console.error("Failed to fetch properties from DB:", error);
+        const allProperties = getProperties();
+        setProperties(allProperties);
+      }
+    };
+    fetchFeaturedProperties();
   }, []);
 
   const featuredProperties = properties.filter((p) => p.featured).slice(0, 6);
@@ -444,29 +470,6 @@ export default function HomePage() {
       {/* Required Properties */}
       <section className="bg-[#162B49] py-20">
         <div className="max-w-7xl mx-auto px-6">
-          {/* Heading */}
-          {/* <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-14">
-            <div>
-              <p className="text-orange-500 font-semibold mb-3">
-                Property By Requirement
-              </p>
-              <h2 className="text-3xl md:text-5xl font-bold text-white">
-                Uncover Country Home
-              </h2>
-            </div>
-
-            <div className="mt-6 md:mt-0 bg-white p-2 rounded-xl flex gap-3">
-              <button className="px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-gray-100 transition">
-                Commercial
-              </button>
-              <button className="px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-gray-100 transition">
-                Industrial
-              </button>
-              <button className="px-5 py-2 rounded-lg bg-orange-500 text-white font-medium">
-                Residential
-              </button>
-            </div>
-          </div> */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-14">
 
             {/* Left Content */}
@@ -481,23 +484,12 @@ export default function HomePage() {
             </div>
 
             {/* Filter Buttons */}
-            <div className="mt-6 md:mt-0 bg-white p-3 rounded-xl 
-                  flex flex-col sm:flex-row 
-                  gap-3 w-full md:w-auto">
+            <div className="mt-6 md:mt-0 bg-white p-3 rounded-xl flex flex-col sm:flex-row gap-3 w-full md:w-auto">
 
-              {/* <button className="w-full sm:w-auto px-5 py-2 rounded-lg 
-                       text-gray-700 font-medium 
-                       hover:bg-gray-100 transition">
-                Commercial
-              </button> */}
               <button
                 type="button"
                 onClick={() => console.log("Commercial clicked")}
-                className="w-full sm:w-auto px-5 py-2 rounded-lg
-             text-gray-700 font-medium
-             hover:bg-orange-500 hover:text-white
-             active:bg-orange-600
-             cursor-pointer transition"
+                className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-orange-500 hover:text-white active:bg-orange-600 cursor-pointer transition"
               >
                 Commercial
               </button>
@@ -505,36 +497,15 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => console.log("Commercial clicked")}
-                className="w-full sm:w-auto px-5 py-2 rounded-lg
-             text-gray-700 font-medium
-             hover:bg-orange-500 hover:text-white
-             active:bg-orange-600
-             cursor-pointer transition"
+                className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-orange-500 hover:text-white active:bg-orange-600 cursor-pointer transition"
               >
                 Industrial
               </button>
 
-
-
-              {/* <button className="w-full sm:w-auto px-5 py-2 rounded-lg 
-                       text-gray-700 font-medium 
-                       hover:bg-gray-100 transition">
-                Industrial
-              </button> */}
-
-              {/* <button className="w-full sm:w-auto px-5 py-2 rounded-lg 
-                       bg-orange-500 text-white font-medium">
-                Residential
-              </button> */}
-
               <button
                 type="button"
                 onClick={() => console.log("Commercial clicked")}
-                className="w-full sm:w-auto px-5 py-2 rounded-lg
-             text-gray-700 font-medium
-             hover:bg-orange-500 hover:text-white
-             active:bg-orange-600
-             cursor-pointer transition"
+                className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-orange-500 hover:text-white active:bg-orange-600 cursor-pointer transition"
               >   Residential
               </button>
 
@@ -644,39 +615,6 @@ export default function HomePage() {
               </div>
             </div>
 
-
-            {/*Card 4 */}
-            {/* <div className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-95 mx-auto">
-              <div className="relative h-62.5">
-                <img
-                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
-                  className="w-full h-full object-cover"
-                  alt="property"
-                />
-                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow">
-                  ❤️
-                </div>
-              </div>
-
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-[#1f2d3d] mb-2">
-                  Parvam 1,2 BHK
-                </h3>
-
-                <p className="text-gray-600 text-sm mb-4">
-                  Ahmedabad, Gujarat, India
-                </p>
-
-                <div className="flex justify-between text-gray-600 text-sm mb-6">
-                  <span>🛏 Bed 2</span>
-                  <span>🛁 Bath 2</span>
-                </div>
-
-                <button className="w-full bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-orange-500  transition">
-                  Details
-                </button>
-              </div>
-            </div> */}
           </div>
         </div>
       </section>

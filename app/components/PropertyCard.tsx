@@ -61,7 +61,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
                 {/* Image */}
                 <div className="relative h-64 overflow-hidden">
                     <Image
-                        src={property.image}
+                        src={property.image.split(',')[0]}
                         alt={property.title}
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-500"

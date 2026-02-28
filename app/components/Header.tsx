@@ -84,7 +84,7 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="text-2xl font-bold text-secondary">
               {/* Veer<span className="text-primary">RealEstate</span> */}
-              <img src="/images/logo.png" alt="logo" className="w-50 h-auto" />
+              <img src="/images/logo.png" alt="logo" className="h-12 w-auto object-contain" />
             </Link>
 
             {/* Desktop Menu */}
@@ -131,22 +131,6 @@ export default function Header() {
                   Blog
                 </Link>
               </li>
-              {/* <li>
-                <Link
-                  href="/blog"
-                  className="block text-white text-light font-lg hover:text-orange-600 transition-colors"
-                >
-                  Sale
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog"
-                  className="block text-white text-light font-lg hover:text-orange-600 transition-colors"
-                >
-                  Rent
-                </Link>
-              </li> */}
               <li>
                 <Link
                   href="/contact"

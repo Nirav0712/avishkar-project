@@ -41,7 +41,16 @@ export default function AdminDashboard() {
             const res = await fetch('/api/properties');
             if (!res.ok) throw new Error('Failed to fetch properties');
             const data = await res.json();
-            setProperties(data);
+            const validData = data.map((p: any) => ({
+                ...p,
+                featured: p.featured === 1 || p.featured === true,
+                price: Number(p.price) || 0,
+                bedrooms: Number(p.bedrooms) || 0,
+                bathrooms: Number(p.bathrooms) || 0,
+                area: Number(p.area) || 0,
+                image: p.image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+            }));
+            setProperties(validData);
         } catch (error) {
             console.error('Error fetching properties:', error);
             alert('Failed to load properties');
@@ -145,43 +154,50 @@ export default function AdminDashboard() {
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files || e.target.files.length === 0) return;
 
-        const file = e.target.files[0];
+        const files = Array.from(e.target.files);
 
         // 5MB Limit Check
-        if (file.size > 5 * 1024 * 1024) {
-            alert('File size exceeds 5MB limit. Please upload a smaller image.');
+        if (files.some(file => file.size > 5 * 1024 * 1024)) {
+            alert('One or more files exceed 5MB limit. Please upload smaller images.');
             return;
         }
 
-        const formData = new FormData();
-        formData.append('file', file);
-
         setIsUploading(true);
+        let uploadedUrls: string[] = [];
 
         try {
-            // Replace with your actual Hostinger Upload PHP script URL
             const uploadUrl = process.env.NEXT_PUBLIC_UPLOAD_API_URL || 'http://localhost/upload.php';
 
-            const res = await fetch(uploadUrl, {
-                method: 'POST',
-                body: formData,
-            });
+            for (const file of files) {
+                const formData = new FormData();
+                formData.append('file', file);
 
-            if (!res.ok) {
-                // Handle HTTP errors (404, 500, etc.)
-                throw new Error(`Server responded with ${res.status} ${res.statusText}`);
+                const res = await fetch(uploadUrl, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!res.ok) {
+                    throw new Error(`Server responded with ${res.status} ${res.statusText}`);
+                }
+
+                const data = await res.json();
+
+                if (data.success) {
+                    uploadedUrls.push(data.url);
+                } else {
+                    alert('Upload failed for a file: ' + data.message);
+                }
             }
 
-            const data = await res.json();
-
-            if (data.success) {
-                setFormData(prev => ({ ...prev, image: data.url }));
-            } else {
-                alert('Upload failed: ' + data.message);
+            if (uploadedUrls.length > 0) {
+                setFormData(prev => ({
+                    ...prev,
+                    image: prev.image ? prev.image + ',' + uploadedUrls.join(',') : uploadedUrls.join(',')
+                }));
             }
         } catch (error: any) {
             console.error('Error uploading image:', error);
-            // Specific handling for "Failed to fetch" which usually means network/CORS/URL issues
             if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
                 alert('Connection Failed: Could not reach the upload server.\n\n1. Check if NEXT_PUBLIC_UPLOAD_API_URL is set correctly in .env\n2. Ensure your Hostinger script is deployed and accessible.\n3. Check CORS settings.');
             } else {
@@ -323,7 +339,7 @@ export default function AdminDashboard() {
                                             <td className="px-6 py-4">
                                                 <div className="relative w-20 h-20 rounded-lg overflow-hidden">
                                                     <Image
-                                                        src={property.image}
+                                                        src={property.image.split(',')[0]}
                                                         alt={property.title}
                                                         fill
                                                         className="object-cover"
@@ -546,6 +562,7 @@ export default function AdminDashboard() {
                                                 type="file"
                                                 className="hidden"
                                                 accept="image/*"
+                                                multiple
                                                 onChange={handleImageUpload}
                                                 disabled={isUploading}
                                             />
@@ -554,20 +571,27 @@ export default function AdminDashboard() {
 
                                     {/* Image Preview */}
                                     {formData.image && (
-                                        <div className="relative w-full h-48 rounded-lg overflow-hidden border border-gray-200 mb-4">
-                                            <Image
-                                                src={formData.image}
-                                                alt="Preview"
-                                                fill
-                                                className="object-cover"
-                                            />
-                                            <button
-                                                type="button"
-                                                onClick={() => setFormData(prev => ({ ...prev, image: '' }))}
-                                                className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors shadow-md"
-                                            >
-                                                <i className="fas fa-times"></i>
-                                            </button>
+                                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                                            {formData.image.split(',').filter(Boolean).map((url, idx) => (
+                                                <div key={idx} className="relative w-full h-32 rounded-lg overflow-hidden border border-gray-200">
+                                                    <Image
+                                                        src={url}
+                                                        alt={`Preview ${idx + 1}`}
+                                                        fill
+                                                        className="object-cover"
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            const newUrls = formData.image!.split(',').filter((_, i) => i !== idx);
+                                                            setFormData(prev => ({ ...prev, image: newUrls.join(',') }));
+                                                        }}
+                                                        className="absolute top-2 right-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors shadow-md text-sm"
+                                                    >
+                                                        <i className="fas fa-times"></i>
+                                                    </button>
+                                                </div>
+                                            ))}
                                         </div>
                                     )}
 
