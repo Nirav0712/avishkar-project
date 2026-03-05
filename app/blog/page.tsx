@@ -147,7 +147,7 @@ export default function BlogPage() {
             <Header />
 
             {/* Hero Section */}
-            <section className="relative bg-linear-to-br from-secondary to-secondary-light text-white py-24">
+            <section className="relative bg-linear-to-br from-[#0f1f3d] to-[#0f1f3d] text-white py-24">
                 <div className="container mx-auto px-4">
                     <div className="max-w-3xl mx-auto text-center">
                         <h1 className="text-5xl md:text-6xl font-bold mb-6">Blogs</h1>

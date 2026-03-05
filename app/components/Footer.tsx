@@ -65,7 +65,7 @@ export default function Footer() {
             <ul className="space-y-3 text-white/70">
               {[
                 { name: "Home", url: "/" },
-                { name: "About", url: "/about" },
+                { name: "About", url: "/about-us" },
                 { name: "Properties", url: "/properties" },
                 { name: "New Projects", url: "/new-projects" },
                 { name: "Blog", url: "/blog" },
@@ -73,10 +73,10 @@ export default function Footer() {
               ].map((item, i) => (
                 <li
                   key={i}
-                  className="flex items-center gap-2 hover:text-orange-500 transition-colors duration-300"
+                  className="flex items-center gap-2 hover:text-[#e4c272] transition-colors duration-300"
                 >
-                  <span className="text-orange-500 text-sm">»</span>
-                  <Link href={item.url} className="hover:text-orange-500">
+                  <span className="text-[#e4c272] text-sm">»</span>
+                  <Link href={item.url} className="hover:text-[#e4c272]">
                     {item.name}
                   </Link>
                 </li>
@@ -95,8 +95,8 @@ export default function Footer() {
                 "Interior Design",
                 "Consultancy & Research",
               ].map((item, i) => (
-                <li key={i} className="flex items-center gap-2 hover:text-orange-500 transition">
-                  <span className="text-orange-500 text-sm">»</span>
+                <li key={i} className="flex items-center gap-2 hover:text-[#e4c272] transition">
+                  <span className="text-[#e4c272] text-sm">»</span>
                   <Link href="#">{item}</Link>
                 </li>
               ))}
@@ -118,11 +118,11 @@ export default function Footer() {
                 "photo-1570129477492-45c003edd2be",
                 "photo-1505761671935-60b3a7427bad",
               ].map((id, i) => (
-                <div key={i} className="overflow-hidden rounded hover:text-orange-500">
+                <div key={i} className="overflow-hidden rounded hover:text-[#e4c272]">
                   <img
                     src={`https://images.unsplash.com/${id}`}
                     alt="gallery"
-                    className="w-full h-70px object-cover hover:scale-110 transition duration-300 hover:text-orange-500 group-hover:scale-110"
+                    className="w-full h-70px object-cover hover:scale-110 transition duration-300 hover:text-[#e4c272] group-hover:scale-110"
                   />
                 </div>
               ))}
@@ -132,13 +132,13 @@ export default function Footer() {
 
         {/* Bottom Orange Bar */}
         <div className="mt-16 mb-6">
-          <div className="bg-[#E4572E] text-white rounded-full px-8 py-4 flex flex-col md:flex-row justify-between items-center text-sm">
+          <div className="bg-[#fafafa66] text-[#0f1e3d] rounded-full px-8 py-4 flex flex-col md:flex-row justify-between items-center text-sm">
 
             <p>
-              © 2025 Copyrights by Avishkar. Developed by
-              <a href="https://thedigitalconnect.in/" className="hover:underline text-white hover:text-white transition">
-                .The Digital Connect
-              </a>
+              © 2025 Copyrights by Avishkar. Developed by <span>
+              <a href="https://thedigitalconnect.in/" className="hover:underline text-[#0f1e3d] hover:text-[#e4c272] transition">
+                 The Digital Connect
+              </a></span>
             </p>
 
             {/* <div className="flex gap-6 mt-2 md:mt-0">
@@ -152,11 +152,11 @@ export default function Footer() {
 
             <div className="flex gap-6 mt-2 md:mt-0">
 
-              <a href="/terms" className="hover:underline text-white hover:text-orange-500 transition">
+              <a href="/terms" className="hover:underline text-[#0f1e3d] hover:text-[#e4c272] transition">
                 Terms & Conditions
               </a>
 
-              <a href="/privacy" className="hover:underline text-white hover:text-orange-500 transition">
+              <a href="/privacy" className="hover:underline text-[#0f1e3d] hover:text-[#e4c272] transition">
                 Privacy Policy
               </a>
 

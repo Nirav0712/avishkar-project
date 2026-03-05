@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import WhatsappButton from "./components/WhatsappButton";
+import CallingButton from "./components/CallingButton";
 
 export const metadata: Metadata = {
   title: "Avishkar - Find Your Dream Property",
@@ -22,6 +24,8 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         {children}
+        <WhatsappButton phoneNumber="+919876543210" />
+        <CallingButton phoneNumber="+919876543210" />
       </body>
     </html>
   );

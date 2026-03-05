@@ -153,152 +153,164 @@ export default function HomePage() {
             </p> */}
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 w-full px-4">
-              <button className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#E3572B] hover:text-black transition duration-300">
+              <button className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300">
                 Commercial →
               </button>
 
-              <button className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#E3572B] hover:text-black transition duration-300">
-                Apartment →
+              <button className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300">
+                Residential →
               </button>
 
-              <button className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#E3572B] hover:text-black transition duration-300">
+              <button className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300">
                 Industrial →
               </button>
             </div>
 
             {/* Search Widget with Glassmorphism Effect */}
-            <div className="mt-10 md:mt-50 backdrop-blur-lg bg-white/20 rounded-xl p-4 md:p-6 shadow-2xl border border-white/30 mx-4 md:mx-0">
+            <div className="mt-10 backdrop-blur-lg bg-white/20 rounded-xl p-4 md:p-6 shadow-2xl border border-white/30 mx-4 md:mx-0">
               {/* Tabs */}
               <div className="flex gap-4 mb-6 border-b-2 border-white/30">
                 <button
                   onClick={() => setSearchStatus("For Sale")}
                   className={`px-6 py-3 font-medium transition-colors relative ${searchStatus === "For Sale"
-                    ? "text-primary"
-                    : "text-white hover:text-primary"
-                    }`}
+                    ? "text-[#0f1e3d]"
+                      : "text-white hover:text-#e4c272"
+                      }`}
                 >
                   For Sale
                   {searchStatus === "For Sale" && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0f1e3d]" />
                   )}
                 </button>
                 <button
                   onClick={() => setSearchStatus("For Rent")}
                   className={`px-6 py-3 font-medium transition-colors relative ${searchStatus === "For Rent"
-                    ? "text-primary"
-                    : "text-white hover:text-primary"
+                    ? "text-[#0f1e3d]"
+                    : "text-white hover:text-[#0f1e3d]"
                     }`}
                 >
                   For Rent
                   {searchStatus === "For Rent" && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0f1e3d]" />
                   )}
                 </button>
               </div>
 
-              {/* Search Form */}
-              {/* <form
-                onSubmit={handleSearch}
-                className="grid grid-cols-1 md:grid-cols-4 gap-4"
-              >
-                <input
-                  type="text"
-                  name="location"
-                  placeholder="Location or keyword"
-                  className="px-4 py-3 bg-white/90 border border-white/50 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 text-gray-900 placeholder:text-gray-600"
-                />
-
-                <select
-                  name="type"
-                  className="px-4 py-3 bg-white/90 border border-white/50 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 text-gray-900"
-                >
-                  <option value="all">All Types</option>
-                  <option value="Villa">Villa</option>
-                  <option value="Apartment">Apartment</option>
-                  <option value="House">House</option>the hero section is the
-                  auto scroll to set the diffrent images and the search box is
-                  the set in the bg to glass efect in the bg
-                  <option value="Condo">Condo</option>
-                  <option value="Land">Land</option>
-                </select>
-
-                <select
-                  name="bedrooms"
-                  className="px-4 py-3 bg-white/90 border border-white/50 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 text-gray-900"
-                >
-                  <option value="all">Bedrooms</option>
-                  <option value="1">1+</option>
-                  <option value="2">2+</option>
-                  <option value="3">3+</option>
-                  <option value="4">4+</option>
-                  <option value="5">5+</option>
-                </select>
-
-                <button
-                  type="submit"
-                  className="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-all hover:-translate-y-0.5 hover:shadow-md flex items-center justify-center gap-2"
-                >
-                  <i className="fas fa-search"></i>
-                  Search
-                </button>
-              </form> */}
-
               <form
                 onSubmit={handleSearch}
-                className="backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-6 md:p-8 
-             grid grid-cols-1 md:grid-cols-4 gap-5 max-w-6xl mx-auto"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 bg-white/20 backdrop-blur-md p-4 md:p-6 rounded-xl border border-white/30 shadow-lg"
               >
-
-                {/* Location Input */}
-                <input
-                  type="text"
-                  name="location"
-                  placeholder="Enter location or keyword"
-                  className="px-5 py-3 bg-white/20 border border-white/30 rounded-xl 
-               focus:outline-none focus:ring-2 focus:ring-white/50 
-               text-white placeholder:text-white/70 backdrop-blur-md"
-                />
-
                 {/* Property Type */}
                 <select
                   name="type"
-                  className="px-5 py-3 bg-white/20 border border-white/30 rounded-xl 
-               focus:outline-none focus:ring-2 focus:ring-white/50 
-               text-white backdrop-blur-md"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-500"
                 >
-                  <option value="all" className="text-black">All Types</option>
-                  <option value="Villa" className="text-black">Villa</option>
-                  <option value="Apartment" className="text-black">Apartment</option>
-                  <option value="House" className="text-black">House</option>
-                  <option value="Condo" className="text-black">Condo</option>
-                  <option value="Land" className="text-black">Land</option>
+                  <option value="">Property Types</option>
+                  <option value="Apartment">Apartment</option>
+                  <option value="Commercial">Commercial Shops</option>
+                  <option value="Commercial">Commercial Office</option>
+                  <option value="Industrial">Industrial</option>
+                  <option value="Banglow">Bunglows</option>
+                  <option value="Land">Land</option>
+                  <option value="Plot">Plot</option>
                 </select>
 
-                {/* Bedrooms */}
-                <select
-                  name="bedrooms"
-                  className="px-5 py-3 bg-white/20 border border-white/30 rounded-xl 
-               focus:outline-none focus:ring-2 focus:ring-white/50 
-               text-white backdrop-blur-md"
+                {/* Location */}
+                <input
+                  type="text"
+                  name="location"
+                  placeholder="Enter Location"
+                  className="px-4 py-3 bg-white/80 rounded-lg 
+             focus:outline-none focus:ring-2 
+             focus:ring-primary text-black w-full  placeholder:text-gray-500"
+                />
+                {/* <select
+                  name="location"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-800"
                 >
-                  <option value="all" className="text-black">Bedrooms</option>
-                  <option value="1" className="text-black">1+</option>
-                  <option value="2" className="text-black">2+</option>
-                  <option value="3" className="text-black">3+</option>
-                  <option value="4" className="text-black">4+</option>
-                  <option value="5" className="text-black">5+</option>
+                  <option value="">Location</option>
+                  {Array.from(new Set(properties.map(p => p.location))).sort().map((location, index) => (
+                    <option key={index} value={location}>{location}</option>
+                  ))}
+                </select> */}
+
+                {/* BHK */}
+                <select
+                  name="bhk"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-500"
+                >
+                  <option value="">BHK</option>
+                  <option value="1">1 BHK</option>
+                  <option value="2">2 BHK</option>
+                  <option value="3">3 BHK</option>
+                  <option value="4">4 BHK</option>
+                  <option value="5">5+ BHK</option>
+                </select>
+
+                {/* Min Budget */}
+                <input
+                  type="number"
+                  name="minBudget"
+                  placeholder="Enter Min Budget"
+                  className="px-4 py-3 bg-white/80 rounded-lg 
+             focus:outline-none focus:ring-2 
+             focus:ring-primary text-black w-full  placeholder:text-gray-500"
+                />
+                {/* <select
+                  name="minBudget"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-800"
+                >
+                  <option value="">Min Budget</option>
+                  {Array.from(new Set(properties
+                    .filter(p => p.status === searchStatus)
+                    .map(p => p.price)))
+                    .sort((a, b) => a - b)
+                    .map((price, index) => (
+                      <option key={index} value={price}>{formatPrice(price)}</option>
+                    ))}
+                </select> */}
+
+                {/* Max Budget */}
+                <input
+                  type="number"
+                  name="maxBudget"
+                  placeholder="Enter Max Budget"
+                  className="px-4 py-3 bg-white/80 rounded-lg 
+             focus:outline-none focus:ring-2 
+             focus:ring-primary text-black w-full  placeholder:text-gray-500"
+                />
+                {/* <select
+                  name="maxBudget"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-800"
+                >
+                  <option value="">Max Budget</option>
+                  {Array.from(new Set(properties
+                    .filter(p => p.status === searchStatus)
+                    .map(p => p.price)))
+                    .sort((a, b) => a - b)
+                    .map((price, index) => (
+                      <option key={index} value={price}>{formatPrice(price)}</option>
+                    ))}
+                </select> */}
+
+                {/* Transaction */}
+                <select
+                  name="transaction"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-500"
+                >
+                  <option value="">Transaction</option>
+                  <option value="new">New Property</option>
+                  <option value="resale">Resale</option>
+                  <option value="underconstruction">Under Construction</option>
                 </select>
 
                 {/* Search Button */}
                 <button
                   type="submit"
-                  className="bg-linear-to-r from-orange-500 to-orange-600 
-               text-white px-8 py-3 rounded-xl font-semibold 
-               hover:scale-105 hover:shadow-xl transition-all duration-300"
+                  className="bg-[#0f1e3d] text-white px-6 py-3 rounded-lg font-semibold transition-all hover:-translate-y-0.5 hover:shadow-md col-span-1 sm:col-span-2 lg:col-span-3 hover:bg-white hover:text-black"
                 >
                   Search
                 </button>
-
               </form>
             </div>
           </div>
@@ -311,7 +323,7 @@ export default function HomePage() {
               key={index}
               onClick={() => setCurrentImageIndex(index)}
               className={`w-3 h-3 rounded-full transition-all ${index === currentImageIndex
-                ? "bg-primary w-8"
+                ? "bg-[#0f1e3d] w-8"
                 : "bg-white/50 hover:bg-white/80"
                 }`}
               aria-label={`Go to slide ${index + 1}`}
@@ -372,7 +384,7 @@ export default function HomePage() {
           <div className="text-center mt-12">
             <Link
               href="/properties"
-              className="inline-block bg-transparent border-2 border-secondary text-secondary px-10 py-4 rounded-lg font-semibold hover:bg-secondary hover:text-white transition-all text-lg"
+              className="inline-block bg-transparent border-2 border-[#0f1e3d] text-[#0f1e3d] px-10 py-4 rounded-lg font-semibold hover:bg-[#0f1e3d] hover:text-[#e4c272] transition-all text-lg"
             >
               View All Properties
             </Link>
@@ -387,20 +399,20 @@ export default function HomePage() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-5xl font-bold text-primary mb-2">10K+</div>
+            <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">10K+</div>
               <div className="text-gray-600">Properties Sold</div>
             </div>
-            <div>
-              <div className="text-5xl font-bold text-primary mb-2">5K+</div>
+            <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">5K+</div>
               <div className="text-gray-600">Happy Customers</div>
             </div>
-            <div>
-              <div className="text-5xl font-bold text-primary mb-2">500+</div>
+            <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">100+</div>
               <div className="text-gray-600">Expert Agents</div>
             </div>
-            <div>
-              <div className="text-5xl font-bold text-primary mb-2">15+</div>
+            <div className='w-40 h-40 rounded-full p-25  bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">15+</div>
               <div className="text-gray-600">Years Experience</div>
             </div>
           </div>
@@ -413,7 +425,7 @@ export default function HomePage() {
       <section className="py-20 ">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-secondary mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-4">
               Explore Properties by Area
             </h2>
             <p className="text-xl text-gray-600">
@@ -424,40 +436,44 @@ export default function HomePage() {
           <div className="grid grid-cols-2 lg:grid-cols-6 gap-3 md:gap-6">
             {[
               {
-                name: "Mumbai",
+                name: "SG Highway",
                 count: "2,500+ Properties",
                 icon: "fa-building",
               },
               {
-                name: "Bangalore",
+                name: "Thaltej",
                 count: "1,800+ Properties",
                 icon: "fa-laptop",
               },
               {
-                name: "Delhi NCR",
+                name: "Bodakdev",
                 count: "3,200+ Properties",
                 icon: "fa-landmark",
               },
               {
-                name: "Pune",
+                name: "Bopal",
                 count: "1,200+ Properties",
                 icon: "fa-graduation-cap",
               },
               {
-                name: "Goa",
+                name: "Prahlad Nagar",
                 count: "450+ Properties",
                 icon: "fa-umbrella-beach",
               },
-              { name: "Hyderabad", count: "900+ Properties", icon: "fa-city" },
+              { 
+                name: "Ambli",
+                count: "900+ Properties", 
+                icon: "fa-city" 
+              },
             ].map((city, index) => (
               <div
                 key={index}
                 className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer"
               >
-                <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                  <i className={`fas ${city.icon} text-3xl text-primary`}></i>
+                <div className="w-16 h-16 mx-auto mb-4 bg-[#e4c272]/10 rounded-full flex items-center justify-center">
+                  <i className={`fas ${city.icon} text-3xl text-[#e4c272]`}></i>
                 </div>
-                <h3 className="text-lg font-semibold text-secondary mb-2">
+                <h3 className="text-lg font-semibold text-[#0f1e3d] mb-2">
                   {city.name}
                 </h3>
                 <p className="text-sm text-gray-600">{city.count}</p>
@@ -470,11 +486,12 @@ export default function HomePage() {
       {/* Required Properties */}
       <section className="bg-[#162B49] py-20">
         <div className="max-w-7xl mx-auto px-6">
+          
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-14">
 
             {/* Left Content */}
             <div className="text-center md:text-left">
-              <p className="text-orange-500 font-semibold mb-3">
+              <p className="text-[#e4c272] font-semibold mb-3">
                 Property By Requirement
               </p>
 
@@ -489,7 +506,7 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => console.log("Commercial clicked")}
-                className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-orange-500 hover:text-white active:bg-orange-600 cursor-pointer transition"
+                className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-[#0f1e3d] hover:text-white active:bg-[#0f1e3d] cursor-pointer transition"
               >
                 Commercial
               </button>
@@ -497,7 +514,7 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => console.log("Commercial clicked")}
-                className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-orange-500 hover:text-white active:bg-orange-600 cursor-pointer transition"
+                className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-[#0f1e3d] hover:text-white active:bg-[#0f1e3d] cursor-pointer transition"
               >
                 Industrial
               </button>
@@ -505,7 +522,7 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => console.log("Commercial clicked")}
-                className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-orange-500 hover:text-white active:bg-orange-600 cursor-pointer transition"
+                className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-[#0f1e3d] hover:text-white active:bg-[#0f1e3d] cursor-pointer transition"
               >   Residential
               </button>
 
@@ -543,7 +560,7 @@ export default function HomePage() {
                   <span>🛁 Bath 2</span>
                 </div>
 
-                <button className="w-full bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-orange-500 transition">
+                <button className="w-full bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-[#e4c272] hover:text-[#0f1e3d] border-2 hover:border-[#0f1e3d] transition">
                   Details
                 </button>
               </div>
@@ -576,7 +593,7 @@ export default function HomePage() {
                   <span>🛁 Bath 3</span>
                 </div>
 
-                <button className="w-full bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-orange-500 transition">
+                <button className="w-full bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-[#e4c272] hover:text-[#0f1e3d] border-2 hover:border-[#0f1e3d] transition">
                   Details
                 </button>
               </div>
@@ -609,7 +626,7 @@ export default function HomePage() {
                   <span>🛁 Bath 2</span>
                 </div>
 
-                <button className="w-full bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-orange-500  transition">
+                <button className="w-full bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-[#e4c272] hover:text-[#0f1e3d] border-2 hover:border-[#0f1e3d] transition">
                   Details
                 </button>
               </div>
@@ -623,7 +640,7 @@ export default function HomePage() {
       <section className="bg-[#f3f3f3] py-16">
         <div className="max-w-6xl mx-auto px-6 text-center">
           {/* Small Top Text */}
-          <p className="text-orange-500 text-sm font-semibold mb-2">
+          <p className="text-[#e4c272] bg-[#0f1f3d] p-2 ml-100 mr-100 text-sm font-semibold mb-2">
             Our Valued Partners
           </p>
 
@@ -635,88 +652,88 @@ export default function HomePage() {
           {/* Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Card */}
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-orange-500  hover:border-orange-500 transition duration-300 hover:bg-[#16243E] hover:text-white">
+            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272]  hover:border-[#e4c272] transition duration-300  ">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png"
                 alt=""
-                className="w-24 h-24 mx-auto mb-4"
+                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
               />
-              <p className="text-orange-500 font-medium">
+              <p className="text-[#0f1f3d] font-medium">
                 Retail space Leasing
               </p>
             </div>
 
             <div
-              className="bg-white rounded-3xl shadow-md p-8 border border-orange-500 transition duration-300 hover:bg-[#16243E] hover:text-white"
+              className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272] transition duration-300 "
             >
               <img
                 src="https://cdn-icons-png.flaticon.com/512/1534/1534959.png"
                 alt=""
-                className="w-24 h-24 mx-auto mb-4"
+                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
               />
-              <p className="text-orange-500 font-medium">Property Managment</p>
+              <p className="text-[#0f1f3d] font-medium">Property Managment</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-orange-500 transition duration-300 hover:bg-[#16243E] hover:text-white">
+            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272] transition duration-300 ">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/942/942748.png"
                 alt=""
-                className="w-24 h-24 mx-auto mb-4"
+                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
               />
-              <p className="text-orange-500 font-medium">Interior Designing</p>
+              <p className="text-[#0f1f3d] font-medium">Interior Designing</p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-orange-500  hover:border-orange-500 transition duration-300 hover:bg-[#16243E] hover:text-white">
+            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272]  hover:border-[#e4c272] transition duration-300  ">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/1995/1995485.png"
                 alt=""
-                className="w-24 h-24 mx-auto mb-4"
+                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
               />
-              <p className="text-orange-500 font-medium">
+              <p className="text-[#0f1f3d] font-medium">
                 Consultancy & Research
               </p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-orange-500  hover:border-orange-500 transition duration-300 hover:bg-[#16243E] hover:text-white">
+            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272]  hover:border-[#e4c272] transition duration-300  ">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/1040/1040230.png"
                 alt=""
-                className="w-24 h-24 mx-auto mb-4"
+                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
               />
-              <p className="text-orange-500 font-medium">
+              <p className="text-[#0f1f3d] font-medium">
                 Corporate Space Leasing
               </p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-orange-500 transition duration-300 hover:bg-[#16243E] hover:text-white">
+            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272]  hover:border-[#e4c272] transition duration-300  ">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png"
                 alt=""
-                className="w-24 h-24 mx-auto mb-4"
+                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
               />
-              <p className="text-orange-500 font-medium">
+              <p className="text-[#0f1f3d] font-medium">
                 Legal Advise & Document
               </p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-orange-500 transition duration-300 hover:bg-[#16243E] hover:text-white">
+            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272]  hover:border-[#e4c272] transition duration-300  ">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                 alt=""
-                className="w-24 h-24 mx-auto mb-4"
+                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
               />
-              <p className="text-orange-500 font-medium">
+              <p className="text-[#0f1f3d] font-medium">
                 Investment in Rented Prop
               </p>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-orange-500 hover:border-orange-500 transition duration-300 hover:bg-[#16243E] hover:text-white">
+            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272]  hover:border-[#e4c272] transition duration-300  ">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/2965/2965879.png"
                 alt=""
-                className="w-24 h-24 mx-auto mb-4"
+                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
               />
-              <p className="text-orange-500 font-medium">
+              <p className="text-[#0f1f3d] font-medium">
                 Loan Against Property
               </p>
             </div>

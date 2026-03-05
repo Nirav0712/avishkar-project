@@ -131,7 +131,7 @@ function PropertiesContent() {
       <Header />
 
       {/* Page Header */}
-      <div className="bg-linear-to-br from-secondary to-secondary-light text-white py-16">
+      <div className="bg-linear-to-br from-[#0f1f3d] to-[#0f1f3d] text-white py-16">
         <div className="container mx-auto px-4">
           <h1 className="text-5xl font-bold mb-4">Featured Properties</h1>
           <p className="text-xl opacity-90">Find the Perfect Space for You</p>

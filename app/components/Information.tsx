@@ -10,11 +10,11 @@ const Information = () => {
 
           {/* ADDRESS */}
           <div className="flex items-start gap-4">
-            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-orange-600 text-xl shadow">
-              📍
+            <div className="bg-white w-25 h-12 rounded-full flex items-center justify-center text-[#0f1e3d] text-xl shadow">
+              <i className="fas fa-map-marker-alt text-lg"></i>
             </div>
             <div>
-              <h3 className="text-orange-600 font-semibold text-lg">
+              <h3 className="text-[#0f1e3d] font-semibold text-lg">
                 Address
               </h3>
               <p className="text-gray-700 mt-1 text-sm leading-relaxed">
@@ -26,11 +26,11 @@ const Information = () => {
 
           {/* EMAIL */}
           <div className="flex items-start gap-4">
-            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-orange-600 text-xl shadow">
-              ✉
+            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-[#0f1e3d] text-xl shadow">
+              <i className="fa fa-envelope"></i>
             </div>
             <div>
-              <h3 className="text-orange-600 font-semibold text-lg">
+              <h3 className="text-[#0f1e3d] font-semibold text-lg">
                 Send Email
               </h3>
               <p className="text-gray-700 mt-1 text-sm">
@@ -41,11 +41,11 @@ const Information = () => {
 
           {/* PHONE */}
           <div className="flex items-start gap-4">
-            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-orange-600 text-xl shadow">
-              📞
+            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-[#0f1e3d] text-xl shadow">
+              <i className="fa fa-phone"></i>
             </div>
             <div>
-              <h3 className="text-orange-600 font-semibold text-lg">
+              <h3 className="text-[#0f1e3d] font-semibold text-lg">
                 Call Emergency
               </h3>
               <p className="text-gray-700 mt-1 text-sm">

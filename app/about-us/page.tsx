@@ -143,7 +143,7 @@ export default function AboutPage() {
           <div className="bg-white rounded-2xl overflow-hidden  ">
 
             <div className="grid md:grid-cols-2 items-center h-185">
-              <div className="relative w-full  h-175  rounded-2xl overflow-hidden border-2 border-[#16243E]-500 shadow-xl group transform transition duration-500 hover:-translate-y-3">
+              <div className="relative w-full  h-175  rounded-2xl overflow-hidden border-2 border-[#e4c272] shadow-xl group transform transition duration-500 hover:-translate-y-3">
                 <Image
                   src="/images/team/Founder1.jpg"
                   alt="Founder"
@@ -197,7 +197,7 @@ export default function AboutPage() {
                   investors alike.
                 </p>
               </div>
-              <div className="relative w-full h-175 order-1 md:order-2 rounded-2xl overflow-hidden border-2 border-[#16243E]-500 shadow-xl group transform transition duration-500 hover:-translate-y-3">
+              <div className="relative w-full h-175 order-1 md:order-2 rounded-2xl overflow-hidden border-2 border-[#e4c272] shadow-xl group transform transition duration-500 hover:-translate-y-3">
                 <Image
                   src="/images/team/Founder2.jpg"
                   alt="Founder"
@@ -276,39 +276,33 @@ export default function AboutPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-secondary mb-4">
+            <h2 className="text-4xl font-bold text-[#0f1e3d] mb-4">
               Our Achievements
             </h2>
             <p className="text-xl text-gray-600">
               Numbers that speak for themselves
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">
-                10K+
-              </div>
-              <div className="text-gray-600 text-lg">Properties Sold</div>
+         <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className='w-40 h-40 rounded-full bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">10K+</div>
+              <div className="text-gray-600">Properties Sold</div>
             </div>
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">
-                5K+
-              </div>
-              <div className="text-gray-600 text-lg">Happy Customers</div>
+            <div className='w-40 h-40 rounded-full bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">5K+</div>
+              <div className="text-gray-600">Happy Customers</div>
             </div>
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">
-                500+
-              </div>
-              <div className="text-gray-600 text-lg">Expert Agents</div>
+            <div className='w-40 h-40 rounded-full bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">100+</div>
+              <div className="text-gray-600">Expert Agents</div>
             </div>
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">
-                15+
-              </div>
-              <div className="text-gray-600 text-lg">Years Experience</div>
+            <div className='w-40 h-40 rounded-full bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">15+</div>
+              <div className="text-gray-600">Years Experience</div>
             </div>
           </div>
+        </div>
         </div>
       </section>
       {/* Our Values */}

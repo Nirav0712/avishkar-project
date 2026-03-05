@@ -35,14 +35,14 @@ export default function PropertyShowCase() {
 
           {/* LEFT CONTENT */}
           <div>
-            <span className="text-[#E3572B] font-semibold text-sm">
+            <span className="text-[#e4c272] font-semibold text-sm">
               Luxe 2 & 3 BHK Homes in Ahmedabad
             </span>
 
             <h2 className="text-3xl md:text-5xl font-bold leading-tight mt-4">
               Professional{" "}
-              <span className="text-[#c2df93]">Guidance</span>, <br />
-              Proven <span className="text-[#c2df93]">Results</span>
+              <span className="text-[#e4c272]">Guidance</span>, <br />
+              Proven <span className="text-[#e4c272]">Results</span>
             </h2>
 
             <p className="text-gray-300 mt-6 leading-relaxed max-w-xl">
@@ -59,7 +59,7 @@ export default function PropertyShowCase() {
 
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 mt-8 border border-[#c2df93] text-[#c2df93] px-8 py-3 rounded-full font-semibold hover:bg-[#c2df93] hover:text-black transition duration-300"
+              className="inline-flex items-center gap-2 mt-8 border border-[#e4c272] text-[#e4c272] px-8 py-3 rounded-full font-semibold hover:bg-[#e4c272] hover:text-black transition duration-300"
             >
               Contact Sales
             </Link>
@@ -138,7 +138,7 @@ export default function PropertyShowCase() {
                       key={i}
                       onClick={() => setCurrent(i)}
                       className={`w-3 h-3 rounded-full cursor-pointer transition ${current === i
-                          ? "bg-orange-500 scale-110"
+                          ? "bg-[#e4c272] scale-110"
                           : "bg-white/40"
                         }`}
                     />
@@ -191,14 +191,14 @@ export default function PropertyShowCase() {
 
            {/*} Stats Circles */}
              <div className="flex flex-wrap gap-6 md:gap-10 mt-10 md:mt-14 justify-center md:justify-center">
-              <div className="w-32 h-32 rounded-full border border-gray-400 flex flex-col items-center justify-center hover:border-[#c2df93] transition">
+              <div className="w-32 h-32 rounded-full border border-gray-400 flex flex-col items-center justify-center hover:border-[#e4c272] transition">
                 <span className="text-2xl font-bold">500+</span>
                 <span className="text-sm text-gray-300 text-center">
                   Satisfied Client
                 </span>
               </div>
 
-              <div className="w-32 h-32 rounded-full border border-gray-400 flex flex-col items-center justify-center hover:border-[#c2df93] transition">
+              <div className="w-32 h-32 rounded-full border border-gray-400 flex flex-col items-center justify-center hover:border-[#e4c272] transition">
                 <span className="text-2xl font-bold">40+</span>
                 <span className="text-sm text-gray-300 text-center">
                   Projects

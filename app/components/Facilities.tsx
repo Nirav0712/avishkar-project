@@ -64,7 +64,7 @@ const Facilities = () => {
           {/* LEFT SIDE */}
           <div className="lg:w-1/3 text-white flex flex-col justify-between">
             <div>
-              <p className="text-orange-500 font-semibold mb-4">Facilities</p>
+              <p className="text-[#e4c272] font-semibold mb-4">Facilities</p>
               <h2 className="text-4xl md:text-5xl font-bold leading-tight">
                 Property <br /> Features
               </h2>
@@ -151,7 +151,7 @@ const Facilities = () => {
                     onClick={() => setCurrentSlide(index)}
                     className={`h-2 rounded-full transition-all duration-300 ${
                       currentSlide === index
-                        ? "w-8 bg-orange-500"
+                        ? "w-8 bg-[#e4c272]"
                         : "w-2 bg-white/40 hover:bg-white/60"
                     }`}
                   />

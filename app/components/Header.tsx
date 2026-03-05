@@ -92,15 +92,15 @@ export default function Header() {
               <li>
                 <Link
                   href="/"
-                  className="block text-white text-light font-lg hover:text-[#E3572B] transition-colors"
+                  className="block text-white text-light font-lg hover:text-[#e4c272] transition-colors"
                 >
                   Home
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/about"
-                  className="block text-white text-light font-lg hover:text-orange-600 transition-colors"
+                  href="/about-us"
+                  className="block text-white text-light font-lg hover:text-[#e4c272] transition-colors"
                 >
                   About Us
                 </Link>
@@ -109,7 +109,7 @@ export default function Header() {
               <li>
                 <Link
                   href="/properties"
-                  className="block text-white text-light font-lg hover:text-orange-600 transition-colors"
+                  className="block text-white text-light font-lg hover:text-[#e4c272] transition-colors"
                 >
                   Properties
                 </Link>
@@ -118,7 +118,7 @@ export default function Header() {
               <li>
                 <Link
                   href="/project"
-                  className="block text-white text-light font-lg hover:text-orange-600 transition-colors"
+                  className="block text-white text-light font-lg hover:text-[#e4c272] transition-colors"
                 >
                   Projects
                 </Link>
@@ -126,43 +126,43 @@ export default function Header() {
               <li>
                 <Link
                   href="/blog"
-                  className="block text-white text-light font-lg hover:text-orange-600 transition-colors"
+                  className="block text-white text-light font-lg hover:text-[#e4c272] transition-colors"
                 >
                   Blog
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="/contact"
-                  className="block text-white text-light font-lg hover:text-orange-600 transition-colors"
+                  className="block text-white text-light font-lg hover:text-[#e4c272] transition-colors"
                 >
                   Contact
                 </Link>
-              </li>
+              </li> */}
             </ul>
 
             <div className="flex items-center gap-4">
               {/* Search Icon */}
-              <button className="w-12 h-12 rounded-full border border-white/70 flex items-center justify-center text-[#b7d39b] hover:text-[#12233D] hover:bg-[#b7d39b]">
-                <i className="fas fa-search text-lg  hover:bg-[#b7d39b]"></i>
+              <button className="w-12 h-12 rounded-full border border-[#e4c272] flex items-center justify-center text-[#e4c272] hover:text-[#12233D] hover:bg-[#e4c272]">
+                <i className="fas fa-search text-lg  hover:bg-[#e4c272]"></i>
               </button>
 
               {/* Add Properties Button */}
               <a
-                href="/admin/dashboard"
+                href="/contact"
                 className="
     flex items-center gap-2
-    bg-[#12233D] text-[#b7d39b]
+    bg-[#12233D] text-[#e4c272]
     px-6 py-3 rounded-full
     text-light font-light
-    border border-[#b7d39b]
+    border border-[#e4c272]
     transition-all duration-300
-    hover:bg-[#b7d39b]
+    hover:bg-[#e4c272]
     hover:text-[#12233D]
   "
               >
-                <i className="fas fa-home"></i>
-                Add Properties
+                <i className="fas fa-phone"></i>
+                Contact Us
               </a>
             </div>
 
