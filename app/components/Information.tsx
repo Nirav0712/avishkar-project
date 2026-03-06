@@ -46,7 +46,7 @@ const Information = () => {
             </div>
             <div>
               <h3 className="text-[#0f1e3d] font-semibold text-lg">
-                Call Emergency
+                Call
               </h3>
               <p className="text-gray-700 mt-1 text-sm">
                 +91 70413 95595

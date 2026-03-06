@@ -140,7 +140,7 @@ export default function PropertyShowCase() {
                       className={`w-3 h-3 rounded-full cursor-pointer transition ${current === i
                           ? "bg-[#e4c272] scale-110"
                           : "bg-white/40"
-                        }`}
+                        }`}                             
                     />
                   ))}
                 </div>
