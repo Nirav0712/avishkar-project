@@ -163,7 +163,7 @@ function PropertiesContent() {
                     name="status"
                     value={filters.status}
                     onChange={handleFilterChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]"
                   >
                     <option value="all">All</option>
                     <option value="For Sale">For Sale</option>
@@ -180,7 +180,7 @@ function PropertiesContent() {
                     name="type"
                     value={filters.type}
                     onChange={handleFilterChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]"
                   >
                     <option value="all">All Types</option>
                     <option value="Villa">Villa</option>
@@ -204,7 +204,7 @@ function PropertiesContent() {
                       value={filters.minPrice}
                       onChange={handleFilterChange}
                       placeholder="Min"
-                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 w-full"
+                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20 w-full"
                     />
                     <input
                       type="number"
@@ -212,7 +212,7 @@ function PropertiesContent() {
                       value={filters.maxPrice}
                       onChange={handleFilterChange}
                       placeholder="Max"
-                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 w-full"
+                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20 w-full"
                     />
                   </div>
                 </div>
@@ -226,7 +226,7 @@ function PropertiesContent() {
                     name="bedrooms"
                     value={filters.bedrooms}
                     onChange={handleFilterChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20"
                   >
                     <option value="all">All</option>
                     <option value="1">1+</option>
@@ -248,13 +248,13 @@ function PropertiesContent() {
                     value={filters.location}
                     onChange={handleFilterChange}
                     placeholder="City, State..."
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-white text-[#0f1e3d] border border-[#0f1e3d] px-6 py-3 rounded-lg font-semibold hover:bg-[#0f1e3d] hover:text-[#e4c272] hover:border-[#e4c272] transition-colors flex items-center justify-center gap-2"
                 >
                   <i className="fas fa-search"></i>
                   Apply Filters
@@ -267,7 +267,7 @@ function PropertiesContent() {
           <div className="flex-1">
             <div className="flex items-center justify-between mb-6">
               <p className="text-gray-600">
-                <span className="font-semibold text-secondary">
+                <span className="font-bold text-[#0f1e3d]">
                   {isLoading ? "..." : filteredProperties.length}
                 </span>{" "}
                 properties found
@@ -276,11 +276,11 @@ function PropertiesContent() {
 
             {isLoading ? (
               <div className="flex justify-center items-center py-20">
-                <i className="fas fa-spinner fa-spin text-4xl text-primary"></i>
+                <i className="fas fa-spinner fa-spin text-4xl text-[#0f1e3d]"></i>
               </div>
             ) : error ? (
               <div className="text-center py-20 bg-red-50 rounded-xl">
-                <i className="fas fa-exclamation-triangle text-4xl text-red-500 mb-4"></i>
+                <i className="fas fa-exclamation-triangle text-4xl text-[#0f1e3d] mb-4"></i>
                 <h3 className="text-xl font-semibold text-gray-800">{error}</h3>
                 <button
                   onClick={() => window.location.reload()}
@@ -306,7 +306,7 @@ function PropertiesContent() {
                 </p>
                 <button
                   onClick={clearFilters}
-                  className="bg-primary text-secondary px-8 py-3 rounded-lg font-bold hover:bg-primary-dark transition-colors shadow-sm inline-flex items-center gap-2"
+                  className="bg-[#0f1e3d] text-secondary px-8 py-3 rounded-lg font-bold hover:bg-primary-dark transition-colors shadow-sm inline-flex items-center gap-2"
                 >
                   <i className="fas fa-times"></i>
                   Clear All Filters

@@ -152,7 +152,7 @@ export default function AboutPage() {
                 />
               </div>
               <div className="p-30">
-                <p className="text-orange-600 font-semibold mb-3">
+                <p className="text-[#e4c272] font-bold mb-3">
                   Meet Our Founder
                 </p>
                 {/* <h2 className="text-5xl  font-bold text-[#16243E] mb-10 "> */}
@@ -178,11 +178,11 @@ export default function AboutPage() {
 
             <div className="grid md:grid-cols-2 items-center pt-8 h-195">
               <div className="p-10 order-2 md:order-1 pr-30">
-                <p className="text-orange-600 font-semibold mb-3">
+                <p className="text-[#e4c272] font-bold mb-3">
                   Meet Our Founder
                 </p>
                 {/* <h2 className="text-5xl font-bold text-[#16243E] mb-10 "> */}
-                   <h2 className="text-3xl md:text-6xl font-bold text-[#16243E] mb-6">
+                <h2 className="text-3xl md:text-6xl font-bold text-[#16243E] mb-6">
                   Dashrathbhai Prajapati
                 </h2>
                 <p className="text-gray-500 leading-relaxed line-height-50 word-spacing-2 mb-4 text-xl">
@@ -273,7 +273,7 @@ export default function AboutPage() {
         </div>
       </section> */}
       {/* Stats */}
-      <section className="py-20 bg-gray-50">
+      <section className="pt-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-[#0f1e3d] mb-4">
@@ -283,26 +283,28 @@ export default function AboutPage() {
               Numbers that speak for themselves
             </p>
           </div>
-         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className='w-40 h-40 rounded-full bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">10K+</div>
-              <div className="text-gray-600">Properties Sold</div>
+          <section className="py-16 bg-gray-50">
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+                  <div className="text-5xl font-bold text-[#0f1e3d] mb-2">10K+</div>
+                  <div className="text-gray-600">Properties Sold</div>
+                </div>
+                <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+                  <div className="text-5xl font-bold text-[#0f1e3d] mb-2">5K+</div>
+                  <div className="text-gray-600">Happy Customers</div>
+                </div>
+                <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+                  <div className="text-5xl font-bold text-[#0f1e3d] mb-2">100+</div>
+                  <div className="text-gray-600">Expert Agents</div>
+                </div>
+                <div className='w-40 h-40 rounded-full p-25  bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+                  <div className="text-5xl font-bold text-[#0f1e3d] mb-2">15+</div>
+                  <div className="text-gray-600">Years Experience</div>
+                </div>
+              </div>
             </div>
-            <div className='w-40 h-40 rounded-full bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">5K+</div>
-              <div className="text-gray-600">Happy Customers</div>
-            </div>
-            <div className='w-40 h-40 rounded-full bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">100+</div>
-              <div className="text-gray-600">Expert Agents</div>
-            </div>
-            <div className='w-40 h-40 rounded-full bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">15+</div>
-              <div className="text-gray-600">Years Experience</div>
-            </div>
-          </div>
-        </div>
+          </section>
         </div>
       </section>
       {/* Our Values */}

@@ -70,12 +70,12 @@ export default function PropertyCard({ property }: PropertyCardProps) {
                     {/* Badges */}
                     <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
                         {property.featured && (
-                            <span className="bg-primary text-white px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide">
+                            <span className="bg-[#0f1e3d] text-white px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide">
                                 Featured
                             </span>
                         )}
-                        <span className={`${property.status === 'For Sale' ? 'bg-green-500' : 'bg-blue-500'
-                            } text-white px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide`}>
+                        <span className={`${property.status === 'For Sale' ? 'bg-[#e4c272]' : 'bg-[#e4c272]'
+                            } text-[#0f1e3d] px-3 py-1 rounded text-xs font-semibold uppercase tracking-wide`}>
                             {property.status}
                         </span>
                     </div>
@@ -95,19 +95,19 @@ export default function PropertyCard({ property }: PropertyCardProps) {
                 {/* Content */}
                 <div className="p-5">
                     {/* Price */}
-                    <div className="text-2xl font-bold text-primary mb-2">
+                    <div className="text-2xl font-bold text-[#0f1e3d] mb-2">
                         {formatPrice(property.price)}
                         {property.status === 'For Rent' && <span className="text-base text-gray-600">/mo</span>}
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-lg font-semibold text-secondary mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+                    <h3 className="text-lg font-semibold text-[#e4c272] mb-2 line-clamp-2 group-hover:text-[#0f1e3d] transition-colors">
                         {property.title}
                     </h3>
 
                     {/* Location */}
                     <div className="flex items-center text-gray-600 text-sm mb-4">
-                        <i className="fas fa-map-marker-alt text-primary mr-2"></i>
+                        <i className="fas fa-map-marker-alt text-[#e4c272] mr-2"></i>
                         {property.location}
                     </div>
 
@@ -115,16 +115,16 @@ export default function PropertyCard({ property }: PropertyCardProps) {
                     <div className="flex justify-between pt-4 border-t border-gray-200">
                         {property.bedrooms > 0 && (
                             <div className="flex items-center text-sm text-gray-600">
-                                <i className="fas fa-bed text-primary mr-2"></i>
+                                <i className="fas fa-bed text-[#e4c272] mr-2"></i>
                                 {property.bedrooms} Beds
                             </div>
                         )}
                         <div className="flex items-center text-sm text-gray-600">
-                            <i className="fas fa-bath text-primary mr-2"></i>
+                            <i className="fas fa-bath text-[#e4c272] mr-2"></i>
                             {property.bathrooms} Baths
                         </div>
                         <div className="flex items-center text-sm text-gray-600">
-                            <i className="fas fa-ruler-combined text-primary mr-2"></i>
+                            <i className="fas fa-ruler-combined text-[#e4c272] mr-2"></i>
                             {formatNumber(property.area)} sqft
                         </div>
                     </div>

@@ -180,14 +180,14 @@ export default function PropertyDetailsPage() {
                         <i className="fas fa-chevron-right text-xs"></i>
                         <button onClick={() => router.push('/properties')} className="hover:text-primary transition-colors">Properties</button>
                         <i className="fas fa-chevron-right text-xs"></i>
-                        <span className="text-secondary font-medium truncate">{property.title}</span>
+                        <span className="text-[#0f1e3d] font-medium truncate">{property.title}</span>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Main Content */}
                         <div className="lg:col-span-2">
                             {/* Image Carousel */}
-                            <div className="relative h-[400px] md:h-[550px] rounded-2xl overflow-hidden mb-8 group bg-gray-100 shadow-sm group">
+                            <div className="relative h-100 md:h-137.5 rounded-2xl overflow-hidden mb-8 group bg-gray-100 shadow-sm group">
                                 {images.length > 0 ? (
                                     <>
                                         <Image
@@ -222,7 +222,7 @@ export default function PropertyDetailsPage() {
                                                         <button
                                                             key={idx}
                                                             onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
-                                                            className={`w-2.5 h-2.5 rounded-full transition-all ${currentImageIndex === idx ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'}`}
+                                                            className={`w-2.5 h-2.5 rounded-full transition-all ${currentImageIndex === idx ? 'bg-[#e4c272] scale-125' : 'bg-white/50 hover:bg-white/80'}`}
                                                             aria-label={`Go to image ${idx + 1}`}
                                                         />
                                                     ))}
@@ -239,13 +239,13 @@ export default function PropertyDetailsPage() {
 
                                 <div className="absolute top-6 left-6 flex flex-wrap gap-2 z-10">
                                     {property.featured && (
-                                        <span className="bg-primary text-secondary px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wide shadow-lg flex items-center gap-2">
+                                        <span className="bg-[#0f1e3d] text-white px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wide shadow-lg flex items-center gap-2">
                                             <i className="fas fa-star text-xs"></i>
                                             Featured
                                         </span>
                                     )}
-                                    <span className={`${property.status === 'For Sale' ? 'bg-green-500' : 'bg-blue-500'
-                                        } text-white px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wide shadow-lg flex items-center gap-2`}>
+                                    <span className={`${property.status === 'For Sale' ? 'bg-[#e4c272]' : 'bg-[#e4c272]'
+                                        } text-[#0f1e3d] px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wide shadow-lg flex items-center gap-2`}>
                                         <i className={`fas ${property.status === 'For Sale' ? 'fa-tag' : 'fa-key'} text-xs`}></i>
                                         {property.status}
                                     </span>
@@ -268,7 +268,7 @@ export default function PropertyDetailsPage() {
                                         <button
                                             key={idx}
                                             onClick={() => setCurrentImageIndex(idx)}
-                                            className={`relative h-24 min-w-[6rem] md:min-w-[8rem] rounded-xl overflow-hidden cursor-pointer transition-all snap-start ${currentImageIndex === idx ? 'ring-4 ring-primary ring-offset-2' : 'hover:opacity-80'}`}
+                                            className={`relative h-24 min-w-24 md:min-w-32 rounded-xl overflow-hidden cursor-pointer transition-all snap-start ${currentImageIndex === idx ? 'ring-4 ring-primary ring-offset-2' : 'hover:opacity-80'}`}
                                         >
                                             <Image
                                                 src={imgUrl}
@@ -285,15 +285,15 @@ export default function PropertyDetailsPage() {
                             <div className="bg-white rounded-2xl shadow-sm p-6 md:p-8 mb-8 border border-gray-100">
                                 <div className="flex flex-col md:flex-row md:items-start justify-between mb-6 gap-4">
                                     <div>
-                                        <h1 className="text-3xl md:text-4xl font-bold text-secondary mb-3 leading-tight text-wrap">{property.title}</h1>
+                                        <h1 className="text-3xl md:text-4xl font-bold text-[#0f1e3d] mb-3 leading-tight text-wrap">{property.title}</h1>
                                         <div className="flex items-center text-gray-600">
-                                            <i className="fas fa-map-marker-alt text-primary mr-2 text-lg"></i>
+                                            <i className="fas fa-map-marker-alt text-[#e4c272] mr-2 text-lg"></i>
                                             <span className="text-lg">{property.location}</span>
                                         </div>
                                     </div>
                                     <div className="md:text-right bg-gray-50 p-4 rounded-xl border border-gray-100 self-start w-full md:w-auto">
                                         <div className="text-sm text-gray-500 font-medium mb-1">Asking Price</div>
-                                        <div className="text-3xl font-bold text-primary">
+                                        <div className="text-3xl font-bold text-[#0f1e3d]">
                                             {formatPrice(property.price)}
                                             {property.status === 'For Rent' && <span className="text-lg text-gray-600 font-normal">/mo</span>}
                                         </div>
@@ -304,25 +304,25 @@ export default function PropertyDetailsPage() {
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-8 border-y border-gray-100">
                                     {property.bedrooms > 0 && (
                                         <div className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl">
-                                            <i className="fas fa-bed text-2xl text-primary mb-3"></i>
-                                            <div className="font-bold text-secondary text-xl">{property.bedrooms}</div>
+                                            <i className="fas fa-bed text-2xl text-[#e4c272] mb-3"></i>
+                                            <div className="font-bold text-[#0f1e3d] text-xl">{property.bedrooms}</div>
                                             <div className="text-sm text-gray-500 font-medium">Bedrooms</div>
                                         </div>
                                     )}
                                     <div className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl">
-                                        <i className="fas fa-bath text-2xl text-primary mb-3"></i>
-                                        <div className="font-bold text-secondary text-xl">{property.bathrooms}</div>
+                                        <i className="fas fa-bath text-2xl text-[#e4c272] mb-3"></i>
+                                        <div className="font-bold text-[#0f1e3d] text-xl">{property.bathrooms}</div>
                                         <div className="text-sm text-gray-500 font-medium">Bathrooms</div>
                                     </div>
                                     <div className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl">
-                                        <i className="fas fa-ruler-combined text-2xl text-primary mb-3"></i>
-                                        <div className="font-bold text-secondary text-xl">{property.area.toLocaleString()}</div>
+                                        <i className="fas fa-ruler-combined text-2xl text-[#e4c272] mb-3"></i>
+                                        <div className="font-bold text-[#0f1e3d] text-xl">{property.area.toLocaleString()}</div>
                                         <div className="text-sm text-gray-500 font-medium">Sq Ft</div>
                                     </div>
                                     {property.parking !== undefined && property.parking > 0 && (
                                         <div className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl">
-                                            <i className="fas fa-car text-2xl text-primary mb-3"></i>
-                                            <div className="font-bold text-secondary text-xl">{property.parking}</div>
+                                            <i className="fas fa-car text-2xl text-[#e4c272] mb-3"></i>
+                                            <div className="font-bold text-[#0f1e3d] text-xl">{property.parking}</div>
                                             <div className="text-sm text-gray-500 font-medium">Parking Spaces</div>
                                         </div>
                                     )}
@@ -330,8 +330,8 @@ export default function PropertyDetailsPage() {
 
                                 {/* Description */}
                                 <div className="mt-8">
-                                    <h2 className="text-2xl font-bold text-secondary mb-4 flex items-center gap-2">
-                                        <i className="fas fa-align-left text-primary"></i>
+                                    <h2 className="text-2xl font-bold text-[#0f1e3d] mb-4 flex items-center gap-2">
+                                        <i className="fas fa-align-left text-[#e4c272]"></i>
                                         Description
                                     </h2>
                                     <div className="text-gray-600 leading-relaxed space-y-4">
@@ -343,32 +343,32 @@ export default function PropertyDetailsPage() {
 
                                 {/* Property Details */}
                                 <div className="mt-10">
-                                    <h2 className="text-2xl font-bold text-secondary mb-6 flex items-center gap-2">
-                                        <i className="fas fa-list-ul text-primary"></i>
+                                    <h2 className="text-2xl font-bold text-[#0f1e3d] mb-6 flex items-center gap-2">
+                                        <i className="fas fa-list-ul text-[#e4c272]"></i>
                                         Property Details
                                     </h2>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 bg-gray-50 p-6 rounded-xl border border-gray-100">
                                         <div className="flex justify-between items-center py-2 border-b border-gray-200">
                                             <span className="text-gray-500 font-medium">Property ID:</span>
-                                            <span className="font-bold text-secondary">#{property.id}</span>
+                                            <span className="font-bold text-[#0f1e3d]">#{property.id}</span>
                                         </div>
                                         <div className="flex justify-between items-center py-2 border-b border-gray-200">
                                             <span className="text-gray-500 font-medium">Property Type:</span>
-                                            <span className="font-bold text-secondary">{property.type}</span>
+                                            <span className="font-bold text-[#0f1e3d]">{property.type}</span>
                                         </div>
                                         <div className="flex justify-between items-center py-2 border-b border-gray-200">
                                             <span className="text-gray-500 font-medium">Status:</span>
-                                            <span className="font-bold text-secondary">{property.status}</span>
+                                            <span className="font-bold text-[#0f1e3d]">{property.status}</span>
                                         </div>
                                         {property.yearBuilt ? (
                                             <div className="flex justify-between items-center py-2 border-b border-gray-200">
                                                 <span className="text-gray-500 font-medium">Year Built:</span>
-                                                <span className="font-bold text-secondary">{property.yearBuilt}</span>
+                                                <span className="font-bold text-[#0f1e3d]">{property.yearBuilt}</span>
                                             </div>
                                         ) : null}
                                         <div className="flex justify-between items-center py-2 border-b border-gray-200 md:col-span-2">
                                             <span className="text-gray-500 font-medium">Area:</span>
-                                            <span className="font-bold text-secondary">{property.area.toLocaleString()} sqft</span>
+                                            <span className="font-bold text-[#0f1e3d]">{property.area.toLocaleString()} sqft</span>
                                         </div>
                                     </div>
                                 </div>
@@ -376,15 +376,15 @@ export default function PropertyDetailsPage() {
                                 {/* Amenities */}
                                 {property.amenities && property.amenities.length > 0 && (
                                     <div className="mt-10">
-                                        <h2 className="text-2xl font-bold text-secondary mb-6 flex items-center gap-2">
-                                            <i className="fas fa-concierge-bell text-primary"></i>
+                                        <h2 className="text-2xl font-bold text-[#0f1e3d] mb-6 flex items-center gap-2">
+                                            <i className="fas fa-concierge-bell text-[#e4c272]"></i>
                                             Features & Amenities
                                         </h2>
                                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                             {property.amenities.map((amenity, index) => (
                                                 <div key={index} className="flex items-center gap-3 text-gray-700 bg-gray-50 p-3 rounded-lg border border-gray-100">
-                                                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                                                        <i className="fas fa-check text-primary text-xs"></i>
+                                                    <div className="w-6 h-6 rounded-full bg-[#e4c272]/20 flex items-center justify-center shrink-0">
+                                                        <i className="fas fa-check text-[#e4c272] text-xs"></i>
                                                     </div>
                                                     <span className="font-medium">{amenity}</span>
                                                 </div>
@@ -404,12 +404,12 @@ export default function PropertyDetailsPage() {
                                         <i className="fas fa-user-tie text-2xl text-gray-400"></i>
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-secondary text-lg">Listing Agent</h3>
-                                        <p className="text-primary font-medium text-sm">VeerRealEstate Team</p>
+                                        <h3 className="font-bold text-[#0f1e3d] text-lg">Listing Agent</h3>
+                                        <p className="text-[#e4c272] font-medium text-sm">Avishkar Team</p>
                                     </div>
                                 </div>
 
-                                <h3 className="text-xl font-bold text-secondary mb-6">Request Information</h3>
+                                <h3 className="text-xl font-bold text-[#0f1e3d] mb-6">Request Information</h3>
                                 <form className="space-y-4">
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
@@ -420,7 +420,7 @@ export default function PropertyDetailsPage() {
                                             <input
                                                 type="text"
                                                 placeholder="John Doe"
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-gray-50 focus:bg-white transition-colors"
+                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20 bg-gray-50 focus:bg-white transition-colors"
                                             />
                                         </div>
                                     </div>
@@ -433,7 +433,7 @@ export default function PropertyDetailsPage() {
                                             <input
                                                 type="email"
                                                 placeholder="john@example.com"
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-gray-50 focus:bg-white transition-colors"
+                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20 bg-gray-50 focus:bg-white transition-colors"
                                             />
                                         </div>
                                     </div>
@@ -446,7 +446,7 @@ export default function PropertyDetailsPage() {
                                             <input
                                                 type="tel"
                                                 placeholder="+91 98765 43210"
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-gray-50 focus:bg-white transition-colors"
+                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20 bg-gray-50 focus:bg-white transition-colors"
                                             />
                                         </div>
                                     </div>
@@ -454,14 +454,14 @@ export default function PropertyDetailsPage() {
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
                                         <textarea
                                             rows={4}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-gray-50 focus:bg-white transition-colors resize-none"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20 bg-gray-50 focus:bg-white transition-colors resize-none"
                                             defaultValue={`Hi, I'm interested in viewing "${property.title}". Please get in touch with me to schedule a visit.`}
                                         ></textarea>
                                     </div>
                                     <button
                                         type="button"
                                         onClick={(e) => { e.preventDefault(); alert('Message sent successfully! Our team will contact you soon.'); }}
-                                        className="w-full bg-primary text-secondary px-6 py-4 rounded-xl font-bold hover:bg-primary-dark transition-colors shadow-lg shadow-primary/30 flex items-center justify-center gap-2 mt-2"
+                                        className="w-full bg-white text-[#0f1e3d] border border-[#0f1e3d] px-6 py-4 rounded-xl font-bold hover:bg-[#0f1e3d] hover:text-[#e4c272] transition-colors shadow-lg shadow-[#e4c272]/30 flex items-center justify-center gap-2 mt-2"
                                     >
                                         <i className="fas fa-paper-plane"></i>
                                         Send Message
@@ -471,8 +471,8 @@ export default function PropertyDetailsPage() {
 
                             {/* Share */}
                             <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
-                                <h3 className="text-xl font-bold text-secondary mb-4 flex items-center gap-2">
-                                    <i className="fas fa-share-alt text-primary"></i>
+                                <h3 className="text-xl font-bold text-[#0f1e3d] mb-4 flex items-center gap-2">
+                                    <i className="fas fa-share-alt text-[#0f1e3d]"></i>
                                     Share Property
                                 </h3>
                                 <div className="grid grid-cols-4 gap-3">
@@ -505,10 +505,10 @@ export default function PropertyDetailsPage() {
                         <div className="mt-24 mb-12">
                             <div className="flex items-end justify-between mb-8">
                                 <div>
-                                    <h2 className="text-sm font-bold text-primary uppercase tracking-widest mb-1 mt-2">More Options</h2>
-                                    <h3 className="text-3xl md:text-4xl font-bold text-secondary">Similar Properties</h3>
+                                    <h2 className="text-sm font-bold text-[#e4c272] uppercase tracking-widest mb-1 mt-2">More Options</h2>
+                                    <h3 className="text-3xl md:text-4xl font-bold text-[#0f1e3d]">Similar Properties</h3>
                                 </div>
-                                <button onClick={() => router.push('/properties')} className="hidden md:flex items-center gap-2 text-primary font-semibold hover:text-primary-dark transition-colors border-2 border-primary/20 hover:border-primary px-5 py-2.5 rounded-full">
+                                <button onClick={() => router.push('/properties')} className="hidden md:flex items-center gap-2 text-[#0f1e3d] font-semibold hover:bg-[#e4c272] transition-colors border-2 border-[#0f1e3d] px-5 py-2.5 rounded-full">
                                     View All <i className="fas fa-arrow-right"></i>
                                 </button>
                             </div>
@@ -517,7 +517,7 @@ export default function PropertyDetailsPage() {
                                     <PropertyCard key={prop.id} property={prop} />
                                 ))}
                             </div>
-                            <button onClick={() => router.push('/properties')} className="mt-8 w-full md:hidden flex items-center justify-center gap-2 text-primary font-semibold border-2 border-primary/20 px-5 py-3 rounded-xl">
+                            <button onClick={() => router.push('/properties')} className="mt-8 w-full md:hidden flex items-center justify-center gap-2 text-[#0f1e3d] font-semibold border-2 border-primary/20 px-5 py-3 rounded-xl">
                                 View All Properties <i className="fas fa-arrow-right"></i>
                             </button>
                         </div>

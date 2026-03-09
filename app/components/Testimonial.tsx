@@ -273,8 +273,7 @@ const Testimonial = () => {
                 }`}
               >
                 {/* Golden Hover Background */}
-                <div className="absolute bottom-0 left-0 w-full h-0 bg-[#e4c272bf] 
-  backdrop-blur-md transition-all duration-500 group-hover:h-full z-0 "></div>
+                <div className="absolute bottom-0 left-0 w-full h-0 bg-linear-to-t from-[#e4c272]/70 via-[#e4c272]/40 to-transparent backdrop-blur-md transition-all duration-500 group-hover:h-full z-0"></div>
 
                 <div className="relative z-10">
 

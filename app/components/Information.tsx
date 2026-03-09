@@ -18,8 +18,10 @@ const Information = () => {
                 Address
               </h3>
               <p className="text-gray-700 mt-1 text-sm leading-relaxed">
-                Status Elysium, 23, Road, nr. Shree Vishnudhara Gardens,
-                Gota, Ahmedabad, Gujarat 382481
+                <a href="https://www.google.com/maps/place/Status+Elysium,+23,+Road,+nr.+Shree+Vishnudhara+Gardens,+Gota,+Ahmedabad,+Gujarat+382481" target="_blank" rel="noopener noreferrer" className="text-[#0f1e3d] hover:underline">
+                  Status Elysium, 23, Road, nr. Shree Vishnudhara Gardens,
+                  Gota, Ahmedabad, Gujarat 382481
+                </a>
               </p>
             </div>
           </div>
@@ -34,7 +36,9 @@ const Information = () => {
                 Send Email
               </h3>
               <p className="text-gray-700 mt-1 text-sm">
-                avishkarrealty1@gmail.com
+                <a href="mailto:avishkarrealty1@gmail.com" className="text-[#0f1e3d] hover:underline ">
+                  avishkarrealty1@gmail.com
+                </a>
               </p>
             </div>
           </div>
@@ -48,8 +52,10 @@ const Information = () => {
               <h3 className="text-[#0f1e3d] font-semibold text-lg">
                 Call
               </h3>
-              <p className="text-gray-700 mt-1 text-sm">
-                +91 70413 95595
+              <p className="text-gray-700 mt-1 text-sm hover:underline">
+                <a href="tel:+917041395595" className="text-[#0f1e3d] hover:underline">
+                  +91 70413 95595
+                </a>
               </p>
             </div>
           </div>

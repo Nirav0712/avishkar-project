@@ -167,8 +167,8 @@ export default function BlogPage() {
                                 key={category}
                                 onClick={() => setSelectedCategory(category)}
                                 className={`px-6 py-2 rounded-full font-medium transition-all ${selectedCategory === category
-                                    ? 'bg-primary text-white'
-                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                    ? 'bg-[#0f1e3d] text-white'
+                                    : 'bg-gray-100 text-gray-700 hover:bg-[#0f1e3d] hover:text-[#e4c272] transition-colors'
                                     }`}
                             >
                                 {category}
@@ -193,7 +193,7 @@ export default function BlogPage() {
                                         className="object-cover group-hover:scale-110 transition-transform duration-500"
                                     />
                                     <div className="absolute top-4 left-4">
-                                        <span className="bg-primary text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                        <span className="bg-[#e4c272] text-[#0f1e3d] px-3 py-1 rounded-full text-xs font-semibold">
                                             {post.category}
                                         </span>
                                     </div>
@@ -204,17 +204,17 @@ export default function BlogPage() {
                                     {/* Meta */}
                                     <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
                                         <div className="flex items-center gap-1">
-                                            <i className="fas fa-user text-primary"></i>
+                                            <i className="fas fa-user text-[#e4c272]"></i>
                                             <span>{post.author}</span>
                                         </div>
                                         <div className="flex items-center gap-1">
-                                            <i className="fas fa-clock text-primary"></i>
+                                            <i className="fas fa-clock text-[#e4c272]"></i>
                                             <span>{post.readTime}</span>
                                         </div>
                                     </div>
 
                                     {/* Title */}
-                                    <h2 className="text-xl font-bold text-secondary mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                                    <h2 className="text-xl font-bold text-[#0f1e3d] mb-3 line-clamp-2 group-hover:text-[#e4c272] transition-colors">
                                         {post.title}
                                     </h2>
 
@@ -228,7 +228,7 @@ export default function BlogPage() {
                                         <span className="text-sm text-gray-500">{post.date}</span>
                                         <Link
                                             href={`/blog/${post.id}`}
-                                            className="text-primary font-medium hover:text-primary-dark transition-colors flex items-center gap-2"
+                                            className="text-[#e4c272] font-medium hover:text-[#0f1e3d] transition-colors flex items-center gap-2"
                                         >
                                             Read More
                                             <i className="fas fa-arrow-right"></i>

@@ -201,18 +201,16 @@ export default function HomePage() {
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 bg-white/20 backdrop-blur-md p-4 md:p-6 rounded-xl border border-white/30 shadow-lg"
               >
                 {/* Property Type */}
-                <select
-                  name="type"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-500"
-                >
-                  <option value="">Property Types</option>
-                  <option value="Apartment">Apartment</option>
-                  <option value="Commercial">Commercial Shops</option>
-                  <option value="Commercial">Commercial Office</option>
-                  <option value="Industrial">Industrial</option>
-                  <option value="Banglow">Bunglows</option>
-                  <option value="Land">Land</option>
-                  <option value="Plot">Plot</option>
+                <select name="type" className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-500 ">
+                {/* <select name="type" className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-700"> */}
+                  <option  value="" >Property Types</option>
+                  <option  value="Apartment">Apartment</option>
+                  <option  value="Commercial">Commercial Shops</option>
+                  <option  value="Commercial">Commercial Office</option>
+                  <option  value="Industrial">Industrial</option>
+                  <option  value="Banglow">Bunglows</option>
+                  <option  value="Land">Land</option>
+                  <option  value="Plot">Plot</option> 
                 </select>
 
                 {/* Location */}
@@ -222,7 +220,7 @@ export default function HomePage() {
                   placeholder="Enter Location"
                   className="px-4 py-3 bg-white/80 rounded-lg 
              focus:outline-none focus:ring-2 
-             focus:ring-primary text-black w-full  placeholder:text-gray-500"
+             focus:ring-[#e4c272] text-black w-full  placeholder:text-gray-500"
                 />
                 {/* <select
                   name="location"
@@ -237,9 +235,9 @@ export default function HomePage() {
                 {/* BHK */}
                 <select
                   name="bhk"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-500"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-500"
                 >
-                  <option value="">BHK</option>
+                  <option value="" >BHK</option>
                   <option value="1">1 BHK</option>
                   <option value="2">2 BHK</option>
                   <option value="3">3 BHK</option>
@@ -254,11 +252,11 @@ export default function HomePage() {
                   placeholder="Enter Min Budget"
                   className="px-4 py-3 bg-white/80 rounded-lg 
              focus:outline-none focus:ring-2 
-             focus:ring-primary text-black w-full  placeholder:text-gray-500"
+             focus:ring-[#e4c272] text-black w-full  placeholder:text-gray-500"
                 />
                 {/* <select
                   name="minBudget"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-800"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-800"
                 >
                   <option value="">Min Budget</option>
                   {Array.from(new Set(properties
@@ -277,11 +275,11 @@ export default function HomePage() {
                   placeholder="Enter Max Budget"
                   className="px-4 py-3 bg-white/80 rounded-lg 
              focus:outline-none focus:ring-2 
-             focus:ring-primary text-black w-full  placeholder:text-gray-500"
+             focus:ring-[#e4c272] text-black w-full  placeholder:text-gray-500"
                 />
                 {/* <select
                   name="maxBudget"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-800"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-800"
                 >
                   <option value="">Max Budget</option>
                   {Array.from(new Set(properties
@@ -296,7 +294,7 @@ export default function HomePage() {
                 {/* Transaction */}
                 <select
                   name="transaction"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-500"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-500"
                 >
                   <option value="">Transaction</option>
                   <option value="new">New Property</option>
@@ -307,7 +305,7 @@ export default function HomePage() {
                 {/* Search Button */}
                 <button
                   type="submit"
-                  className="bg-[#0f1e3d] text-white px-6 py-3 rounded-lg font-semibold transition-all hover:-translate-y-0.5 hover:shadow-md col-span-1 sm:col-span-2 lg:col-span-3 hover:bg-white hover:text-black"
+                  className="bg-[#0f1e3d] text-[#e4c272] border-2 border-[#e4c272] px-6 py-3 rounded-lg font-semibold transition-all hover:bg-[#e4c272] hover:text-[#0f1e3d] hover:border-[#0f1e3d] hover:-translate-y-0.5 hover:shadow-md col-span-1 sm:col-span-2 lg:col-span-3"
                 >
                   Search
                 </button>
@@ -340,7 +338,7 @@ export default function HomePage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-secondary mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-4">
               Featured Properties
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -356,8 +354,8 @@ export default function HomePage() {
                 key={type}
                 onClick={() => setActiveTab(type)}
                 className={`px-6 py-2.5 rounded-lg font-medium transition-colors ${activeTab === type
-                  ? "bg-primary text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-300"
+                  ? "bg-[#0f1e3d] text-[#e4c272]"
+                  : "bg-white text-gray-700 hover:bg-[#0f1e3d] hover:text-[#e4c272] border border-gray-300"
                   }`}
               >
                 {type === "all" ? "All" : `${type}s`}
