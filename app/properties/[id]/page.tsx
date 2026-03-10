@@ -190,12 +190,12 @@ export default function PropertyDetailsPage() {
                             <div className="relative h-100 md:h-137.5 rounded-2xl overflow-hidden mb-8 group bg-gray-100 shadow-sm group">
                                 {images.length > 0 ? (
                                     <>
-                                        <Image
+                                        <img
                                             src={images[currentImageIndex]}
                                             alt={`${property.title} - Image ${currentImageIndex + 1}`}
-                                            fill
+                                            
                                             className="object-contain"
-                                            priority
+                                            // priority
                                         />
 
                                         {images.length > 1 && (
@@ -270,10 +270,10 @@ export default function PropertyDetailsPage() {
                                             onClick={() => setCurrentImageIndex(idx)}
                                             className={`relative h-24 min-w-24 md:min-w-32 rounded-xl overflow-hidden cursor-pointer transition-all snap-start ${currentImageIndex === idx ? 'ring-4 ring-primary ring-offset-2' : 'hover:opacity-80'}`}
                                         >
-                                            <Image
+                                            <img
                                                 src={imgUrl}
                                                 alt={`Thumbnail ${idx + 1}`}
-                                                fill
+                                                
                                                 className="object-cover"
                                             />
                                         </button>
@@ -420,7 +420,7 @@ export default function PropertyDetailsPage() {
                                             <input
                                                 type="text"
                                                 placeholder="John Doe"
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20 bg-gray-50 focus:bg-white transition-colors"
+                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20 bg-gray-50 focus:bg-white transition-colors"
                                             />
                                         </div>
                                     </div>
@@ -433,7 +433,7 @@ export default function PropertyDetailsPage() {
                                             <input
                                                 type="email"
                                                 placeholder="john@example.com"
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20 bg-gray-50 focus:bg-white transition-colors"
+                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20 bg-gray-50 focus:bg-white transition-colors"
                                             />
                                         </div>
                                     </div>
@@ -446,7 +446,7 @@ export default function PropertyDetailsPage() {
                                             <input
                                                 type="tel"
                                                 placeholder="+91 98765 43210"
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20 bg-gray-50 focus:bg-white transition-colors"
+                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20 bg-gray-50 focus:bg-white transition-colors"
                                             />
                                         </div>
                                     </div>
@@ -454,14 +454,14 @@ export default function PropertyDetailsPage() {
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
                                         <textarea
                                             rows={4}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20 bg-gray-50 focus:bg-white transition-colors resize-none"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20 bg-gray-50 focus:bg-white transition-colors resize-none"
                                             defaultValue={`Hi, I'm interested in viewing "${property.title}". Please get in touch with me to schedule a visit.`}
                                         ></textarea>
                                     </div>
                                     <button
                                         type="button"
                                         onClick={(e) => { e.preventDefault(); alert('Message sent successfully! Our team will contact you soon.'); }}
-                                        className="w-full bg-white text-[#0f1e3d] border border-[#0f1e3d] px-6 py-4 rounded-xl font-bold hover:bg-[#0f1e3d] hover:text-[#e4c272] transition-colors shadow-lg shadow-[#e4c272]/30 flex items-center justify-center gap-2 mt-2"
+                                        className="w-full bg-white text-[#0f1e3d] border border-[#0f1e3d] px-6 py-4 rounded-xl font-bold hover:bg-[#0f1e3d] hover:text-[#e4c272] transition-colors shadow-lg shadow-gray-300/30 flex items-center justify-center gap-2 mt-2"
                                     >
                                         <i className="fas fa-paper-plane"></i>
                                         Send Message

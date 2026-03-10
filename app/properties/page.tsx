@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PropertyCard from "../components/PropertyCard";
 import { type Property } from "@/lib/properties";
+import Information from "../components/Information";
 
 function PropertiesContent() {
   const searchParams = useSearchParams();
@@ -147,7 +148,7 @@ function PropertiesContent() {
                 <h2 className="text-xl font-bold text-secondary">Filters</h2>
                 <button
                   onClick={clearFilters}
-                  className="text-sm text-primary hover:text-primary-dark font-medium"
+                  className="text-sm text-[#0f1e3d] hover:text-[#e4c272] hover:bg-[#0f1e3d] p-2  font-medium"
                 >
                   Clear All
                 </button>
@@ -163,7 +164,7 @@ function PropertiesContent() {
                     name="status"
                     value={filters.status}
                     onChange={handleFilterChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                   >
                     <option value="all">All</option>
                     <option value="For Sale">For Sale</option>
@@ -180,7 +181,7 @@ function PropertiesContent() {
                     name="type"
                     value={filters.type}
                     onChange={handleFilterChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                   >
                     <option value="all">All Types</option>
                     <option value="Villa">Villa</option>
@@ -204,7 +205,7 @@ function PropertiesContent() {
                       value={filters.minPrice}
                       onChange={handleFilterChange}
                       placeholder="Min"
-                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20 w-full"
+                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20 w-full"
                     />
                     <input
                       type="number"
@@ -212,7 +213,7 @@ function PropertiesContent() {
                       value={filters.maxPrice}
                       onChange={handleFilterChange}
                       placeholder="Max"
-                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20 w-full"
+                      className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20 w-full"
                     />
                   </div>
                 </div>
@@ -226,7 +227,7 @@ function PropertiesContent() {
                     name="bedrooms"
                     value={filters.bedrooms}
                     onChange={handleFilterChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                   >
                     <option value="all">All</option>
                     <option value="1">1+</option>
@@ -248,7 +249,7 @@ function PropertiesContent() {
                     value={filters.location}
                     onChange={handleFilterChange}
                     placeholder="City, State..."
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]/20"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                   />
                 </div>
 
@@ -317,6 +318,7 @@ function PropertiesContent() {
         </div>
       </div>
 
+      <Information />
       <Footer />
     </>
   );

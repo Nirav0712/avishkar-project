@@ -60,10 +60,10 @@ export default function PropertyCard({ property }: PropertyCardProps) {
             <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
                 {/* Image */}
                 <div className="relative h-64 overflow-hidden">
-                    <Image
+                    <img
                         src={property.image.split(',')[0]}
                         alt={property.title}
-                        fill
+                        
                         className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
 
@@ -101,7 +101,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-lg font-semibold text-[#e4c272] mb-2 line-clamp-2 group-hover:text-[#0f1e3d] transition-colors">
+                    <h3 className="text-lg font-semibold text-[#0f1e3d] mb-2 line-clamp-2 group-hover:text-[#e4c272] transition-colors">
                         {property.title}
                     </h3>
 

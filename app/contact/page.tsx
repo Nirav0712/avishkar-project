@@ -21,17 +21,41 @@ export default function ContactPage() {
     });
   };
 
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   alert('Thank you for contacting us! We\'ll get back to you soon.');
+  //   setFormData({
+  //     name: '',
+  //     email: '',
+  //     phone: '',
+  //     subject: '',
+  //     message: ''
+  //   });
+  // };
+
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Thank you for contacting us! We\'ll get back to you soon.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
-    });
+
+    const phoneNumber = "917069754589"; // your WhatsApp number with country code (no +)
+
+    const message = `New Contact Form Message
+
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Subject: ${formData.subject}
+
+Message:
+${formData.message}
+  `;
+
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappURL, "_blank");
   };
+
+
 
   return (
     <>
@@ -220,7 +244,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                         placeholder="Rajesh Kumar"
                       />
                     </div>
@@ -232,7 +256,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                         placeholder="rajesh@example.com"
                       />
                     </div>
@@ -246,7 +270,7 @@ export default function ContactPage() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                         placeholder="+91 98765 43210"
                       />
                     </div>
@@ -257,7 +281,7 @@ export default function ContactPage() {
                         value={formData.subject}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                       >
                         <option value="">Select a subject</option>
                         <option value="general">General Inquiry</option>
@@ -277,23 +301,33 @@ export default function ContactPage() {
                       onChange={handleChange}
                       required
                       rows={6}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#e4c272] focus:ring-2 focus:ring-[#e4c272]"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                       placeholder="Tell us how we can help you..."
                     ></textarea>
                   </div>
 
+                  {/* <button
+                    type="submit"
+                    className="w-full bg-[#0f1e3d] text-[#e4c272] border border-[#e4c272] px-8 py-4 rounded-lg font-semibold hover:bg-[#e4c272] hover:text-[#0f1e3d] hover:border-[#0f1e3d] transition-colors text-lg"
+                  >
+                    <i className="fas fa-paper-plane mr-2"></i>
+                    Send Message
+                  </button> */}
                   <button
                     type="submit"
-                    className="w-full bg-[#e4c272] text-[#0f1e3d] border border-[#0f1e3d] px-8 py-4 rounded-lg font-semibold hover:bg-[#0f1e3d] hover:text-[#e4c272] transition-colors text-lg"
+                    className="w-full bg-[#0f1e3d] text-[#e4c272] border border-[#e4c272] px-8 py-4 rounded-lg font-semibold hover:bg-[#e4c272] hover:text-[#0f1e3d] hover:border-[#0f1e3d] transition-colors text-lg"
                   >
                     <i className="fas fa-paper-plane mr-2"></i>
                     Send Message
                   </button>
+
                 </form>
               </div>
             </div>
+
+
           </div>
-        </div>  
+        </div>
       </section>
 
       {/* Map Section */}

@@ -338,10 +338,10 @@ export default function AdminDashboard() {
                                         <tr key={property.id} className="hover:bg-gray-50 transition-colors">
                                             <td className="px-6 py-4">
                                                 <div className="relative w-20 h-20 rounded-lg overflow-hidden">
-                                                    <Image
+                                                    <img
                                                         src={property.image.split(',')[0]}
                                                         alt={property.title}
-                                                        fill
+                                                        
                                                         className="object-cover"
                                                     />
                                                 </div>
@@ -574,10 +574,10 @@ export default function AdminDashboard() {
                                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                                             {formData.image.split(',').filter(Boolean).map((url, idx) => (
                                                 <div key={idx} className="relative w-full h-32 rounded-lg overflow-hidden border border-gray-200">
-                                                    <Image
+                                                    <img
                                                         src={url}
                                                         alt={`Preview ${idx + 1}`}
-                                                        fill
+                                                        
                                                         className="object-cover"
                                                     />
                                                     <button

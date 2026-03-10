@@ -201,7 +201,7 @@ export default function HomePage() {
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 bg-white/20 backdrop-blur-md p-4 md:p-6 rounded-xl border border-white/30 shadow-lg"
               >
                 {/* Property Type */}
-                <select name="type" className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-500 ">
+                <select name="type" className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-500 ">
                 {/* <select name="type" className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-700"> */}
                   <option  value="" >Property Types</option>
                   <option  value="Apartment">Apartment</option>
@@ -218,9 +218,7 @@ export default function HomePage() {
                   type="text"
                   name="location"
                   placeholder="Enter Location"
-                  className="px-4 py-3 bg-white/80 rounded-lg 
-             focus:outline-none focus:ring-2 
-             focus:ring-[#e4c272] text-black w-full  placeholder:text-gray-500"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-black w-full  placeholder:text-gray-500"
                 />
                 {/* <select
                   name="location"
@@ -235,7 +233,7 @@ export default function HomePage() {
                 {/* BHK */}
                 <select
                   name="bhk"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-500"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-500"
                 >
                   <option value="" >BHK</option>
                   <option value="1">1 BHK</option>
@@ -250,13 +248,11 @@ export default function HomePage() {
                   type="number"
                   name="minBudget"
                   placeholder="Enter Min Budget"
-                  className="px-4 py-3 bg-white/80 rounded-lg 
-             focus:outline-none focus:ring-2 
-             focus:ring-[#e4c272] text-black w-full  placeholder:text-gray-500"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-black w-full  placeholder:text-gray-500"
                 />
                 {/* <select
                   name="minBudget"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-800"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-800"
                 >
                   <option value="">Min Budget</option>
                   {Array.from(new Set(properties
@@ -275,11 +271,11 @@ export default function HomePage() {
                   placeholder="Enter Max Budget"
                   className="px-4 py-3 bg-white/80 rounded-lg 
              focus:outline-none focus:ring-2 
-             focus:ring-[#e4c272] text-black w-full  placeholder:text-gray-500"
+             focus:ring-[#0f1e3d] text-black w-full  placeholder:text-gray-500"
                 />
                 {/* <select
                   name="maxBudget"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-800"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-800"
                 >
                   <option value="">Max Budget</option>
                   {Array.from(new Set(properties
@@ -294,7 +290,7 @@ export default function HomePage() {
                 {/* Transaction */}
                 <select
                   name="transaction"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-500"
+                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-500"
                 >
                   <option value="">Transaction</option>
                   <option value="new">New Property</option>

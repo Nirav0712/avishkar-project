@@ -435,7 +435,7 @@ export default function ProjectDetailsPage() {
 
                 {similarProjects.map((item) => (
 
-                  <div key={item.id} className="bg-white shadow p-4 border border-[#e4c272] rounded-xl hover:shadow-lg transition cursor-pointer">
+                  <div key={item.id} className="bg-white shadow p-4 rounded-xl hover:shadow-lg transition cursor-pointer">
 
                     <Image
                       src={item.image}
