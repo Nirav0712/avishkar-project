@@ -24,8 +24,8 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         {children}
-        <WhatsappButton phoneNumber="+919876543210" />
-        <CallingButton phoneNumber="+919876543210" />
+        <WhatsappButton phoneNumber="+917041395595" />
+        {/* <CallingButton phoneNumber="+919876543210" /> */}
       </body>
     </html>
   );

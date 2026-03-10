@@ -37,7 +37,7 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const phoneNumber = "917069754589"; // your WhatsApp number with country code (no +)
+    const phoneNumber = "917041395595"; // your WhatsApp number with country code (no +)
 
     const message = `New Contact Form Message
 

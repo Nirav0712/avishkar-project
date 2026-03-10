@@ -160,17 +160,10 @@ export default function AboutPage() {
                   Ajay Prajapati
                 </h2>
                 <p className="text-gray-500 leading-relaxed mb-4 line-height-50 word-spacing-2 text-xl">
-                  The foundation of Avishkar Realty was laid by a visionary
-                  leader with a deep passion for real estate and a commitment to
-                  delivering excellence. With years of experience in property
-                  consulting, investments, and project management, our founder
-                  has built a trusted brand that prioritizes transparency,
-                  innovation, and client satisfaction.
+                  The foundation of Avishkar Realty was laid by a visionary leader with a deep passion for real estate and a commitment to delivering excellence. With years of experience in property consulting, investments, and project management, our founder has built a trusted brand that prioritizes transparency, innovation, and client satisfaction.
                 </p>
                 <p className="text-gray-500 leading-relaxed line-height-50 word-spacing-2 text-xl">
-                  Driven by the belief that real estate is not just about
-                  property but about creating long-term value, our founder
-                  ensures every deal is built on trust, integrity, and results.
+                  Driven by the belief that real estate is not just about property but about creating long-term value, our founder ensures every deal is built on trust, integrity, and results.
                 </p>
               </div>
             </div>
@@ -186,15 +179,10 @@ export default function AboutPage() {
                   Dashrathbhai Prajapati
                 </h2>
                 <p className="text-gray-500 leading-relaxed line-height-50 word-spacing-2 mb-4 text-xl">
-                  Our founder continues to guide the company with strategic
-                  insight and a client-first approach — ensuring that every real
-                  estate transaction delivers exceptional value and long-term
-                  success.
+                  Our founder continues to guide the company with strategic insight and a client-first approach — ensuring that every real estate transaction delivers exceptional value and long-term success.
                 </p>
                 <p className="text-gray-500 leading-relaxed line-height-50 word-spacing-2 text-xl">
-                  With a strong focus on integrity and innovation, we aim to
-                  redefine the property experience for buyers, sellers, and
-                  investors alike.
+                  With a strong focus on integrity and innovation, we aim to redefine the property experience for buyers, sellers, and investors alike.
                 </p>
               </div>
               <div className="relative w-full h-175 order-1 md:order-2 rounded-2xl overflow-hidden border-2 border-[#e4c272] shadow-xl group transform transition duration-500 hover:-translate-y-3">

@@ -13,7 +13,7 @@ import Partner from "./components/Partner";
 import Information from "./components/Information";
 import Facilities from "./components/Facilities";
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 export default function HomePage() {
   const [properties, setProperties] = useState<Property[]>([]);
@@ -22,11 +22,16 @@ export default function HomePage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const heroImages = [
-    "https://plus.unsplash.com/premium_photo-1746387628298-af5695a3f935?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHByb3BlcnRpZXN8ZW58MHx8MHx8fDA%3D",
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
-    "https://images.unsplash.com/photo-1635108199395-8cd24af60af1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fHByb3BlcnRpZXN8ZW58MHx8MHx8fDA%3D",
-    "https://images.unsplash.com/photo-1756435292384-1bf32eff7baf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjU0fHxwcm9wZXJ0aWVzfGVufDB8fDB8fHww",
-    "https://images.unsplash.com/photo-1602941525421-8f8b81d3edbb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvcGVydGllc3xlbnwwfHwwfHx8MA%3D%3D",
+    "/images/slider/slider1.jpeg",
+    "/images/slider/slider4.jpeg",
+    "/images/slider/slider3.jpeg",
+    "/images/slider/slider2.jpeg",
+    "/images/slider/slider5.jpeg",
+    // "https://plus.unsplash.com/premium_photo-1746387628298-af5695a3f935?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHByb3BlcnRpZXN8ZW58MHx8MHx8fDA%3D",
+    // "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
+    // "https://images.unsplash.com/photo-1635108199395-8cd24af60af1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fHByb3BlcnRpZXN8ZW58MHx8MHx8fDA%3D",
+    // "https://images.unsplash.com/photo-1756435292384-1bf32eff7baf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjU0fHxwcm9wZXJ0aWVzfGVufDB8fDB8fHww",
+    // "https://images.unsplash.com/photo-1602941525421-8f8b81d3edbb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvcGVydGllc3xlbnwwfHwwfHx8MA%3D%3D",
   ];
   const sliderImages = [
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=80",
@@ -178,28 +183,28 @@ export default function HomePage() {
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 w-full px-4">
               <button
                 onClick={() => handleCategoryClick("Commercial")}
-                className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
+                className="w-full md:w-auto px-8 py-3 rounded-xl border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
               >
                 Commercial →
               </button>
 
               <button
                 onClick={() => handleCategoryClick("Residential")}
-                className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
+                className="w-full md:w-auto px-8 py-3 rounded-xl border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
               >
                 Residential →
               </button>
 
               <button
                 onClick={() => handleCategoryClick("Industrial")}
-                className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
+                className="w-full md:w-auto px-8 py-3 rounded-xl border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
               >
                 Industrial →
               </button>
 
               <Link href="/project">
                 <button
-                  className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
+                  className="w-full md:w-auto px-8 py-3 rounded-xl border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
                 >
                   New Projects →
                 </button>
@@ -346,7 +351,7 @@ export default function HomePage() {
 
           {/* Property Type Tabs */}
           <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12">
-            {["all", "Villa", "Apartment", "House", "Condo"].map((type) => (
+            {["all", "Villa", "Apartment", "House", "Land" ,"Industrial", "Commercial","Residential"].map((type) => (
               <button
                 key={type}
                 onClick={() => setActiveTab(type)}
@@ -394,31 +399,6 @@ export default function HomePage() {
 
       {/* Property Showcase Section */}
       <PropertyShowCase />
-
-      {/* Stats Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">10K+</div>
-              <div className="text-gray-600">Properties Sold</div>
-            </div>
-            <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">5K+</div>
-              <div className="text-gray-600">Happy Customers</div>
-            </div>
-            <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">100+</div>
-              <div className="text-gray-600">Expert Agents</div>
-            </div>
-            <div className='w-40 h-40 rounded-full p-25  bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">15+</div>
-              <div className="text-gray-600">Years Experience</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
 
 
       {/* Popular Cities */}
@@ -479,6 +459,30 @@ export default function HomePage() {
                 <p className="text-sm text-gray-600">{city.count}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+       {/* Stats Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
+            <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">5K+</div>
+              <div className="text-gray-600">Properties Sold</div>
+            </div>
+            <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">2500</div>
+              <div className="text-gray-600">Happy Customers</div>
+            </div>
+            {/* <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">100+</div>
+              <div className="text-gray-600">Expert Agents</div>
+            </div> */}
+            <div className='w-40 h-40 rounded-full p-25  bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
+              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">12+</div>
+              <div className="text-gray-600">Years Experience</div>
+            </div>
           </div>
         </div>
       </section>
