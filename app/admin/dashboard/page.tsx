@@ -20,6 +20,7 @@ export default function AdminDashboard() {
         price: 0,
         location: '',
         type: 'House',
+        category: 'Residential',
         status: 'For Sale',
         bedrooms: 0,
         bathrooms: 0,
@@ -59,14 +60,22 @@ export default function AdminDashboard() {
         }
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value, type } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked :
-                type === 'number' ? parseFloat(value) || 0 : value
-        }));
-    };
+    // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    //     const { name, value, type } = e.target;
+    //     setFormData(prev => ({
+    //         ...prev,
+    //         [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked :
+    //             type === 'number' ? parseFloat(value) || 0 : value
+    //     }));
+    // };
+    const handleInputChange = (e:any) => {
+  const { name, value, type, checked } = e.target;
+
+  setFormData({
+    ...formData,
+    [name]: type === "checkbox" ? checked : value
+  });
+};
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -133,6 +142,7 @@ export default function AdminDashboard() {
             price: 0,
             location: '',
             type: 'House',
+            category: 'Residential',
             status: 'For Sale',
             bedrooms: 0,
             bathrooms: 0,
@@ -236,7 +246,7 @@ export default function AdminDashboard() {
                 {/* Sidebar */}
                 <aside className="w-64 bg-secondary text-white p-6 sticky top-0 h-screen overflow-y-auto">
                     <div className="text-2xl font-bold mb-8 text-center pb-6 border-b border-white/10">
-                        Veer<span className="text-primary">RealEstate</span>
+                        Veer<span className="text-primary">Avishkar</span>
                     </div>
 
                     <nav>
@@ -341,7 +351,7 @@ export default function AdminDashboard() {
                                                     <img
                                                         src={property.image.split(',')[0]}
                                                         alt={property.title}
-                                                        
+
                                                         className="object-cover"
                                                     />
                                                 </div>
@@ -471,6 +481,22 @@ export default function AdminDashboard() {
                                 </div>
 
                                 <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Property Category
+                                    </label>
+                                    <select
+                                        name="category"
+                                        value={formData.category}
+                                        onChange={handleInputChange}
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                    >
+                                        <option value="Residential">Residential</option>
+                                        <option value="Commercial">Commercial</option>
+                                        <option value="Industrial">Industrial</option>
+                                    </select>
+                                </div>
+
+                                <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
                                     <select
                                         name="status"
@@ -577,7 +603,7 @@ export default function AdminDashboard() {
                                                     <img
                                                         src={url}
                                                         alt={`Preview ${idx + 1}`}
-                                                        
+
                                                         className="object-cover"
                                                     />
                                                     <button

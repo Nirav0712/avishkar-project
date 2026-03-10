@@ -6,6 +6,7 @@ export interface Property {
     type: 'Villa' | 'Apartment' | 'House' | 'Condo' | 'Land' | 'Retail';
     status: 'For Sale' | 'For Rent';
     bedrooms: number;
+    category?: 'Residential' | 'Commercial' | 'Industrial' ;
     bathrooms: number;
     area: number;
     featured: boolean;
