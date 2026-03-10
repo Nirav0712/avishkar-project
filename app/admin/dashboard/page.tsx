@@ -244,21 +244,28 @@ export default function AdminDashboard() {
 
             <div className="flex min-h-screen bg-gray-50">
                 {/* Sidebar */}
-                <aside className="w-64 bg-secondary text-white p-6 sticky top-0 h-screen overflow-y-auto">
-                    <div className="text-2xl font-bold mb-8 text-center pb-6 border-b border-white/10">
-                        Veer<span className="text-primary">Avishkar</span>
-                    </div>
+                <aside className="w-64 bg-[#0f1e3d] text-white p-6 sticky top-0 h-screen overflow-y-auto">
+                    {/* <div className="text-2xl font-bold mb-8 text-center pb-6 border-b border-white/10">
+                        <span className="text-[#e4c272]">Avishkar</span>
+                    </div> */}
+                     <div className="text-center mb-8 pb-6 border-b border-white/10">
+          <img src="/images/logo.png" alt="" />
+          {/* <h1 className="text-3xl font-bold text-yellow-400 tracking-wide">
+            Avishkar Realty
+          </h1> */}
+          
+        </div>
 
                     <nav>
                         <ul className="space-y-2">
                             <li>
-                                <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-secondary font-medium">
+                                <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#e4c272] text-[#0f1e3d] font-medium">
                                     <i className="fas fa-tachometer-alt w-5"></i>
                                     Dashboard
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/" className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:bg-primary hover:text-secondary transition-colors">
+                                <Link href="/" className="flex items-center gap-3 px-4 py-3 rounded-lg text-[#e4c272] hover:bg-[#e4c272] hover:text-[#0f1e3d] transition-colors">
                                     <i className="fas fa-globe w-5"></i>
                                     View Website
                                 </Link>
@@ -266,7 +273,7 @@ export default function AdminDashboard() {
                             <li>
                                 <button
                                     onClick={handleLogout}
-                                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:bg-red-500 hover:text-white transition-colors text-left"
+                                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-[#e4c272] hover:bg-[#e4c272] hover:text-[#0f1e3d] transition-colors text-left"
                                 >
                                     <i className="fas fa-sign-out-alt w-5"></i>
                                     Logout
@@ -288,12 +295,12 @@ export default function AdminDashboard() {
                     {/* Header */}
                     <div className="bg-white rounded-xl p-6 shadow-sm mb-8 flex justify-between items-center">
                         <div>
-                            <h1 className="text-3xl font-bold text-secondary">Property Management</h1>
+                            <h1 className="text-3xl font-bold text-[#0f1e3d]">Property Management</h1>
                             <p className="text-gray-600 mt-1">Manage your real estate listings</p>
                         </div>
                         <button
                             onClick={openModal}
-                            className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors flex items-center gap-2"
+                            className="bg-[#0f1e3d] text-[#e4c272] px-6 py-3 rounded-lg font-semibold hover:bg-[#e4c272] hover:text-[#0f1e3d] border hover:border-[#0f1e3d] transition-colors flex items-center gap-2"
                         >
                             <i className="fas fa-plus"></i>
                             Add Property
@@ -317,7 +324,7 @@ export default function AdminDashboard() {
                                     <i className={`fas ${stat.icon}`}></i>
                                 </div>
                                 <div>
-                                    <div className="text-3xl font-bold text-secondary">{stat.value}</div>
+                                    <div className="text-3xl font-bold text-Commercial">{stat.value}</div>
                                     <div className="text-gray-600 text-sm">{stat.label}</div>
                                 </div>
                             </div>
@@ -327,20 +334,20 @@ export default function AdminDashboard() {
                     {/* Properties Table */}
                     <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                         <div className="p-6 border-b border-gray-200">
-                            <h2 className="text-xl font-semibold text-secondary">All Properties</h2>
+                            <h2 className="text-xl font-semibold text-[#0f1e3d]">All Properties</h2>
                         </div>
 
                         <div className="overflow-x-auto">
                             <table className="w-full">
                                 <thead className="bg-gray-50">
                                     <tr>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Image</th>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Title</th>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Type</th>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Price</th>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Status</th>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Location</th>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Actions</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Image</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Title</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Type</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Price</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Status</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Location</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
@@ -357,9 +364,9 @@ export default function AdminDashboard() {
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <div className="font-medium text-secondary">{property.title}</div>
+                                                <div className="font-medium text-[#0f1e3d]">{property.title}</div>
                                                 {property.featured && (
-                                                    <span className="inline-block mt-1 text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">
+                                                    <span className="inline-block mt-1 text-xs bg-[#e4c272] text-[#0f1e3d] px-2 py-0.5 rounded">
                                                         Featured
                                                     </span>
                                                 )}
@@ -414,7 +421,7 @@ export default function AdminDashboard() {
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
                         <div className="p-6 border-b border-gray-200 flex justify-between items-center sticky top-0 bg-white">
-                            <h2 className="text-2xl font-bold text-secondary">
+                            <h2 className="text-2xl font-bold text-[#0f1e3d]">
                                 {editingProperty ? 'Edit Property' : 'Add New Property'}
                             </h2>
                             <button
@@ -435,7 +442,7 @@ export default function AdminDashboard() {
                                         value={formData.title}
                                         onChange={handleInputChange}
                                         required
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -447,7 +454,7 @@ export default function AdminDashboard() {
                                         value={formData.price}
                                         onChange={handleInputChange}
                                         required
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -459,7 +466,7 @@ export default function AdminDashboard() {
                                         value={formData.location}
                                         onChange={handleInputChange}
                                         required
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -469,7 +476,7 @@ export default function AdminDashboard() {
                                         name="type"
                                         value={formData.type}
                                         onChange={handleInputChange}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     >
                                         <option value="Villa">Villa</option>
                                         <option value="Apartment">Apartment</option>
@@ -488,7 +495,7 @@ export default function AdminDashboard() {
                                         name="category"
                                         value={formData.category}
                                         onChange={handleInputChange}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     >
                                         <option value="Residential">Residential</option>
                                         <option value="Commercial">Commercial</option>
@@ -502,7 +509,7 @@ export default function AdminDashboard() {
                                         name="status"
                                         value={formData.status}
                                         onChange={handleInputChange}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     >
                                         <option value="For Sale">For Sale</option>
                                         <option value="For Rent">For Rent</option>
@@ -517,7 +524,7 @@ export default function AdminDashboard() {
                                         value={formData.bedrooms}
                                         onChange={handleInputChange}
                                         min="0"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -529,7 +536,7 @@ export default function AdminDashboard() {
                                         value={formData.bathrooms}
                                         onChange={handleInputChange}
                                         min="0"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -541,7 +548,7 @@ export default function AdminDashboard() {
                                         value={formData.area}
                                         onChange={handleInputChange}
                                         min="0"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -552,7 +559,7 @@ export default function AdminDashboard() {
                                         name="yearBuilt"
                                         value={formData.yearBuilt}
                                         onChange={handleInputChange}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -564,7 +571,7 @@ export default function AdminDashboard() {
                                         value={formData.parking}
                                         onChange={handleInputChange}
                                         min="0"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -648,7 +655,7 @@ export default function AdminDashboard() {
                                             name="featured"
                                             checked={formData.featured}
                                             onChange={handleInputChange}
-                                            className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
+                                            className="w-5 h-5 text-[#0f1e3d] border-gray-300 rounded focus:ring-[#0f1e3d]"
                                         />
                                         <span className="text-sm font-medium text-gray-700">Mark as Featured Property</span>
                                     </label>
@@ -658,7 +665,7 @@ export default function AdminDashboard() {
                             <div className="flex gap-4 mt-8">
                                 <button
                                     type="submit"
-                                    className="flex-1 bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+                                    className="flex-1 bg-[#0f1e3d] text-[#e4c272] border px-8 py-3 rounded-lg font-semibold hover:bg-[#e4c272] hover:text-[#0f1e3d] hover:border-[#0f1e3d] transition-colors"
                                 >
                                     {editingProperty ? 'Update Property' : 'Add Property'}
                                 </button>
