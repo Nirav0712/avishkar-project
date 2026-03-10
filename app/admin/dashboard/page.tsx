@@ -345,6 +345,7 @@ export default function AdminDashboard() {
                                         <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Title</th>
                                         <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Type</th>
                                         <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Price</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Category</th>
                                         <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Status</th>
                                         <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Location</th>
                                         <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Actions</th>
@@ -374,6 +375,9 @@ export default function AdminDashboard() {
                                             <td className="px-6 py-4 text-gray-600">{property.type}</td>
                                             <td className="px-6 py-4 font-semibold text-primary">
                                                 {formatPrice(property.price)}
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <div className="font-small">{property.category}</div>
                                             </td>
                                             <td className="px-6 py-4">
                                                 <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${property.status === 'For Sale'
