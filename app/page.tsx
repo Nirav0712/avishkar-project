@@ -196,11 +196,18 @@ export default function HomePage() {
               >
                 Industrial →
               </button>
+
+              <Link href="/project">
+                <button
+                  className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
+                >
+                  New Projects →
+                </button>
+              </Link>
             </div>
 
             {/* Search Widget with Glassmorphism Effect */}
-            <div className="mt-10 backdrop-blur-lg bg-white/20 rounded-xl p-4 md:p-6 shadow-2xl border border-white/30 mx-4 md:mx-0">
-              {/* Tabs */}
+            {/* <div className="mt-10 backdrop-blur-lg bg-white/20 rounded-xl p-4 md:p-6 shadow-2xl border border-white/30 mx-4 md:mx-0">
               <div className="flex gap-4 mb-6 border-b-2 border-white/30">
                 <button
                   onClick={() => setSearchStatus("For Sale")}
@@ -232,9 +239,7 @@ export default function HomePage() {
                 onSubmit={handleSearch}
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 bg-white/20 backdrop-blur-md p-4 md:p-6 rounded-xl border border-white/30 shadow-lg"
               >
-                {/* Property Type */}
                 <select name="type" className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-500 ">
-                  {/* <select name="type" className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-700"> */}
                   <option value="" >Property Types</option>
                   <option value="Apartment">Apartment</option>
                   <option value="Commercial">Commercial Shops</option>
@@ -245,24 +250,14 @@ export default function HomePage() {
                   <option value="Plot">Plot</option>
                 </select>
 
-                {/* Location */}
                 <input
                   type="text"
                   name="location"
                   placeholder="Enter Location"
                   className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-black w-full  placeholder:text-gray-500"
                 />
-                {/* <select
-                  name="location"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-800"
-                >
-                  <option value="">Location</option>
-                  {Array.from(new Set(properties.map(p => p.location))).sort().map((location, index) => (
-                    <option key={index} value={location}>{location}</option>
-                  ))}
-                </select> */}
+                
 
-                {/* BHK */}
                 <select
                   name="bhk"
                   className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-500"
@@ -275,28 +270,16 @@ export default function HomePage() {
                   <option value="5">5+ BHK</option>
                 </select>
 
-                {/* Min Budget */}
+                
                 <input
                   type="number"
                   name="minBudget"
                   placeholder="Enter Min Budget"
                   className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-black w-full  placeholder:text-gray-500"
                 />
-                {/* <select
-                  name="minBudget"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-800"
-                >
-                  <option value="">Min Budget</option>
-                  {Array.from(new Set(properties
-                    .filter(p => p.status === searchStatus)
-                    .map(p => p.price)))
-                    .sort((a, b) => a - b)
-                    .map((price, index) => (
-                      <option key={index} value={price}>{formatPrice(price)}</option>
-                    ))}
-                </select> */}
+                
 
-                {/* Max Budget */}
+               
                 <input
                   type="number"
                   name="maxBudget"
@@ -305,21 +288,8 @@ export default function HomePage() {
              focus:outline-none focus:ring-2 
              focus:ring-[#0f1e3d] text-black w-full  placeholder:text-gray-500"
                 />
-                {/* <select
-                  name="maxBudget"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-800"
-                >
-                  <option value="">Max Budget</option>
-                  {Array.from(new Set(properties
-                    .filter(p => p.status === searchStatus)
-                    .map(p => p.price)))
-                    .sort((a, b) => a - b)
-                    .map((price, index) => (
-                      <option key={index} value={price}>{formatPrice(price)}</option>
-                    ))}
-                </select> */}
+               
 
-                {/* Transaction */}
                 <select
                   name="transaction"
                   className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-500"
@@ -330,7 +300,6 @@ export default function HomePage() {
                   <option value="underconstruction">Under Construction</option>
                 </select>
 
-                {/* Search Button */}
                 <button
                   type="submit"
                   className="bg-[#0f1e3d] text-[#e4c272] border-2 border-[#e4c272] px-6 py-3 rounded-lg font-semibold transition-all hover:bg-[#e4c272] hover:text-[#0f1e3d] hover:border-[#0f1e3d] hover:-translate-y-0.5 hover:shadow-md col-span-1 sm:col-span-2 lg:col-span-3"
@@ -338,7 +307,7 @@ export default function HomePage() {
                   Search
                 </button>
               </form>
-            </div>
+            </div> */}
           </div>
         </div>
 
