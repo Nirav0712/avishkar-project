@@ -12,6 +12,8 @@ import PropertyShowCase from "./components/PropertyShowCase";
 import Partner from "./components/Partner";
 import Information from "./components/Information";
 import Facilities from "./components/Facilities";
+import React from 'react';
+import styled from 'styled-components';
 
 export default function HomePage() {
   const [properties, setProperties] = useState<Property[]>([]);
@@ -59,8 +61,11 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, [heroImages.length]);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchFeaturedProperties = async () => {
+      setLoading(true);
       try {
         const response = await fetch('/api/properties');
         if (response.ok) {
@@ -85,6 +90,8 @@ export default function HomePage() {
         console.error("Failed to fetch properties from DB:", error);
         const allProperties = getProperties();
         setProperties(allProperties);
+      } finally {
+        setLoading(false);
       }
     };
     fetchFeaturedProperties();
@@ -174,8 +181,8 @@ export default function HomePage() {
                   onClick={() => setSearchStatus("For Sale")}
                   className={`px-6 py-3 font-medium transition-colors relative ${searchStatus === "For Sale"
                     ? "text-[#0f1e3d]"
-                      : "text-white hover:text-#e4c272"
-                      }`}
+                    : "text-white hover:text-#e4c272"
+                    }`}
                 >
                   For Sale
                   {searchStatus === "For Sale" && (
@@ -202,15 +209,15 @@ export default function HomePage() {
               >
                 {/* Property Type */}
                 <select name="type" className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-500 ">
-                {/* <select name="type" className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-700"> */}
-                  <option  value="" >Property Types</option>
-                  <option  value="Apartment">Apartment</option>
-                  <option  value="Commercial">Commercial Shops</option>
-                  <option  value="Commercial">Commercial Office</option>
-                  <option  value="Industrial">Industrial</option>
-                  <option  value="Banglow">Bunglows</option>
-                  <option  value="Land">Land</option>
-                  <option  value="Plot">Plot</option> 
+                  {/* <select name="type" className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e4c272] text-gray-700"> */}
+                  <option value="" >Property Types</option>
+                  <option value="Apartment">Apartment</option>
+                  <option value="Commercial">Commercial Shops</option>
+                  <option value="Commercial">Commercial Office</option>
+                  <option value="Industrial">Industrial</option>
+                  <option value="Banglow">Bunglows</option>
+                  <option value="Land">Land</option>
+                  <option value="Plot">Plot</option>
                 </select>
 
                 {/* Location */}
@@ -328,8 +335,8 @@ export default function HomePage() {
 
       {/* our partners */}
       <Partner />
-      {/* Featured Properties */}
 
+      {/* Featured Properties */}
 
       <section className="py-20">
         <div className="container mx-auto px-4">
@@ -359,8 +366,13 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Property Grid */}
-          {displayedProperties.length > 0 ? (
+          {/* Property Grid or Loader */}
+          {loading ? (
+            <div className="flex flex-col items-center justify-center py-20">
+              <div className="w-16 h-16 border-4 border-[#e4c272] border-t-transparent rounded-full animate-spin mb-4"></div>
+              <p className="text-xl text-[#0f1e3d] font-medium">Loading properties...</p>
+            </div>
+          ) : displayedProperties.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {displayedProperties.map((property) => (
                 <PropertyCard key={property.id} property={property} />
@@ -454,10 +466,10 @@ export default function HomePage() {
                 count: "450+ Properties",
                 icon: "fa-umbrella-beach",
               },
-              { 
+              {
                 name: "Ambli",
-                count: "900+ Properties", 
-                icon: "fa-city" 
+                count: "900+ Properties",
+                icon: "fa-city"
               },
             ].map((city, index) => (
               <div
@@ -480,7 +492,7 @@ export default function HomePage() {
       {/* Required Properties */}
       <section className="bg-[#162B49] py-20">
         <div className="max-w-7xl mx-auto px-6">
-          
+
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-14">
 
             {/* Left Content */}
