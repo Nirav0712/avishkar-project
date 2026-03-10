@@ -63,7 +63,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
                     <img
                         src={property.image.split(',')[0]}
                         alt={property.title}
-                        
+
                         className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
 
@@ -84,8 +84,8 @@ export default function PropertyCard({ property }: PropertyCardProps) {
                     <button
                         onClick={toggleFavorite}
                         className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md ${isFavorite
-                            ? 'bg-red-500 text-white'
-                            : 'bg-white text-gray-600 hover:bg-primary hover:text-secondary'
+                            ? 'bg-white text-red-500'
+                            : 'bg-white text-[#0f1e3d] hover:bg-red-500 hover:text-white'
                             }`}
                     >
                         <i className="fas fa-heart"></i>

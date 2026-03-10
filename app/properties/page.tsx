@@ -18,6 +18,7 @@ function PropertiesContent() {
   const [filters, setFilters] = useState({
     status: searchParams.get("status") || "all",
     type: searchParams.get("type") || "all",
+    category: searchParams.get("category") || "all",
     minPrice: "",
     maxPrice: "",
     bedrooms: searchParams.get("bedrooms") || "all",
@@ -69,6 +70,10 @@ function PropertiesContent() {
       result = result.filter(p => p.type === currentFilters.type);
     }
 
+    if (currentFilters.category && currentFilters.category !== "all") {
+      result = result.filter((p: any) => p.category === currentFilters.category);
+    }
+
     if (currentFilters.minPrice) {
       const min = parseFloat(currentFilters.minPrice);
       if (!isNaN(min)) {
@@ -118,6 +123,7 @@ function PropertiesContent() {
     const clearedFilters = {
       status: "all",
       type: "all",
+      category: "all",
       minPrice: "",
       maxPrice: "",
       bedrooms: "all",
@@ -172,6 +178,24 @@ function PropertiesContent() {
                   </select>
                 </div>
 
+                {/* Category Feed */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Category Feed
+                  </label>
+                  <select
+                    name="category"
+                    value={filters.category}
+                    onChange={handleFilterChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
+                  >
+                    <option value="all">All Category</option>
+                    <option value="Residential">Residential</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="Industrial">Industrial</option>
+                  </select>
+                </div>
+
                 {/* Property Type */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -187,7 +211,7 @@ function PropertiesContent() {
                     <option value="Villa">Villa</option>
                     <option value="Apartment">Apartment</option>
                     <option value="House">House</option>
-                    <option value="Condo">Condo</option>
+                    {/* <option value="Condo">Condo</option> */}
                     <option value="Land">Land</option>
                     <option value="Retail">Retail</option>
                   </select>
@@ -307,7 +331,7 @@ function PropertiesContent() {
                 </p>
                 <button
                   onClick={clearFilters}
-                  className="bg-[#0f1e3d] text-secondary px-8 py-3 rounded-lg font-bold hover:bg-primary-dark transition-colors shadow-sm inline-flex items-center gap-2"
+                  className="bg-white border border-[#0f1e3d] text-secondary px-8 py-3 rounded-lg font-bold hover:bg-[#0f1e3d] hover:text-white transition-colors shadow-sm inline-flex items-center gap-2"
                 >
                   <i className="fas fa-times"></i>
                   Clear All Filters

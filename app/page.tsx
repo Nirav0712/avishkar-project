@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "./components/Header";
@@ -103,6 +103,22 @@ export default function HomePage() {
       ? featuredProperties
       : featuredProperties.filter((p) => p.type === activeTab);
 
+  // Get one random property for each requirement category
+  const requirementProperties = useMemo(() => {
+    const categories = ["Commercial", "Industrial", "Residential"];
+    return categories.map(cat => {
+      const catProps = properties.filter(p => p.category === cat);
+      if (catProps.length === 0) return null;
+      return catProps[Math.floor(Math.random() * catProps.length)];
+    }).filter(p => p !== null) as Property[];
+  }, [properties]);
+
+  const handleCategoryClick = (category: string) => {
+    const params = new URLSearchParams();
+    params.set("category", category);
+    window.location.href = `/properties?${params.toString()}`;
+  };
+
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -160,15 +176,24 @@ export default function HomePage() {
             </p> */}
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 w-full px-4">
-              <button className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300">
+              <button
+                onClick={() => handleCategoryClick("Commercial")}
+                className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
+              >
                 Commercial →
               </button>
 
-              <button className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300">
+              <button
+                onClick={() => handleCategoryClick("Residential")}
+                className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
+              >
                 Residential →
               </button>
 
-              <button className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300">
+              <button
+                onClick={() => handleCategoryClick("Industrial")}
+                className="w-full md:w-auto px-8 py-3 rounded-full border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
+              >
                 Industrial →
               </button>
             </div>
@@ -511,7 +536,7 @@ export default function HomePage() {
 
               <button
                 type="button"
-                onClick={() => console.log("Commercial clicked")}
+                onClick={() => handleCategoryClick("Commercial")}
                 className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-[#0f1e3d] hover:text-white active:bg-[#0f1e3d] cursor-pointer transition"
               >
                 Commercial
@@ -519,7 +544,7 @@ export default function HomePage() {
 
               <button
                 type="button"
-                onClick={() => console.log("Commercial clicked")}
+                onClick={() => handleCategoryClick("Industrial")}
                 className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-[#0f1e3d] hover:text-white active:bg-[#0f1e3d] cursor-pointer transition"
               >
                 Industrial
@@ -527,7 +552,7 @@ export default function HomePage() {
 
               <button
                 type="button"
-                onClick={() => console.log("Commercial clicked")}
+                onClick={() => handleCategoryClick("Residential")}
                 className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-[#0f1e3d] hover:text-white active:bg-[#0f1e3d] cursor-pointer transition"
               >   Residential
               </button>
@@ -539,105 +564,48 @@ export default function HomePage() {
 
           {/* Cards */}
           <div className="grid md:grid-cols-3 gap-10">
-            {/* Card 1 */}
-            <div className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-95 mx-auto">
-              <div className="relative h-62.5">
-                <img
-                  src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6"
-                  className="w-full h-full object-cover"
-                  alt="property"
-                />
-                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow">
-                  ❤️
-                </div>
-              </div>
-
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-[#1f2d3d] mb-2">
-                  THE AMBER 2BHK
-                </h3>
-
-                <p className="text-gray-600 text-sm mb-4">
-                  Jagatpur, North West, Ahmedabad
-                </p>
-
-                <div className="flex justify-between text-gray-600 text-sm mb-6">
-                  <span>🛏 Bed 2</span>
-                  <span>🛁 Bath 2</span>
+            {requirementProperties.map((property: Property) => (
+              <div key={property.id} className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-95 mx-auto">
+                <div className="relative h-62.5">
+                  <img
+                    src={property.image.split(',')[0]}
+                    className="w-full h-full object-cover"
+                    alt={property.title}
+                  />
+                  <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow">
+                    ❤️
+                  </div>
                 </div>
 
-                <button className="w-full bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-[#e4c272] hover:text-[#0f1e3d] border-2 hover:border-[#0f1e3d] transition">
-                  Details
-                </button>
-              </div>
-            </div>
+                <div className="p-6 text-center md:text-left">
+                  <h3 className="text-xl font-semibold text-[#1f2d3d] mb-2 uppercase">
+                    {property.title}
+                  </h3>
 
-            {/* Card 2 */}
-            <div className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-95 mx-auto">
-              <div className="relative h-62.5">
-                <img
-                  src="https://images.unsplash.com/photo-1501183638710-841dd1904471"
-                  className="w-full h-full object-cover"
-                  alt="property"
-                />
-                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow">
-                  ❤️
+                  <p className="text-gray-600 text-sm mb-4">
+                    {property.location}
+                  </p>
+
+                  <div className="flex justify-between text-gray-600 text-sm mb-6">
+                    <span>🛏 Bed {property.bedrooms}</span>
+                    <span>🛁 Bath {property.bathrooms}</span>
+                  </div>
+
+                  <Link
+                    href={`/properties/${property.id}`}
+                    className="block w-full text-center bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-[#e4c272] hover:text-[#0f1e3d] border-2 hover:border-[#0f1e3d] transition"
+                  >
+                    Details
+                  </Link>
                 </div>
               </div>
+            ))}
 
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-[#1f2d3d] mb-2">
-                  Addor Evara
-                </h3>
-
-                <p className="text-gray-600 text-sm mb-4">
-                  SG Highway, North West, Ahmedabad
-                </p>
-
-                <div className="flex justify-between text-gray-600 text-sm mb-6">
-                  <span>🛏 Bed 3</span>
-                  <span>🛁 Bath 3</span>
-                </div>
-
-                <button className="w-full bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-[#e4c272] hover:text-[#0f1e3d] border-2 hover:border-[#0f1e3d] transition">
-                  Details
-                </button>
+            {requirementProperties.length === 0 && (
+              <div className="col-span-3 text-center py-10 text-white/60">
+                No properties found for these requirements.
               </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-95 mx-auto">
-              <div className="relative h-62.5">
-                <img
-                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
-                  className="w-full h-full object-cover"
-                  alt="property"
-                />
-                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow">
-                  ❤️
-                </div>
-              </div>
-
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-[#1f2d3d] mb-2">
-                  Parvam 1,2 BHK
-                </h3>
-
-                <p className="text-gray-600 text-sm mb-4">
-                  Ahmedabad, Gujarat, India
-                </p>
-
-                <div className="flex justify-between text-gray-600 text-sm mb-6">
-                  <span>🛏 Bed 2</span>
-                  <span>🛁 Bath 2</span>
-                </div>
-
-                <button className="w-full bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-[#e4c272] hover:text-[#0f1e3d] border-2 hover:border-[#0f1e3d] transition">
-                  Details
-                </button>
-              </div>
-            </div>
-
+            )}
           </div>
         </div>
       </section>
