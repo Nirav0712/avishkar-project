@@ -11,40 +11,37 @@ export default function Footer() {
 
           {/* Column 1 - About */}
           <div>
-            <img src="/images/logo.png" alt="logo" className="w-56 mb-6" />
+            <img src="/images/logo.png" alt="logo" className="w-66 mb-6" />
 
             <p className="text-white/70 leading-relaxed mb-6">
               Building modern, sustainable, and customer-focused real estate
               solutions that turn dreams into addresses.
             </p>
 
-            <div className="flex gap-4 mt-6">
-              {/* <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
-                <i className="fab fa-facebook-f text-sm"></i>
-              </div> */}
+            <div className="flex gap-3">
+
+              {/* Facebook */}
               <a
-                href="https://www.facebook.com/avishkar.realty.in?mibextid=wwXIfr&rdid=25JQj9cHJt68kr8F&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1AjAyp2oT2%2F%3Fmibextid%3DwwXIfr#"
+                href="https://www.facebook.com/avishkar.realty.in"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="w-10 h-10 bg-[#1877F2] text-white rounded-lg flex items-center justify-center hover:scale-110 transition"
               >
-                <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
-                  <i className="fab fa-facebook-f text-sm"></i>
-                </div>
+                <i className="fab fa-facebook-f text-lg"></i>
               </a>
 
-              {/* <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
-                <i className="fab fa-instagram text-sm"></i>
-              </div> */}
+              {/* Instagram */}
               <a
-                href="https://www.instagram.com/ajay_prajapati_1709?igsh=YXZyOGhkdzR0NGkw&utm_source=qr"
+                href="https://www.instagram.com/ajay_prajapati_1709"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="w-10 h-10 bg-linear-to-r from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white rounded-lg flex items-center justify-center hover:scale-110 transition"
               >
-                <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
-                  <i className="fab fa-instagram text-sm"></i>
-                </div>
+                <i className="fab fa-instagram text-lg"></i>
               </a>
+
             </div>
+
           </div>
 
           {/* Column 2 - Quick Links */}
@@ -136,9 +133,9 @@ export default function Footer() {
 
             <p>
               © 2025 Copyrights by Avishkar. Developed by <span>
-              <a href="https://thedigitalconnect.in/" className="hover:underline text-[#0f1e3d] hover:text-[#e4c272] transition">
-                 The Digital Connect
-              </a></span>
+                <a href="https://thedigitalconnect.in/" className="hover:underline text-[#0f1e3d] hover:text-[#e4c272] transition">
+                  The Digital Connect
+                </a></span>
             </p>
 
             {/* <div className="flex gap-6 mt-2 md:mt-0">

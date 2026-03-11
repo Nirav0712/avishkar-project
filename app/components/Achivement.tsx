@@ -29,14 +29,14 @@ const Achivement = () => {
             {/* RIGHT STATS */}
             <div className="flex gap-12 text-white">
               <div>
-                <h3 className="text-4xl font-bold">40+</h3>
+                <h3 className="text-4xl font-bold">11+</h3>
                 <p className="text-gray-300 mt-2">Featured Projects</p>
               </div>
 
               <div className="flex items-start gap-6">
                 <span className="text-gray-400 text-3xl"></span>
                 <div>
-                  <h3 className="text-4xl font-bold">500+</h3>
+                  <h3 className="text-4xl font-bold">2500+</h3>
                   <p className="text-gray-300 mt-2">Satisfied Clients</p>
                 </div>
               </div>

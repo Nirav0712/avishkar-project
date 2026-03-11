@@ -64,22 +64,12 @@ ${formData.message}
       <Header />
 
       {/* Hero Section */}
-      {/* <section className="relative bg-linear-to-br from-secondary to-secondary-light text-white py-24">
-                <div className="container mx-auto px-4">
-                    <div className="max-w-3xl mx-auto text-center">
-                        <h1 className="text-5xl md:text-6xl font-bold mb-6">Get In Touch</h1>
-                        <p className="text-xl md:text-2xl opacity-95">
-                            Have questions? We're here to help you find your dream property
-                        </p>
-                    </div>
-                </div>
-            </section> */}
       <section className="relative">
 
         {/* 🔥 Map Background */}
         <div className="h-125 w-full">
           <iframe
-            src="https://www.google.com/maps?q=Status+Elysium,+23+Road,+Shree+Vishnudhara+Gardens,+Gota,+Ahmedabad,+Gujarat+382481&output=embed"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3669.7118586241227!2d72.5429606!3d23.1076415!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2ef97a43509148f%3A0x893ecc0405bf5886!2sAvishkar%20Realty!5e0!3m2!1sen!2sin!4v1773233935727!5m2!1sen!2sin"
             className="w-full h-full"
             allowFullScreen
             loading="lazy"
@@ -91,12 +81,12 @@ ${formData.message}
 
         {/* 🔥 Cards Section (Overlapping Map) */}
         <div className="relative -mt-32 pb-24">
-          <div className="max-w-337.5 mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-              {/* Card 1 - Our Address */}
-              <div className="bg-[#efefef] rounded-2xl p-10 text-center shadow-lg h-75 flex flex-col justify-center">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-xl bg-[#0f1e3d] flex items-center justify-center">
+              {/* Card 1 */}
+              <div className="bg-[#efefef] rounded-2xl p-10 text-center shadow-lg h-[280px] flex flex-col justify-center items-center">
+                <div className="w-16 h-16 mb-6 rounded-xl bg-[#0f1e3d] flex items-center justify-center">
                   <i className="fas fa-map-marker-alt text-[#e4c272] text-2xl"></i>
                 </div>
                 <h3 className="text-xl font-semibold text-[#1f2d3d] mb-3">
@@ -108,9 +98,9 @@ ${formData.message}
                 </p>
               </div>
 
-              {/* Card 2 - Email */}
-              <div className="bg-[#efefef] rounded-2xl p-10 text-center shadow-lg h-75 flex flex-col justify-center">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-xl bg-[#0f1e3d] flex items-center justify-center">
+              {/* Card 2 */}
+              <div className="bg-[#efefef] rounded-2xl p-10 text-center shadow-lg h-[280px] flex flex-col justify-center items-center">
+                <div className="w-16 h-16 mb-6 rounded-xl bg-[#0f1e3d] flex items-center justify-center">
                   <i className="fas fa-envelope text-[#e4c272] text-2xl"></i>
                 </div>
                 <h3 className="text-xl font-semibold text-[#1f2d3d] mb-3">
@@ -121,9 +111,9 @@ ${formData.message}
                 </p>
               </div>
 
-              {/* Card 3 - Phone */}
-              <div className="bg-[#efefef] rounded-2xl p-10 text-center shadow-lg h-75 flex flex-col justify-center">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-xl bg-[#0f1e3d] flex items-center justify-center">
+              {/* Card 3 */}
+              <div className="bg-[#efefef] rounded-2xl p-10 text-center shadow-lg h-[280px] flex flex-col justify-center items-center">
+                <div className="w-16 h-16 mb-6 rounded-xl bg-[#0f1e3d] flex items-center justify-center">
                   <i className="fas fa-phone text-[#e4c272] text-2xl"></i>
                 </div>
                 <h3 className="text-xl font-semibold text-[#1f2d3d] mb-3">
@@ -134,9 +124,9 @@ ${formData.message}
                 </p>
               </div>
 
-              {/* Card 4 - Opening Hour */}
-              <div className="bg-[#efefef] rounded-2xl p-10 text-center shadow-lg h-75 flex flex-col justify-center">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-xl bg-[#0f1e3d] flex items-center justify-center">
+              {/* Card 4 */}
+              <div className="bg-[#efefef] rounded-2xl p-10 text-center shadow-lg h-[280px] flex flex-col justify-center items-center">
+                <div className="w-16 h-16 mb-6 rounded-xl bg-[#0f1e3d] flex items-center justify-center">
                   <i className="fas fa-clock text-[#e4c272] text-2xl"></i>
                 </div>
                 <h3 className="text-xl font-semibold text-[#1f2d3d] mb-3">
@@ -181,7 +171,13 @@ ${formData.message}
                   </div>
                   <div>
                     <h3 className="font-semibold text-[#0f1e3d] mb-1">Phone</h3>
-                    <p className="text-gray-600">+91 70413 95595</p>
+                    <a href="tel:+917041395595" className="text-[#0f1e3d] hover:underline">
+                      +91 70413 95595
+                    </a>
+                    <br />
+                    <a href="tel:+919825029913" className="text-[#0f1e3d] hover:underline">
+                      +91 98250 29913
+                    </a>
                   </div>
                 </div>
 
@@ -191,7 +187,9 @@ ${formData.message}
                   </div>
                   <div>
                     <h3 className="font-semibold text-[#0f1e3d] mb-1">Email</h3>
-                    <p className="text-gray-600">avishkarrealty1@gmail.com</p>
+                    <a href="mailto:avishkarrealty1@gmail.com" className="text-[#0f1e3d] hover:underline">
+                      avishkarrealty1@gmail.com
+                    </a>
                   </div>
                 </div>
 
@@ -213,19 +211,30 @@ ${formData.message}
               {/* Social Media */}
               <div className="mt-8">
                 <h3 className="font-semibold text-secondary mb-4">Follow Us</h3>
+
+
                 <div className="flex gap-3">
-                  <a href="https://www.facebook.com/avishkar.realty.in?mibextid=wwXIfr&rdid=25JQj9cHJt68kr8F&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1AjAyp2oT2%2F%3Fmibextid%3DwwXIfr#" className="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors">
-                    <i className="fab fa-facebook-f"></i>
+
+                  {/* Facebook */}
+                  <a
+                    href="https://www.facebook.com/avishkar.realty.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-[#1877F2] text-white rounded-lg flex items-center justify-center hover:scale-110 transition"
+                  >
+                    <i className="fab fa-facebook-f text-lg"></i>
                   </a>
-                  {/* <a href="#" className="w-10 h-10 bg-blue-400 text-white rounded-lg flex items-center justify-center hover:bg-blue-500 transition-colors">
-                                        <i className="fab fa-twitter"></i>
-                                    </a> */}
-                  <a href="https://www.instagram.com/ajay_prajapati_1709?igsh=YXZyOGhkdzR0NGkw&utm_source=qr" className="w-10 h-10 bg-pink-600 text-white rounded-lg flex items-center justify-center hover:bg-pink-700 transition-colors">
-                    <i className="fab fa-instagram"></i>
+
+                  {/* Instagram */}
+                  <a
+                    href="https://www.instagram.com/ajay_prajapati_1709"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-linear-to-r from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white rounded-lg flex items-center justify-center hover:scale-110 transition"
+                  >
+                    <i className="fab fa-instagram text-lg"></i>
                   </a>
-                  {/* <a href="#" className="w-10 h-10 bg-blue-700 text-white rounded-lg flex items-center justify-center hover:bg-blue-800 transition-colors">
-                                        <i className="fab fa-linkedin-in"></i>
-                                    </a> */}
+
                 </div>
               </div>
             </div>
@@ -330,51 +339,6 @@ ${formData.message}
         </div>
       </section>
 
-      {/* Map Section */}
-      {/* <section className="py-20 bg-[#16243E]">
-            
-      <div className="bg-[#FFF8F2] max-w-6xl w-full rounded-3xl p-8 mt-10 mx-auto pr-20">
-        <div className="grid md:grid-cols-3 gap-10 items-center bg ">
-          <div className="flex items-start gap-4">
-            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-orange-600 text-xl shadow">
-              📍
-            </div>
-            <div>
-              <h3 className="text-orange-600 font-semibold text-lg">Address</h3>
-              <p className="text-gray-700 mt-1 text-sm leading-relaxed">
-                Status Elysium, 23, Road, nr. Shree Vishnudhara Gardens, Gota,
-                Ahmedabad, Gujarat 382481
-              </p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4">
-            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-orange-600 text-xl shadow">
-              ✉
-            </div>
-            <div>
-              <h3 className="text-orange-600 font-semibold text-lg">
-                Send Email
-              </h3>
-              <p className="text-gray-700 mt-1 text-sm">
-                avishkarrealty1@gmail.com
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-4">
-            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-orange-600 text-xl shadow">
-              📞
-            </div>
-            <div>
-              <h3 className="text-orange-600 font-semibold text-lg">
-                Call
-              </h3>
-              <p className="text-gray-700 mt-1 text-sm">+91 70413 95595</p>
-            </div>
-          </div>
-        </div>
-      </div>
-            </section> */}
 
       <Information />
       <Footer />

@@ -28,8 +28,8 @@ const Partner = () => {
         {/* Main Flex Row */}
         <div className="flex flex-col lg:flex-row items-center gap-16">
           {/* LEFT SIDE TEXT */}
-          <div className="lg:w-1/3 text-left">
-            <h2 className="text-5xl md:text-5xl font-bold text-[#162544] leading-tight">
+          <div className="w-full lg:w-1/3 text-left">
+            <h2 className="text-3xl md:text-5xl font-bold text-[#162544] leading-tight">
               Partnerships built on trust and success.
             </h2>
           </div>

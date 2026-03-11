@@ -15,6 +15,7 @@ import Facilities from "./components/Facilities";
 import React from 'react';
 import Projects from "./components/Projects";
 import OurPartner from "./components/OurPartner";
+import Logospin from "./components/Logospin";
 // import styled from 'styled-components';
 
 export default function HomePage() {
@@ -134,6 +135,12 @@ export default function HomePage() {
     window.location.href = `/properties?${params.toString()}`;
   };
 
+  const handleLocationClick = (location: string) => {
+    const params = new URLSearchParams();
+    params.set("location", location);
+    window.location.href = `/properties?${params.toString()}`;
+  };
+
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -159,10 +166,12 @@ export default function HomePage() {
 
       <Header />
 
+
       {/* Hero Section with Auto-Scrolling Background */}
       <section className="relative min-h-screen md:h-205 flex items-center justify-center overflow-hidden py-20 md:py-0">
         {/* Background Image Carousel */}
         <div className="absolute inset-0">
+
           {heroImages.map((image, index) => (
             <div
               key={index}
@@ -179,6 +188,28 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-linear-to-r from-secondary/80 to-secondary/40 opacity-70"></div>
             </div>
           ))}
+        </div>
+        <div className="absolute top-10 right-10 w-24 h-24 md:w-48 md:h-48 opacity-100 pointer-events-none">
+
+          <div className="w-full flex justify-center items-center h-full overflow-hidden">
+            <div
+              className="text-3xl font-bold text-[#e4c272]"
+              style={{
+                animation: "moveLR 5s ease-in-out infinite alternate",
+              }}
+            >
+              <img src="/arlogo.png" alt="icoimg.png" className="h-12 md:h-30" />
+            </div>
+            <style>
+              {`
+          @keyframes moveLR {
+            0% { transform: translateX(-20px); }
+            100% { transform: translateX(40px); }
+          }
+            `}
+            </style>
+          </div>
+
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -326,6 +357,10 @@ export default function HomePage() {
           </div>
         </div>
 
+        <div className="absolute top-150 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none opacity-50">
+          <Logospin />
+        </div>
+
         {/* Carousel Indicators */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
           {heroImages.map((_, index) => (
@@ -429,22 +464,18 @@ export default function HomePage() {
           <p className="text-xl text-gray-600">Numbers that speak for themselves</p>
         </div>
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
-            <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">5K+</div>
-              <div className="text-gray-600">Properties Sold</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center place-items-center">
+            <div className='w-32 h-32 md:w-50 md:h-50 rounded-full p-6 md:p-10 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
+              <div className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-1">5K+</div>
+              <div className="text-xs md:text-sm text-gray-600">Properties Sold</div>
             </div>
-            <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">2500</div>
-              <div className="text-gray-600">Happy Customers</div>
+            <div className='w-32 h-32 md:w-50 md:h-50 rounded-full p-6 md:p-10 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
+              <div className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-1">2500</div>
+              <div className="text-xs md:text-sm text-gray-600">Happy Customers</div>
             </div>
-            {/* <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">100+</div>
-              <div className="text-gray-600">Expert Agents</div>
-            </div> */}
-            <div className='w-40 h-40 rounded-full p-25  bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-              <div className="text-5xl font-bold text-[#0f1e3d] mb-2">12+</div>
-              <div className="text-gray-600">Years Experience</div>
+            <div className='w-32 h-32 md:w-50 md:h-50 rounded-full p-6 md:p-10 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
+              <div className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-1">12+</div>
+              <div className="text-xs md:text-sm text-gray-600">Years Experience</div>
             </div>
           </div>
         </div>
@@ -475,11 +506,6 @@ export default function HomePage() {
                 count: "1,800+ Properties",
                 icon: "fa-laptop",
               },
-              // {
-              //   name: "Jagatpur",
-              //   count: "3,200+ Properties",
-              //   icon: "fa-landmark",
-              // },
               {
                 name: "Noorani",
                 count: "1,200+ Properties",
@@ -508,6 +534,7 @@ export default function HomePage() {
             ].map((city, index) => (
               <div
                 key={index}
+                onClick={() => handleLocationClick(city.name)}
                 className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer"
               >
                 <div className="w-16 h-16 mx-auto mb-4 bg-[#e4c272]/10 rounded-full flex items-center justify-center">
@@ -622,8 +649,7 @@ export default function HomePage() {
       {/* valued partners */}
       <section className="bg-[#f3f3f3] py-16">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          {/* Small Top Text */}
-          <p className="text-[#e4c272] bg-[#0f1f3d] p-2 ml-100 mr-100 text-sm font-semibold mb-2">
+          <p className="text-[#e4c272] bg-[#0f1f3d] py-2 px-4 inline-block text-sm font-semibold mb-2 mx-auto">
             Our Valued Partners
           </p>
 
@@ -782,7 +808,7 @@ export default function HomePage() {
 
 
       {/* current developers section */}
-      <OurPartner   />
+      <OurPartner />
 
       {/* Testimonials */}
       <Testimonial />

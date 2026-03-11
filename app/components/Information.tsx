@@ -18,10 +18,10 @@ const Information = () => {
                 Address
               </h3>
               <p className="text-gray-700 mt-1 text-sm leading-relaxed">
-                <a href="https://www.google.com/maps/place/Status+Elysium,+23,+Road,+nr.+Shree+Vishnudhara+Gardens,+Gota,+Ahmedabad,+Gujarat+382481" target="_blank" rel="noopener noreferrer" className="text-[#0f1e3d] hover:underline">
-                  Status Elysium, 23, Road, nr. Shree Vishnudhara Gardens,
-                  Gota, Ahmedabad, Gujarat 382481
-                </a>
+
+                Status Elysium, 23, Road, nr. Shree Vishnudhara Gardens,
+                Gota, Ahmedabad, Gujarat 382481
+
               </p>
             </div>
           </div>
@@ -55,6 +55,10 @@ const Information = () => {
               <p className="text-gray-700 mt-1 text-sm hover:underline">
                 <a href="tel:+917041395595" className="text-[#0f1e3d] hover:underline">
                   +91 70413 95595
+                </a>
+                <br />
+                <a href="tel:+919825029913" className="text-[#0f1e3d] hover:underline">
+                  +91 98250 29913
                 </a>
               </p>
             </div>

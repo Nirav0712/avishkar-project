@@ -258,7 +258,7 @@ const Testimonial = () => {
           What Our Clients Say
         </h2>
 
-        <div className="overflow-hidden">
+        <div className="overflow-hidden pl-20 pr-20">
           <div
             className="flex gap-8 transition-transform duration-500 ease-in-out pt-10"
             style={{
@@ -268,9 +268,8 @@ const Testimonial = () => {
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className={`relative group p-6 rounded-xl shadow-md shrink-0 text-center overflow-hidden backdrop-blur-lg bg-white/10 border border-white/20  hover:-translate-y-2 transition duration-300  ${
-                  itemsPerSlide === 1 ? "w-full" : "w-1/3"
-                }`}
+                className={`relative group p-6 rounded-xl shadow-md shrink-0 text-center overflow-hidden backdrop-blur-lg bg-white/10 border border-white/20  hover:-translate-y-2 transition duration-300  ${itemsPerSlide === 1 ? "w-full" : "w-1/3"
+                  }`}
               >
                 {/* Golden Hover Background */}
                 <div className="absolute bottom-0 left-0 w-full h-0 bg-linear-to-t from-[#e4c272]/70 via-[#e4c272]/40 to-transparent backdrop-blur-md transition-all duration-500 group-hover:h-full z-0"></div>

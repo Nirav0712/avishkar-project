@@ -223,43 +223,7 @@ export default function AboutPage() {
 
 
 
-      {/* Our Story */}
-      {/* <section className="py-20 bg-[#16243E]">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-bold text-secondary mb-6">
-                Our Story
-              </h2>
-              <p className="text-white leading-relaxed mb-4">
-                Founded in 2008, VeerRealEstate has grown from a small local
-                real estate agency to one of the most trusted property platforms
-                in the country. Our journey began with a simple mission: to make
-                property buying and renting accessible, transparent, and
-                stress-free for everyone.
-              </p>
-              <p className="text-white leading-relaxed mb-4">
-                Over the years, we've helped thousands of families find their
-                dream homes, investors discover lucrative opportunities, and
-                property owners connect with the right buyers and tenants.
-              </p>
-              <p className="text-white leading-relaxed">
-                Today, we're proud to offer a comprehensive platform that
-                combines cutting-edge technology with personalized service,
-                making your property journey smooth and successful.
-              </p>
-            </div>
-            <div className="relative h-96 rounded-2xl overflow-hidden shadow-lg">
-              <Image
-                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80"
-                alt="About VeerRealEstate"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section> */}
+
       {/* Stats */}
       <section className="pt-20 bg-gray-50">
         <div className="container mx-auto px-4">
@@ -271,24 +235,21 @@ export default function AboutPage() {
               Numbers that speak for themselves
             </p>
           </div>
+
           <section className="py-16 bg-gray-50">
             <div className="container mx-auto px-4">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-                  <div className="text-5xl font-bold text-[#0f1e3d] mb-2">10K+</div>
-                  <div className="text-gray-600">Properties Sold</div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center place-items-center">
+                <div className='w-40 h-40 md:w-50 md:h-50 rounded-full p-6 md:p-10 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
+                  <div className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-1">5K+</div>
+                  <div className="text-xs md:text-sm text-gray-600">Properties Sold</div>
                 </div>
-                <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-                  <div className="text-5xl font-bold text-[#0f1e3d] mb-2">5K+</div>
-                  <div className="text-gray-600">Happy Customers</div>
+                <div className='w-40 h-40 md:w-50 md:h-50 rounded-full p-6 md:p-10 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
+                  <div className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-1">2500</div>
+                  <div className="text-xs md:text-sm text-gray-600">Happy Customers</div>
                 </div>
-                <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-                  <div className="text-5xl font-bold text-[#0f1e3d] mb-2">100+</div>
-                  <div className="text-gray-600">Expert Agents</div>
-                </div>
-                <div className='w-40 h-40 rounded-full p-25  bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
-                  <div className="text-5xl font-bold text-[#0f1e3d] mb-2">15+</div>
-                  <div className="text-gray-600">Years Experience</div>
+                <div className='w-40 h-40 md:w-50 md:h-50 rounded-full p-6 md:p-10 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
+                  <div className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-1">12+</div>
+                  <div className="text-xs md:text-sm text-gray-600">Years Experience</div>
                 </div>
               </div>
             </div>

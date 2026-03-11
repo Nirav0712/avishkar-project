@@ -141,11 +141,11 @@ export default function Header() {
               </li> */}
             </ul>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 md:gap-4">
               {/* Search Icon */}
-              <button className="w-12 h-12 rounded-full border border-[#e4c272] flex items-center justify-center text-[#e4c272] hover:text-[#12233D] hover:bg-[#e4c272]">
-                <i className="fas fa-search text-lg  hover:bg-[#e4c272]"></i>
-              </button>
+              <Link href="/properties" className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#e4c272] flex items-center justify-center text-[#e4c272] hover:text-[#12233D] hover:bg-[#e4c272]">
+                <i className="fas fa-search text-base md:text-lg hover:bg-[#e4c272]"></i>
+              </Link>
 
               {/* Add Properties Button */}
               <a
@@ -153,8 +153,8 @@ export default function Header() {
                 className="
     flex items-center gap-2
     bg-[#12233D] text-[#e4c272]
-    px-6 py-3 rounded-full
-    text-light font-light
+    px-4 py-2 md:px-6 md:py-3 rounded-full
+    text-sm md:text-base font-light
     border border-[#e4c272]
     transition-all duration-300
     hover:bg-[#e4c272]
@@ -162,7 +162,7 @@ export default function Header() {
   "
               >
                 <i className="fas fa-phone"></i>
-                Contact Us
+                <span className="hidden md:inline">Contact Us</span>
               </a>
             </div>
 
@@ -178,7 +178,7 @@ export default function Header() {
 
             {/* Mobile Menu Toggle */}
             <button
-              className="lg:hidden text-2xl text-secondary"
+              className="lg:hidden text-2xl text-[#e4c272]"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <i
@@ -194,7 +194,7 @@ export default function Header() {
                 <li>
                   <Link
                     href="/"
-                    className="block text-secondary hover:text-primary font-medium transition-colors"
+                    className="block text-[#e4c272] hover:text-[#e4c272] font-medium transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Home
@@ -203,7 +203,7 @@ export default function Header() {
                 <li>
                   <Link
                     href="/properties"
-                    className="block text-secondary hover:text-primary font-medium transition-colors"
+                    className="block text-[#e4c272] hover:text-[#e4c272] font-medium transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Properties
@@ -212,7 +212,7 @@ export default function Header() {
                 <li>
                   <Link
                     href="/about"
-                    className="block text-secondary hover:text-primary font-medium transition-colors"
+                    className="block text-[#e4c272] hover:text-[#e4c272] font-medium transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     About
@@ -221,7 +221,7 @@ export default function Header() {
                 <li>
                   <Link
                     href="/blog"
-                    className="block text-secondary hover:text-primary font-medium transition-colors"
+                    className="block text-[#e4c272] hover:text-primary font-medium transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Blog
@@ -230,7 +230,7 @@ export default function Header() {
                 <li>
                   <Link
                     href="/contact"
-                    className="block text-secondary hover:text-primary font-medium transition-colors"
+                    className="block text-[#e4c272] hover:text-primary font-medium transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Contact
@@ -239,7 +239,7 @@ export default function Header() {
                 <li>
                   <Link
                     href="/properties"
-                    className="block bg-primary text-white px-6 py-2.5 rounded-lg font-medium text-center hover:bg-primary-dark transition-colors"
+                    className="block bg-[#e4c272] text-[#12233D] px-6 py-2.5 rounded-lg font-medium text-center hover:bg-primary-dark transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Browse Properties

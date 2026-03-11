@@ -249,10 +249,10 @@ export default function BlogPage() {
             </section>
 
             {/* Newsletter Section */}
-            <section className="py-16 bg-secondary text-white">
+            <section className="py-16 bg-[#12233D] text-white">
                 <div className="container mx-auto px-4">
                     <div className="max-w-2xl mx-auto text-center">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#e4c272]">Subscribe to Our Newsletter</h2>
                         <p className="text-lg mb-8 opacity-90">
                             Get the latest real estate insights delivered directly to your inbox
                         </p>
@@ -260,12 +260,12 @@ export default function BlogPage() {
                             <input
                                 type="email"
                                 placeholder="Enter your email"
-                                className="flex-1 px-6 py-4 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                                className="flex-1 px-6 py-4 rounded-lg text-white border border-[#e4c272]/20 focus:outline-none focus:ring-2 focus:ring-[#e4c272]/20"
                                 required
                             />
                             <button
                                 type="submit"
-                                className="bg-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-orange-500 transition-colors"
+                                className="bg-prmaryi text-[#e4c272] border border-[#e4c272] px-8 py-4 rounded-lg font-semibold hover:bg-[#e4c272] hover:text-[#12233D] transition-colors"
                             >
                                 Subscribe
                             </button>
