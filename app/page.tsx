@@ -13,6 +13,8 @@ import Partner from "./components/Partner";
 import Information from "./components/Information";
 import Facilities from "./components/Facilities";
 import React from 'react';
+import Projects from "./components/Projects";
+import OurPartner from "./components/OurPartner";
 // import styled from 'styled-components';
 
 export default function HomePage() {
@@ -103,10 +105,18 @@ export default function HomePage() {
   }, []);
 
   const featuredProperties = properties.filter((p) => p.featured).slice(0, 6);
-  const displayedProperties =
-    activeTab === "all"
-      ? featuredProperties
-      : featuredProperties.filter((p) => p.type === activeTab);
+  // const displayedProperties =
+  //   activeTab === "all"
+  //     ? featuredProperties
+  //     : featuredProperties.filter((p) => p.type === activeTab) || featuredProperties.filter((p) => p.category === activeTab);
+  const displayedProperties = properties.filter((property) => {
+    if (activeTab === "all") return true;
+
+    return (
+      property.type === activeTab ||
+      property.category === activeTab
+    );
+  });
 
   // Get one random property for each requirement category
   const requirementProperties = useMemo(() => {
@@ -335,8 +345,8 @@ export default function HomePage() {
       {/* our partners */}
       <Partner />
 
-      {/* Featured Properties */}
 
+      {/* Featured Properties */}
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -351,7 +361,7 @@ export default function HomePage() {
 
           {/* Property Type Tabs */}
           <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12">
-            {["all", "Villa", "Apartment", "House", "Land" ,"Industrial", "Commercial","Residential"].map((type) => (
+            {["all", "Villa", "Apartment", "House", "Land"].map((type) => (
               <button
                 key={type}
                 onClick={() => setActiveTab(type)}
@@ -361,6 +371,18 @@ export default function HomePage() {
                   }`}
               >
                 {type === "all" ? "All" : `${type}s`}
+              </button>
+            ))}
+            {["Industrial", "Commercial", "Residential"].map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveTab(category)}
+                className={`px-6 py-2.5 rounded-lg font-medium transition-colors ${activeTab === category
+                  ? "bg-[#0f1e3d] text-[#e4c272]"
+                  : "bg-white text-gray-700 hover:bg-[#0f1e3d] hover:text-[#e4c272] border border-gray-300"
+                  }`}
+              >
+                {category === "all" ? "All" : `${category}s`}
               </button>
             ))}
           </div>
@@ -400,71 +422,12 @@ export default function HomePage() {
       {/* Property Showcase Section */}
       <PropertyShowCase />
 
-
-      {/* Popular Cities */}
-      <section className="py-20 ">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-4">
-              Explore Properties by Area
-            </h2>
-            <p className="text-xl text-gray-600">
-              Exclusive real estate in India’s major urban hubs
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-6 gap-3 md:gap-6">
-            {[
-              {
-                name: "SG Highway",
-                count: "2,500+ Properties",
-                icon: "fa-building",
-              },
-              {
-                name: "Thaltej",
-                count: "1,800+ Properties",
-                icon: "fa-laptop",
-              },
-              {
-                name: "Bodakdev",
-                count: "3,200+ Properties",
-                icon: "fa-landmark",
-              },
-              {
-                name: "Bopal",
-                count: "1,200+ Properties",
-                icon: "fa-graduation-cap",
-              },
-              {
-                name: "Prahlad Nagar",
-                count: "450+ Properties",
-                icon: "fa-umbrella-beach",
-              },
-              {
-                name: "Ambli",
-                count: "900+ Properties",
-                icon: "fa-city"
-              },
-            ].map((city, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer"
-              >
-                <div className="w-16 h-16 mx-auto mb-4 bg-[#e4c272]/10 rounded-full flex items-center justify-center">
-                  <i className={`fas ${city.icon} text-3xl text-[#e4c272]`}></i>
-                </div>
-                <h3 className="text-lg font-semibold text-[#0f1e3d] mb-2">
-                  {city.name}
-                </h3>
-                <p className="text-sm text-gray-600">{city.count}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-       {/* Stats Section */}
+      {/* Stats Section */}
       <section className="py-16 bg-gray-50">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-[#0f1e3d] mb-4">Our Achievements</h2>
+          <p className="text-xl text-gray-600">Numbers that speak for themselves</p>
+        </div>
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
             <div className='w-40 h-40 rounded-full p-25 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer mx-auto'>
@@ -487,13 +450,88 @@ export default function HomePage() {
         </div>
       </section>
 
+
+      {/* Popular Cities */}
+      <section className="py-20 ">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-4">
+              Explore Properties by Area
+            </h2>
+            <p className="text-xl text-gray-600">
+              Exclusive real estate in India's major urban hubs
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-6 gap-3 md:gap-6">
+            {[
+              {
+                name: "Gota",
+                count: "2,500+ Properties",
+                icon: "fa-building",
+              },
+              {
+                name: "Chandlodiya",
+                count: "1,800+ Properties",
+                icon: "fa-laptop",
+              },
+              // {
+              //   name: "Jagatpur",
+              //   count: "3,200+ Properties",
+              //   icon: "fa-landmark",
+              // },
+              {
+                name: "Noorani",
+                count: "1,200+ Properties",
+                icon: "fa-graduation-cap",
+              },
+              {
+                name: "Vaishnodevi",
+                count: "450+ Properties",
+                icon: "fa-umbrella-beach",
+              },
+              {
+                name: "Science City",
+                count: "900+ Properties",
+                icon: "fa-city"
+              },
+              {
+                name: "Ognaj",
+                count: "450+ Properties",
+                icon: "fa-warehouse",
+              },
+              // {
+              //   name: "Zundal",
+              //   count: "450+ Properties",
+              //   icon: "fa-parking",
+              // },
+            ].map((city, index) => (
+              <div
+                key={index}
+                className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer"
+              >
+                <div className="w-16 h-16 mx-auto mb-4 bg-[#e4c272]/10 rounded-full flex items-center justify-center">
+                  <i className={`fas ${city.icon} text-3xl text-[#e4c272]`}></i>
+                </div>
+                <h3 className="text-lg font-semibold text-[#0f1e3d] mb-2">
+                  {city.name}
+                </h3>
+                <p className="text-sm text-gray-600">{city.count}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* projects scollers section */}
+      <Projects />
+
       {/* Required Properties */}
-      <section className="bg-[#162B49] py-20">
+      {/* <section className="bg-[#162B49] py-20">
         <div className="max-w-7xl mx-auto px-6">
 
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-14">
 
-            {/* Left Content */}
             <div className="text-center md:text-left">
               <p className="text-[#e4c272] font-semibold mb-3">
                 Property By Requirement
@@ -504,7 +542,6 @@ export default function HomePage() {
               </h2>
             </div>
 
-            {/* Filter Buttons */}
             <div className="mt-6 md:mt-0 bg-white p-3 rounded-xl flex flex-col sm:flex-row gap-3 w-full md:w-auto">
 
               <button
@@ -535,7 +572,6 @@ export default function HomePage() {
           </div>
 
 
-          {/* Cards */}
           <div className="grid md:grid-cols-3 gap-10">
             {requirementProperties.map((property: Property) => (
               <div key={property.id} className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-95 mx-auto">
@@ -581,7 +617,7 @@ export default function HomePage() {
             )}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* valued partners */}
       <section className="bg-[#f3f3f3] py-16">
@@ -743,6 +779,10 @@ export default function HomePage() {
 
       {/* facilities section  */}
       <Facilities />
+
+
+      {/* current developers section */}
+      <OurPartner   />
 
       {/* Testimonials */}
       <Testimonial />

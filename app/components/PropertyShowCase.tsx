@@ -6,9 +6,9 @@ import Link from "next/link";
 
 export default function PropertyShowCase() {
   const sliderImages = [
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
-    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80",
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
+    "/images/project/amber1.jpeg",
+    "/images/project/amber2.jpeg",
+    "/images/project/amber3.jpeg",
   ];
 
   const [current, setCurrent] = useState(0);
@@ -36,25 +36,24 @@ export default function PropertyShowCase() {
           {/* LEFT CONTENT */}
           <div>
             <span className="text-[#e4c272] font-semibold text-sm">
-              Luxe 2 & 3 BHK Homes in Ahmedabad
+              Luxe 2 BHK Homes in Ahmedabad
             </span>
 
             <h2 className="text-3xl md:text-5xl font-bold leading-tight mt-4">
-              Professional{" "}
-              <span className="text-[#e4c272]">Guidance</span>, <br />
-              Proven <span className="text-[#e4c272]">Results</span>
+               Premium {" "}
+              <span className="text-[#e4c272]">Urban Living</span>, <br />
+              Designed for <span className="text-[#e4c272]">Comfort</span>
             </h2>
 
             <p className="text-gray-300 mt-6 leading-relaxed max-w-xl">
-              Experience elevated living at Bluebell, a 14-story residential
-              landmark offering thoughtfully designed 2 & 3 BHK homes and
-              premium retail spaces. Designed for comfort and lifestyle,
-              Bluebell blends modern architecture with serene surroundings
-              to create your perfect urban retreat.
+              The Amber by Dobariya Group is a premium residential project offering thoughtfully designed 2BHK apartments with two balconies for endless open views. The project features landscaped gardens, children's play area, gymnasium, indoor games, podium seating, banquet hall, and modern lifestyle amenities. Designed for comfortable urban living, the development combines smart architecture, green spaces, and convenient connectivity to major areas of Ahmedabad.
             </p>
 
             <div className="mt-6 font-semibold text-white">
-              → Size: 1413 sq.ft & 2142 sq.ft
+              <span className="text-[#e4c272]">→ Size:</span> 1215 - 1400+ Sq Ft
+            </div>
+            <div className="mt-6 font-semibold text-white">
+              <span className="text-[#e4c272]">→ Location:</span>  Nikol - Naroda Road, Ahmedabad, Gujarat
             </div>
 
             <Link
@@ -74,7 +73,7 @@ export default function PropertyShowCase() {
               {/* LEFT STATIC IMAGE */}
               <div className="relative h-64 md:h-90 rounded-3xl overflow-hidden shadow-xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&q=80"
+                  src="/images/project/evara1.png"
                   alt="Building"
                   fill
                   className="object-cover"
@@ -96,7 +95,7 @@ export default function PropertyShowCase() {
 
                   <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0">
                     <Image
-                      src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80"
+                      src="/images/project/aristo-avira2.jpeg"
                       alt="Mini"
                       width={120}
                       height={80}
@@ -192,14 +191,14 @@ export default function PropertyShowCase() {
            {/*} Stats Circles */}
              <div className="flex flex-wrap gap-6 md:gap-10 mt-10 md:mt-14 justify-center md:justify-center">
               <div className="w-32 h-32 rounded-full border border-gray-400 flex flex-col items-center justify-center hover:border-[#e4c272] transition">
-                <span className="text-2xl font-bold">500+</span>
+                <span className="text-2xl font-bold">2500+</span>
                 <span className="text-sm text-gray-300 text-center">
                   Satisfied Client
                 </span>
               </div>
 
               <div className="w-32 h-32 rounded-full border border-gray-400 flex flex-col items-center justify-center hover:border-[#e4c272] transition">
-                <span className="text-2xl font-bold">40+</span>
+                <span className="text-2xl font-bold">30+</span>
                 <span className="text-sm text-gray-300 text-center">
                   Projects
                 </span>

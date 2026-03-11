@@ -9,46 +9,43 @@ const Facilities = () => {
       title: "Commercial",
       properties: "6 Properties",
       icon: "/images/facilities/icon-commercial.png",
+      background: "/images/facilities/ARISTO-Anantam1.jpeg",
     },
     {
       title: "Bunglow",
       properties: "8 Properties",
       icon: "/images/facilities/icon-bunglow.png",
+      background: "/images/facilities/ARISTO-Anantam2.jpeg",
     },
     {
       title: "Apartment",
       properties: "6 Properties",
       icon: "/images/facilities/icon-apartment.png",
+      background: "/images/facilities/aristo-avira3.jpeg",
     },
     {
       title: "Plot",
       properties: "4 Properties",
       icon: "/images/facilities/icon-plot.png",
+      background: "/images/facilities/aristo-avira1.jpeg",
     },
     {
       title: "Commercial",
       properties: "6 Properties",
       icon: "/images/facilities/icon-commercial.png",
+      background: "/images/facilities/ARISTO-Anantam1.jpeg",
     },
     {
       title: "Bunglow",
       properties: "8 Properties",
       icon: "/images/facilities/icon-bunglow.png",
+      background: "/images/facilities/ARISTO-Anantam2.jpeg",
     },
-    
   ];
 
   const itemsPerView = 3;
   const maxSlide = features.length - itemsPerView;
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => Math.min(prev + 1, maxSlide));
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => Math.max(prev - 1, 0));
-  };
 
   return (
     <section
@@ -61,6 +58,7 @@ const Facilities = () => {
 
       <div className="relative container mx-auto px-4">
         <div className="bg-[#162544] rounded-2xl p-16 flex flex-col lg:flex-row gap-12">
+
           {/* LEFT SIDE */}
           <div className="lg:w-1/3 text-white flex flex-col justify-between">
             <div>
@@ -83,7 +81,8 @@ const Facilities = () => {
 
           {/* RIGHT SIDE */}
           <div className="lg:w-2/3 w-full">
-            {/* SLIDER CONTAINER */}
+
+            {/* SLIDER */}
             <div className="relative overflow-hidden">
               <div
                 className="flex transition-transform duration-500 ease-in-out"
@@ -92,96 +91,56 @@ const Facilities = () => {
                 }}
               >
                 {features.map((item, index) => (
-                  <div
-                    key={index}
-                    className="w-1/3 shrink-0 px-4 mt-5"
-                  >
-                    <div
-                      className="bg-transparent border border-white/20 rounded-2xl p-10 text-center text-white
-                      transition-all duration-300 hover:border-[#c2df93] hover:-translate-y-3 hover:shadow-2xl hover:shadow-orange-500/20"
-                    >
-                      <div className="flex justify-center mb-8">
-                        <Image
-                          src={item.icon}
-                          alt={item.title}
-                          width={50}
-                          height={50}
-                          className="object-contain"
-                        />
+                  <div key={index} className="w-1/3 shrink-0 px-4 mt-5">
+
+                    <div className="relative rounded-2xl p-10 text-center text-white border border-white/20 overflow-hidden group transition-all duration-300 hover:-translate-y-3" style={{ backgroundImage: `url(${item.background})`, opacity: 0.7 }}>
+
+                      {/* Background Image */}
+                      {/* <div
+                        className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-30 transition-all duration-500 group-hover:scale-110"
+                        style={{ backgroundImage: `url(${item.background})` }}
+                      ></div> */}
+
+                      {/* Golden overlay */}
+                      <div className="absolute inset-0 bg-[#0f1a3d]/20 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+
+                      {/* Content */}
+                      <div className="relative z-10">
+                        <div className="flex justify-center mb-8">
+                          <Image
+                            src={item.icon}
+                            alt={item.title}
+                            width={50}
+                            height={50}
+                          />
+                        </div>
+
+                        <h4 className="text-xl font-semibold mb-2">{item.title}</h4>
+                        <p className="text-gray-300 text-sm">{item.properties}</p>
                       </div>
-                      <h4 className="text-xl font-semibold mb-2">{item.title}</h4>
-                      <p className="text-gray-300 text-sm">{item.properties}</p>
+
                     </div>
+
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* NAVIGATION BUTTONS */}
-            <div className="flex justify-center items-center mt-10 gap-4">
-              {/* <button
-                onClick={prevSlide}
-                disabled={currentSlide === 0}
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  currentSlide === 0
-                    ? "bg-white/20 cursor-not-allowed"
-                    : "bg-white/40 hover:bg-orange-500"
-                }`}
-              >
-                <svg
-                  className="w-5 h-5 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button> */}
-
-              {/* DOT INDICATORS */}
-              <div className="flex gap-2">
-                {[0, 1, 2, 3].map((index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      currentSlide === index
-                        ? "w-8 bg-[#e4c272]"
-                        : "w-2 bg-white/40 hover:bg-white/60"
-                    }`}
-                  />
-                ))}
-              </div>
-
-              {/* <button
-                onClick={nextSlide}
-                disabled={currentSlide === maxSlide}
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  currentSlide === maxSlide
-                    ? "bg-white/20 cursor-not-allowed"
-                    : "bg-white/40 hover:bg-orange-500"
-                }`}
-              >
-                <svg
-                  className="w-5 h-5 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button> */}
+            {/* DOT NAVIGATION */}
+            <div className="flex justify-center items-center mt-10 gap-2">
+              {[0, 1, 2, 3].map((index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    currentSlide === index
+                      ? "w-8 bg-[#e4c272]"
+                      : "w-2 bg-white/40 hover:bg-white/60"
+                  }`}
+                />
+              ))}
             </div>
+
           </div>
         </div>
       </div>

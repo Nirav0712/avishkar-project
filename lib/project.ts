@@ -139,7 +139,7 @@ export const projects: Project[] = [
     id: 5,
     title: "THE Amber",
     slug: "the-amber",
-    location: "Nikol – Naroda Area, Ahmedabad",
+    location: "Nikol - Naroda Area, Ahmedabad",
     status: "Under Construction",
     zone: "east",
     unitTypes: [
@@ -176,9 +176,9 @@ export const projects: Project[] = [
     ],
     bedrooms: 2,
     displayPrice: "Price On Request",
-    PlotArea: "1215 – 1400+ Sq Ft",
-    address: "The Amber by Dobariya Group, Nikol – Naroda Road, Ahmedabad, Gujarat",
-    description: "The Amber by Dobariya Group is a premium residential project offering thoughtfully designed 2BHK apartments with two balconies for endless open views. The project features landscaped gardens, children’s play area, gymnasium, indoor games, podium seating, banquet hall, and modern lifestyle amenities. Designed for comfortable urban living, the development combines smart architecture, green spaces, and convenient connectivity to major areas of Ahmedabad.",
+    PlotArea: "1215 - 1400+ Sq Ft",
+    address: "The Amber by Dobariya Group, Nikol - Naroda Road, Ahmedabad, Gujarat",
+    description: "The Amber by Dobariya Group is a premium residential project offering thoughtfully designed 2BHK apartments with two balconies for endless open views. The project features landscaped gardens, children's play area, gymnasium, indoor games, podium seating, banquet hall, and modern lifestyle amenities. Designed for comfortable urban living, the development combines smart architecture, green spaces, and convenient connectivity to major areas of Ahmedabad.",
     image: "/images/project/amber1.jpeg",
     images: [
         "/images/project/amber1.jpeg",
@@ -198,19 +198,19 @@ export const projects: Project[] = [
             { 
                 type: "1 BHK (Type 1)", 
                 area: "Living: 12'3\"x10'6\", Master Bedroom: 10'0\"x11'0\"", 
-                description: "Compact 1BHK layout featuring a kitchen with wash yard, a master bedroom with a standing balcony and 5'0\" cupboard space, and a single toilet[cite: 72, 74, 75, 76, 77, 79, 80]." 
+                description: "Compact 1BHK layout featuring a kitchen with wash yard, a master bedroom with a standing balcony and 5'0\" cupboard space, and a single toilet."
             },
             { 
                 type: "1 BHK (Type 2)", 
                 area: "Living: 12'3\"x12'6\", Master Bedroom: 10'0\"x10'9\"", 
-                description: "Enhanced 1BHK configuration offering a larger living room, two toilets (Master and Common), and a dedicated balcony[cite: 84, 85, 87, 91, 92]." 
+                description: "Enhanced 1BHK configuration offering a larger living room, two toilets (Master and Common), and a dedicated balcony." 
             }
         ],
         bedrooms: 1,
         displayPrice: "Price On Request",
-        PlotArea: "Information not specified (Features 30.00 MT. Wide Road access)",
-        address: "Ahmedabad (Specific locality not explicitly named) [cite: 31, 36]",
-        description: "A proposed residential apartment project in Ahmedabad designed by Earth Creation. The development features a mix of commercial shops on the ground floor and 1 BHK residential units on typical floors. Amenities include an open theater, gym, yoga and meditation deck, and outdoor games on the terrace[cite: 1, 8, 29, 34, 51, 60, 64, 65, 69].",
+        PlotArea: "30.00 MT. Wide Road access",
+        address: "Ahmedabad (Specific locality not explicitly named) ",
+        description: "A proposed residential apartment project in Ahmedabad designed by Earth Creation. The development features a mix of commercial shops on the ground floor and 1 BHK residential units on typical floors. Amenities include an open theater, gym, yoga and meditation deck, and outdoor games on the terrace.",
         image: "/images/project/pr1.jpeg",
         images: [
             "/images/project/pr1.jpeg",
@@ -230,19 +230,19 @@ export const projects: Project[] = [
             { 
                 type: "4 BHK Residence", 
                 area: "Ultra Spacious", 
-                description: "Luxury residences designed with refined aesthetics and premium finishes, offering dual views of the lake and lush garden landscapes[cite: 172, 179, 188]." 
+                description: "Luxury residences designed with refined aesthetics and premium finishes, offering dual views of the lake and lush garden landscapes." 
             },
             { 
                 type: "5 BHK Duplex Penthouse", 
                 area: "Information not specified in brochure", 
-                description: "Exclusive top-tier living space offering elevated luxury and distinction[cite: 155, 162]." 
+                description: "Exclusive top-tier living space offering elevated luxury and distinction." 
             }
         ],
         bedrooms: 5,
         displayPrice: "Price On Request",
-        PlotArea: "G+13 Storey Building [cite: 158, 159]",
-        address: "Sadhna Obsidian, Malabar County Road, Jagatpur, Gota, Ahmedabad - 382470 [cite: 125]",
-        description: "Sadhna Obsidian is an ultra-spacious residential project in the evolving charm of Jagatpur. Developed by Sadhna Group, this G+13 storey development offers a lifestyle crafted for a select few, featuring balconies with serene lake and garden views[cite: 158, 172, 188]. The project emphasizes a rare harmony of water and greenery, providing residents with premium finishes and a bold, sleek architectural vision[cite: 181, 182, 189].",
+        PlotArea: "G+13 Storey Building ",
+        address: "Sadhna Obsidian, Malabar County Road, Jagatpur, Gota, Ahmedabad - 382470 ",
+        description: "Sadhna Obsidian is an ultra-spacious residential project in the evolving charm of Jagatpur. Developed by Sadhna Group, this G+13 storey development offers a lifestyle crafted for a select few, featuring balconies with serene lake and garden views. The project emphasizes a rare harmony of water and greenery, providing residents with premium finishes and a bold, sleek architectural vision.",
         image: "/images/project/sadhna1.png",
         images: [
             "/images/project/sadhna1.png",
@@ -251,12 +251,12 @@ export const projects: Project[] = [
         ],
         featured: true,
         amenities: [
-            "Indoor splash pool with deck [cite: 194]",
-            "Fitness center [cite: 205]",
-            "Zumba & Yoga studio [cite: 207]",
-            "Multipurpose court [cite: 196]",
-            "Indoor games [cite: 206]",
-            "Children play area [cite: 197]"
+            "Indoor splash pool with deck ",
+            "Fitness center ",
+            "Zumba & Yoga studio ",
+            "Multipurpose court ",
+            "Indoor games ",
+            "Children play area "
         ]
  },
  {
