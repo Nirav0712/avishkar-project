@@ -16,7 +16,7 @@ import React from 'react';
 import Projects from "./components/Projects";
 import OurPartner from "./components/OurPartner";
 import Logospin from "./components/Logospin";
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
 export default function HomePage() {
   const [properties, setProperties] = useState<Property[]>([]);
@@ -140,6 +140,49 @@ export default function HomePage() {
     params.set("location", location);
     window.location.href = `/properties?${params.toString()}`;
   };
+
+  const services = [
+    {
+      title: "Retail space Leasing",
+      icon: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png",
+      description: "Premium retail locations for your business growth."
+    },
+    {
+      title: "Property Management",
+      icon: "https://cdn-icons-png.flaticon.com/512/1534/1534959.png",
+      description: "Professional management for your valuable assets."
+    },
+    {
+      title: "Interior Designing",
+      icon: "https://cdn-icons-png.flaticon.com/512/942/942748.png",
+      description: "Transforming spaces into beautiful, functional homes."
+    },
+    {
+      title: "Consultancy & Research",
+      icon: "https://cdn-icons-png.flaticon.com/512/1995/1995485.png",
+      description: "Expert market insights for informed property decisions."
+    },
+    {
+      title: "Corporate Space Leasing",
+      icon: "https://cdn-icons-png.flaticon.com/512/1040/1040230.png",
+      description: "Strategically located offices for modern enterprises."
+    },
+    {
+      title: "Legal Advice & Document",
+      icon: "https://cdn-icons-png.flaticon.com/512/2991/2991148.png",
+      description: "Hassle-free legal support for all property matters."
+    },
+    {
+      title: "Investment in Rented Prop",
+      icon: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+      description: "Secure investments with guaranteed rental returns."
+    },
+    {
+      title: "Loan Against Property",
+      icon: "https://cdn-icons-png.flaticon.com/512/2965/2965879.png",
+      description: "Financial solutions tailored to your property value."
+    }
+  ];
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -553,98 +596,7 @@ export default function HomePage() {
       {/* projects scollers section */}
       <Projects />
 
-      {/* Required Properties */}
-      {/* <section className="bg-[#162B49] py-20">
-        <div className="max-w-7xl mx-auto px-6">
 
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-14">
-
-            <div className="text-center md:text-left">
-              <p className="text-[#e4c272] font-semibold mb-3">
-                Property By Requirement
-              </p>
-
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white leading-snug">
-                Uncover Country Home
-              </h2>
-            </div>
-
-            <div className="mt-6 md:mt-0 bg-white p-3 rounded-xl flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-
-              <button
-                type="button"
-                onClick={() => handleCategoryClick("Commercial")}
-                className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-[#0f1e3d] hover:text-white active:bg-[#0f1e3d] cursor-pointer transition"
-              >
-                Commercial
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleCategoryClick("Industrial")}
-                className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-[#0f1e3d] hover:text-white active:bg-[#0f1e3d] cursor-pointer transition"
-              >
-                Industrial
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleCategoryClick("Residential")}
-                className="w-full sm:w-auto px-5 py-2 rounded-lg text-gray-700 font-medium hover:bg-[#0f1e3d] hover:text-white active:bg-[#0f1e3d] cursor-pointer transition"
-              >   Residential
-              </button>
-
-            </div>
-
-          </div>
-
-
-          <div className="grid md:grid-cols-3 gap-10">
-            {requirementProperties.map((property: Property) => (
-              <div key={property.id} className="bg-[#EDEDED] rounded-2xl overflow-hidden shadow-md w-full max-w-95 mx-auto">
-                <div className="relative h-62.5">
-                  <img
-                    src={property.image.split(',')[0]}
-                    className="w-full h-full object-cover"
-                    alt={property.title}
-                  />
-                  <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow">
-                    ❤️
-                  </div>
-                </div>
-
-                <div className="p-6 text-center md:text-left">
-                  <h3 className="text-xl font-semibold text-[#1f2d3d] mb-2 uppercase">
-                    {property.title}
-                  </h3>
-
-                  <p className="text-gray-600 text-sm mb-4">
-                    {property.location}
-                  </p>
-
-                  <div className="flex justify-between text-gray-600 text-sm mb-6">
-                    <span>🛏 Bed {property.bedrooms}</span>
-                    <span>🛁 Bath {property.bathrooms}</span>
-                  </div>
-
-                  <Link
-                    href={`/properties/${property.id}`}
-                    className="block w-full text-center bg-[#1f2d3d] text-white py-3 rounded-full hover:bg-[#e4c272] hover:text-[#0f1e3d] border-2 hover:border-[#0f1e3d] transition"
-                  >
-                    Details
-                  </Link>
-                </div>
-              </div>
-            ))}
-
-            {requirementProperties.length === 0 && (
-              <div className="col-span-3 text-center py-10 text-white/60">
-                No properties found for these requirements.
-              </div>
-            )}
-          </div>
-        </div>
-      </section> */}
 
       {/* valued partners */}
       <section className="bg-[#f3f3f3] py-16">
@@ -660,93 +612,27 @@ export default function HomePage() {
 
           {/* Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Card */}
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272]  hover:border-[#e4c272] transition duration-300  ">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png"
-                alt=""
-                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
-              />
-              <p className="text-[#0f1f3d] font-medium">
-                Retail space Leasing
-              </p>
-            </div>
-
-            <div
-              className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272] transition duration-300 "
-            >
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/1534/1534959.png"
-                alt=""
-                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
-              />
-              <p className="text-[#0f1f3d] font-medium">Property Managment</p>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272] transition duration-300 ">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/942/942748.png"
-                alt=""
-                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
-              />
-              <p className="text-[#0f1f3d] font-medium">Interior Designing</p>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272]  hover:border-[#e4c272] transition duration-300  ">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/1995/1995485.png"
-                alt=""
-                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
-              />
-              <p className="text-[#0f1f3d] font-medium">
-                Consultancy & Research
-              </p>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272]  hover:border-[#e4c272] transition duration-300  ">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/1040/1040230.png"
-                alt=""
-                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
-              />
-              <p className="text-[#0f1f3d] font-medium">
-                Corporate Space Leasing
-              </p>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272]  hover:border-[#e4c272] transition duration-300  ">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png"
-                alt=""
-                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
-              />
-              <p className="text-[#0f1f3d] font-medium">
-                Legal Advise & Document
-              </p>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272]  hover:border-[#e4c272] transition duration-300  ">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                alt=""
-                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
-              />
-              <p className="text-[#0f1f3d] font-medium">
-                Investment in Rented Prop
-              </p>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272]  hover:border-[#e4c272] transition duration-300  ">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/2965/2965879.png"
-                alt=""
-                className="w-24 h-24 mx-auto mb-4 ransition-transform duration-300 hover:scale-125"
-              />
-              <p className="text-[#0f1f3d] font-medium">
-                Loan Against Property
-              </p>
-            </div>
+            {services.map((service, index) => (
+              <StyledWrapper key={index}>
+                <div className="book">
+                  <p className="px-4 text-center">{service.description}</p>
+                  <div className="cover">
+                    <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272] transition duration-300 w-full h-full flex flex-col items-center justify-center">
+                      <img
+                        src={service.icon}
+                        alt={service.title}
+                        className="w-24 h-24 mx-auto mb-4 transition-transform duration-300 hover:scale-125"
+                      />
+                      <p className="text-[#0f1f3d] font-medium text-center">
+                        {service.title}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </StyledWrapper>
+            ))}
           </div>
+
         </div>
       </section>
 
@@ -820,3 +706,68 @@ export default function HomePage() {
     </>
   );
 }
+
+const StyledWrapper = styled.div`
+  .book {
+    position: relative;
+    border-radius: 20px;
+    width: 220px;
+    height: 240px;
+    background-color: whitesmoke;
+    -webkit-box-shadow: 1px 1px 12px #e4c272;
+    box-shadow: 1px 1px 12px #e4c272;
+    -webkit-transform: preserve-3d;
+    -ms-transform: preserve-3d;
+    transform: preserve-3d;
+    -webkit-perspective: 2000px;
+    perspective: 2000px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #000;
+  }
+
+  .cover {
+    top: 0;
+    position: absolute;
+    background-color: lightgray;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    cursor: pointer;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-transform-origin: 0;
+    -ms-transform-origin: 0;
+    transform-origin: 0;
+    // -webkit-box-shadow: 1px 1px 12px #e4c272;
+    // box-shadow: 1px 1px 12px #e4c272;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  .book:hover .cover {
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-transform: rotatey(-80deg);
+    -ms-transform: rotatey(-80deg);
+    transform: rotatey(-80deg);
+  }
+
+  p {
+    font-size: 20px;
+    font-weight: bolder;
+  }`;
