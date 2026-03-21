@@ -211,7 +211,7 @@ export default function Header() {
                 </li>
                 <li>
                   <Link
-                    href="/about"
+                    href="/about-us"
                     className="block text-[#e4c272] hover:text-[#e4c272] font-medium transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >

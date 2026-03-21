@@ -40,6 +40,26 @@ export default function Footer() {
                 <i className="fab fa-instagram text-lg"></i>
               </a>
 
+              {/* YouTube */}
+              <a
+                href="https://www.youtube.com/channel/UC9J4_1_1_1_1_1_1_1_1_1_1_1_1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-[#FF0000] text-white rounded-lg flex items-center justify-center hover:scale-110 transition"
+              >
+                <i className="fab fa-youtube text-lg"></i>
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/company/avishkar-realty-in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-[#0077B5] text-white rounded-lg flex items-center justify-center hover:scale-110 transition"
+              >
+                <i className="fab fa-linkedin-in text-lg"></i>
+              </a>
+
             </div>
 
           </div>

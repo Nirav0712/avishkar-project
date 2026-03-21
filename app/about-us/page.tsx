@@ -10,6 +10,7 @@ import Partner from "../components/Partner";
 import PropertyShowCase from "../components/PropertyShowCase";
 import Link from "next/link";
 import Information from "../components/Information";
+import GoogleReviews from "../components/GoogleReviews";
 
 export default function AboutPage() {
   return (
@@ -20,10 +21,10 @@ export default function AboutPage() {
       />
       <Header />
       {/* Hero Section */}
-      <section className="bg-[#162544] py-12 ">
-        <div className="container mx-auto px-6">
+      <section className="bg-[#162544] py-8 md:py-12 ">
+        <div className="container mx-auto px-4 md:px-6">
 
-          <div className="relative rounded-2xl overflow-hidden h-67.5  mb-10">
+          <div className="relative rounded-2xl overflow-hidden h-[250px] md:h-[400px] mb-10">
 
             {/* Background Image */}
             <Image
@@ -31,7 +32,7 @@ export default function AboutPage() {
               alt="About Page"
               width={1600}
               height={600}
-              className="w-full h-87.5 md:h-112.5 object-cover"
+              className="w-full h-full object-cover"
             />
 
             {/* Dark Overlay */}
@@ -138,12 +139,12 @@ export default function AboutPage() {
         </div>
       </section> */}
 
-      <section className="py-20 bg-white relative w-80% mx-auto">
+      <section className="py-12 md:py-20 bg-white relative w-[95%] md:w-[80%] mx-auto">
         <div className="container mx-auto px-4 ">
           <div className="bg-white rounded-2xl overflow-hidden  ">
 
-            <div className="grid md:grid-cols-2 items-center h-185">
-              <div className="relative w-full  h-175  rounded-2xl overflow-hidden border-2 border-[#e4c272] shadow-xl group transform transition duration-500 hover:-translate-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-16 items-center mb-16 md:mb-24">
+              <div className="relative w-full h-[350px] md:h-[500px] rounded-2xl overflow-hidden border-2 border-[#e4c272] shadow-xl group transform transition duration-500 hover:-translate-y-3">
                 <Image
                   src="/images/team/Founder1.jpg"
                   alt="Founder"
@@ -151,41 +152,39 @@ export default function AboutPage() {
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
               </div>
-              <div className="p-30">
+              <div className="p-6 md:p-12 lg:p-16">
                 <p className="text-[#e4c272] font-bold mb-3">
                   Meet Our Founder
                 </p>
-                {/* <h2 className="text-5xl  font-bold text-[#16243E] mb-10 "> */}
-                <h2 className="text-3xl md:text-4xl font-bold text-[#16243E] mb-6">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#16243E] mb-6">
                   Ajay Prajapati
                 </h2>
-                <p className="text-gray-500 leading-relaxed mb-4 line-height-50 word-spacing-2 text-xl">
+                <p className="text-gray-500 leading-relaxed mb-4 text-base md:text-lg lg:text-xl">
                   The foundation of Avishkar Realty was laid by a visionary leader with a deep passion for real estate and a commitment to delivering excellence. With years of experience in property consulting, investments, and project management, our founder has built a trusted brand that prioritizes transparency, innovation, and client satisfaction.
                 </p>
-                <p className="text-gray-500 leading-relaxed line-height-50 word-spacing-2 text-xl">
+                <p className="text-gray-500 leading-relaxed text-base md:text-lg lg:text-xl">
                   Driven by the belief that real estate is not just about property but about creating long-term value, our founder ensures every deal is built on trust, integrity, and results.
                 </p>
               </div>
             </div>
 
 
-            <div className="grid md:grid-cols-2 items-center pt-8 h-195">
-              <div className="p-10 order-2 md:order-1 pr-30">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-16 items-center">
+              <div className="p-6 md:p-12 lg:p-16 order-2 md:order-1">
                 <p className="text-[#e4c272] font-bold mb-3">
                   Meet Our Founder
                 </p>
-                {/* <h2 className="text-5xl font-bold text-[#16243E] mb-10 "> */}
-                <h2 className="text-3xl md:text-6xl font-bold text-[#16243E] mb-6">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#16243E] mb-6">
                   Dashrathbhai Prajapati
                 </h2>
-                <p className="text-gray-500 leading-relaxed line-height-50 word-spacing-2 mb-4 text-xl">
+                <p className="text-gray-500 leading-relaxed mb-4 text-base md:text-lg lg:text-xl">
                   Our founder continues to guide the company with strategic insight and a client-first approach — ensuring that every real estate transaction delivers exceptional value and long-term success.
                 </p>
-                <p className="text-gray-500 leading-relaxed line-height-50 word-spacing-2 text-xl">
+                <p className="text-gray-500 leading-relaxed text-base md:text-lg lg:text-xl">
                   With a strong focus on integrity and innovation, we aim to redefine the property experience for buyers, sellers, and investors alike.
                 </p>
               </div>
-              <div className="relative w-full h-175 order-1 md:order-2 rounded-2xl overflow-hidden border-2 border-[#e4c272] shadow-xl group transform transition duration-500 hover:-translate-y-3">
+              <div className="relative w-full h-[350px] md:h-[500px] order-1 md:order-2 rounded-2xl overflow-hidden border-2 border-[#e4c272] shadow-xl group transform transition duration-500 hover:-translate-y-3">
                 <Image
                   src="/images/team/Founder2.jpg"
                   alt="Founder"
@@ -193,14 +192,6 @@ export default function AboutPage() {
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
               </div>
-              {/* <div className="relative h-175 order-1 md:order-2 rounded-2xl overflow-hidden border-4 border-orange-500">
-                <Image
-                  src="/images/team/Founder2.jpg"
-                  alt="Founder"
-                  fill
-                  className="object-cover "
-                />
-              </div> */}
             </div>
           </div>
         </div>
@@ -239,128 +230,28 @@ export default function AboutPage() {
           <section className="py-16 bg-gray-50">
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center place-items-center">
-                <div className='w-40 h-40 md:w-50 md:h-50 rounded-full p-6 md:p-10 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
-                  <div className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-1">5K+</div>
-                  <div className="text-xs md:text-sm text-gray-600">Properties Sold</div>
+                <div className='w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-full p-4 md:p-8 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
+                  <div className="text-2xl md:text-5xl font-bold text-[#0f1e3d] mb-1">5K+</div>
+                  <div className="text-[10px] md:text-sm text-gray-600 uppercase tracking-wider">Properties Sold</div>
                 </div>
-                <div className='w-40 h-40 md:w-50 md:h-50 rounded-full p-6 md:p-10 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
-                  <div className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-1">2500</div>
-                  <div className="text-xs md:text-sm text-gray-600">Happy Customers</div>
+                <div className='w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-full p-4 md:p-8 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
+                  <div className="text-2xl md:text-5xl font-bold text-[#0f1e3d] mb-1">2500</div>
+                  <div className="text-[10px] md:text-sm text-gray-600 uppercase tracking-wider">Happy Customers</div>
                 </div>
-                <div className='w-40 h-40 md:w-50 md:h-50 rounded-full p-6 md:p-10 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
-                  <div className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-1">12+</div>
-                  <div className="text-xs md:text-sm text-gray-600">Years Experience</div>
+                <div className='w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-full p-4 md:p-8 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
+                  <div className="text-2xl md:text-5xl font-bold text-[#0f1e3d] mb-1">12+</div>
+                  <div className="text-[10px] md:text-sm text-gray-600 uppercase tracking-wider">Years Experience</div>
                 </div>
               </div>
             </div>
           </section>
         </div>
       </section>
-      {/* Our Values */}
-      {/* <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-secondary mb-4">
-              Our Core Values
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              The principles that guide everything we do
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-sm text-center">
-              <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
-                <i className="fas fa-shield-alt text-4xl text-primary"></i>
-              </div>
-              <h3 className="text-2xl font-semibold text-secondary mb-4">
-                Trust & Integrity
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                We believe in complete transparency and honesty in all our
-                dealings, building lasting relationships based on trust.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-sm text-center">
-              <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
-                <i className="fas fa-star text-4xl text-primary"></i>
-              </div>
-              <h3 className="text-2xl font-semibold text-secondary mb-4">
-                Excellence
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                We strive for excellence in every interaction, ensuring our
-                clients receive the highest quality service at all times.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-sm text-center">
-              <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
-                <i className="fas fa-users text-4xl text-primary"></i>
-              </div>
-              <h3 className="text-2xl font-semibold text-secondary mb-4">
-                Customer First
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Your needs and satisfaction are our top priority. We go the
-                extra mile to ensure you find exactly what you're looking for.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-      {/* Our Team */}
-      {/* <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-secondary mb-4">
-              Meet Our Team
-            </h2>
-            <p className="text-xl text-gray-600">
-              Dedicated professionals committed to your success
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Vikram Malhotra",
-                role: "CEO & Founder",
-                image: "https://randomuser.me/api/portraits/men/51.jpg",
-              },
-              {
-                name: "Anjali Deshmukh",
-                role: "Head of Sales",
-                image: "https://randomuser.me/api/portraits/women/72.jpg",
-              },
-              {
-                name: "Arjun Nair",
-                role: "Chief Operations Officer",
-                image: "https://randomuser.me/api/portraits/men/62.jpg",
-              },
-            ].map((member, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-xl shadow-sm overflow-hidden text-center"
-              >
-                <div className="relative h-72">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-secondary mb-1">
-                    {member.name}
-                  </h3>
-                  <p className="text-gray-600">{member.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
 
-      <Testimonial />
+      {/* <Testimonial /> */}
+      <h2 className="text-4xl font-bold text-[#e4c272] mb-4 text-center mt-10">Google Reviews</h2>
+      <GoogleReviews />
+
       <Facilities />
 
       {/* Call to Action */}
