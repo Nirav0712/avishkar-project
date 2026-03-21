@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Partner = () => {
   const partners = [
-    { name: "gold", logo: "/images/Partner/1.png" },
+    { name: "sbi", logo: "/images/Partner/sbilogo.png" },
     { name: "sankalp", logo: "/images/Partner/2.png" },
     { name: "vadilal", logo: "/images/Partner/3.png" },
     { name: "adani", logo: "/images/Partner/4.png" },

@@ -16,59 +16,14 @@ import React from 'react';
 import Projects from "./components/Projects";
 import OurPartner from "./components/OurPartner";
 import Logospin from "./components/Logospin";
+import HeroSection from "./components/HeroSection";
 import styled from 'styled-components';
+import GoogleReviews from "./components/GoogleReviews";
 
 export default function HomePage() {
   const [properties, setProperties] = useState<Property[]>([]);
   const [activeTab, setActiveTab] = useState<string>("all");
   const [searchStatus, setSearchStatus] = useState<string>("For Sale");
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const heroImages = [
-    "/images/slider/slider1.jpeg",
-    "/images/slider/slider4.jpeg",
-    "/images/slider/slider3.jpeg",
-    "/images/slider/slider2.jpeg",
-    "/images/slider/slider5.jpeg",
-    // "https://plus.unsplash.com/premium_photo-1746387628298-af5695a3f935?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHByb3BlcnRpZXN8ZW58MHx8MHx8fDA%3D",
-    // "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
-    // "https://images.unsplash.com/photo-1635108199395-8cd24af60af1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fHByb3BlcnRpZXN8ZW58MHx8MHx8fDA%3D",
-    // "https://images.unsplash.com/photo-1756435292384-1bf32eff7baf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjU0fHxwcm9wZXJ0aWVzfGVufDB8fDB8fHww",
-    // "https://images.unsplash.com/photo-1602941525421-8f8b81d3edbb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvcGVydGllc3xlbnwwfHwwfHx8MA%3D%3D",
-  ];
-  const sliderImages = [
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=80",
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1000&q=80",
-    "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1000&q=80",
-    "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=1000&q=80",
-  ];
-
-  const [current, setCurrent] = useState(0);
-
-  const nextSlide = () => {
-    setCurrent((prev) => (prev + 1) % sliderImages.length);
-  };
-
-  const prevSlide = () => {
-    setCurrent((prev) => (prev === 0 ? sliderImages.length - 1 : prev - 1));
-  };
-
-  // ✅ Auto Slide (Every 4 Seconds)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [heroImages.length]);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -211,214 +166,8 @@ export default function HomePage() {
 
 
       {/* Hero Section with Auto-Scrolling Background */}
-      <section className="relative min-h-screen md:h-205 flex items-center justify-center overflow-hidden py-20 md:py-0">
-        {/* Background Image Carousel */}
-        <div className="absolute inset-0">
+      <HeroSection />
 
-          {heroImages.map((image, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ${index === currentImageIndex ? "opacity-100" : "opacity-0"
-                }`}
-            >
-              <Image
-                src={image}
-                alt={`Property ${index + 1}`}
-                fill
-                className="object-cover"
-                priority={index === 0}
-              />
-              <div className="absolute inset-0 bg-linear-to-r from-secondary/80 to-secondary/40 opacity-70"></div>
-            </div>
-          ))}
-        </div>
-        <div className="absolute top-10 right-10 w-24 h-24 md:w-48 md:h-48 opacity-100 pointer-events-none">
-
-          <div className="w-full flex justify-center items-center h-full overflow-hidden">
-            <div
-              className="text-3xl font-bold text-[#e4c272]"
-              style={{
-                animation: "moveLR 5s ease-in-out infinite alternate",
-              }}
-            >
-              <img src="/arlogo.png" alt="icoimg.png" className="h-12 md:h-30" />
-            </div>
-            <style>
-              {`
-          @keyframes moveLR {
-            0% { transform: translateX(-20px); }
-            100% { transform: translateX(40px); }
-          }
-            `}
-            </style>
-          </div>
-
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center text-white ">
-            <h1 className="text-3xl md:text-6xl font-bold mb-6 drop-shadow-lg justify-center items-center text-center px-4">
-              Trusted Real Estate Expert in Ahmedabad
-            </h1>
-            {/* <p className="text-xl md:text-2xl mb-20 opacity-95 drop-shadow">
-              Discover the perfect property from our extensive listings of homes, apartments, and commercial spaces
-            </p> */}
-
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 w-full px-4">
-              <button
-                onClick={() => handleCategoryClick("Commercial")}
-                className="w-full md:w-auto px-8 py-3 rounded-xl border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
-              >
-                Commercial →
-              </button>
-
-              <button
-                onClick={() => handleCategoryClick("Residential")}
-                className="w-full md:w-auto px-8 py-3 rounded-xl border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
-              >
-                Residential →
-              </button>
-
-              <button
-                onClick={() => handleCategoryClick("Industrial")}
-                className="w-full md:w-auto px-8 py-3 rounded-xl border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
-              >
-                Industrial →
-              </button>
-
-              <Link href="/project">
-                <button
-                  className="w-full md:w-auto px-8 py-3 rounded-xl border border-white text-white bg-white/10 backdrop-blur-md hover:bg-[#e4c272] hover:text-black hover:border-black transition duration-300"
-                >
-                  New Projects →
-                </button>
-              </Link>
-            </div>
-
-            {/* Search Widget with Glassmorphism Effect */}
-            {/* <div className="mt-10 backdrop-blur-lg bg-white/20 rounded-xl p-4 md:p-6 shadow-2xl border border-white/30 mx-4 md:mx-0">
-              <div className="flex gap-4 mb-6 border-b-2 border-white/30">
-                <button
-                  onClick={() => setSearchStatus("For Sale")}
-                  className={`px-6 py-3 font-medium transition-colors relative ${searchStatus === "For Sale"
-                    ? "text-[#0f1e3d]"
-                    : "text-white hover:text-#e4c272"
-                    }`}
-                >
-                  For Sale
-                  {searchStatus === "For Sale" && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0f1e3d]" />
-                  )}
-                </button>
-                <button
-                  onClick={() => setSearchStatus("For Rent")}
-                  className={`px-6 py-3 font-medium transition-colors relative ${searchStatus === "For Rent"
-                    ? "text-[#0f1e3d]"
-                    : "text-white hover:text-[#0f1e3d]"
-                    }`}
-                >
-                  For Rent
-                  {searchStatus === "For Rent" && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0f1e3d]" />
-                  )}
-                </button>
-              </div>
-
-              <form
-                onSubmit={handleSearch}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 bg-white/20 backdrop-blur-md p-4 md:p-6 rounded-xl border border-white/30 shadow-lg"
-              >
-                <select name="type" className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-500 ">
-                  <option value="" >Property Types</option>
-                  <option value="Apartment">Apartment</option>
-                  <option value="Commercial">Commercial Shops</option>
-                  <option value="Commercial">Commercial Office</option>
-                  <option value="Industrial">Industrial</option>
-                  <option value="Banglow">Bunglows</option>
-                  <option value="Land">Land</option>
-                  <option value="Plot">Plot</option>
-                </select>
-
-                <input
-                  type="text"
-                  name="location"
-                  placeholder="Enter Location"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-black w-full  placeholder:text-gray-500"
-                />
-                
-
-                <select
-                  name="bhk"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-500"
-                >
-                  <option value="" >BHK</option>
-                  <option value="1">1 BHK</option>
-                  <option value="2">2 BHK</option>
-                  <option value="3">3 BHK</option>
-                  <option value="4">4 BHK</option>
-                  <option value="5">5+ BHK</option>
-                </select>
-
-                
-                <input
-                  type="number"
-                  name="minBudget"
-                  placeholder="Enter Min Budget"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-black w-full  placeholder:text-gray-500"
-                />
-                
-
-               
-                <input
-                  type="number"
-                  name="maxBudget"
-                  placeholder="Enter Max Budget"
-                  className="px-4 py-3 bg-white/80 rounded-lg 
-             focus:outline-none focus:ring-2 
-             focus:ring-[#0f1e3d] text-black w-full  placeholder:text-gray-500"
-                />
-               
-
-                <select
-                  name="transaction"
-                  className="px-4 py-3 bg-white/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f1e3d] text-gray-500"
-                >
-                  <option value="">Transaction</option>
-                  <option value="new">New Property</option>
-                  <option value="resale">Resale</option>
-                  <option value="underconstruction">Under Construction</option>
-                </select>
-
-                <button
-                  type="submit"
-                  className="bg-[#0f1e3d] text-[#e4c272] border-2 border-[#e4c272] px-6 py-3 rounded-lg font-semibold transition-all hover:bg-[#e4c272] hover:text-[#0f1e3d] hover:border-[#0f1e3d] hover:-translate-y-0.5 hover:shadow-md col-span-1 sm:col-span-2 lg:col-span-3"
-                >
-                  Search
-                </button>
-              </form>
-            </div> */}
-          </div>
-        </div>
-
-        <div className="absolute top-150 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none opacity-50">
-          <Logospin />
-        </div>
-
-        {/* Carousel Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
-          {heroImages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all ${index === currentImageIndex
-                ? "bg-[#0f1e3d] w-8"
-                : "bg-white/50 hover:bg-white/80"
-                }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      </section>
 
       {/* our partners */}
       <Partner />
@@ -439,7 +188,7 @@ export default function HomePage() {
 
           {/* Property Type Tabs */}
           <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12">
-            {["all", "Villa", "Apartment", "House", "Land"].map((type) => (
+            {["all", "Villa", "Apartment", "Bungalow", "Land", "Showroom", "Shop"].map((type) => (
               <button
                 key={type}
                 onClick={() => setActiveTab(type)}
@@ -451,7 +200,7 @@ export default function HomePage() {
                 {type === "all" ? "All" : `${type}s`}
               </button>
             ))}
-            {["Industrial", "Commercial", "Residential"].map((category) => (
+            {["Industrial"].map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveTab(category)}
@@ -550,7 +299,7 @@ export default function HomePage() {
                 icon: "fa-laptop",
               },
               {
-                name: "Noorani",
+                name: "Zundal",
                 count: "1,200+ Properties",
                 icon: "fa-graduation-cap",
               },
@@ -601,13 +350,13 @@ export default function HomePage() {
       {/* valued partners */}
       <section className="bg-[#f3f3f3] py-16">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <p className="text-[#e4c272] bg-[#0f1f3d] py-2 px-4 inline-block text-sm font-semibold mb-2 mx-auto">
-            Our Valued Partners
+          <p className="text-[#e4c272] bg-[#0f1f3d] py-2 px-4 inline-block text-md font-semibold mb-2 mx-auto">
+            Our Services
           </p>
 
           {/* Main Heading */}
           <h2 className="text-3xl md:text-4xl font-bold text-[#0f1f3d] mb-12">
-            Partnerships built on trust and <br /> success.
+            We Provide Best Services.
           </h2>
 
           {/* Grid */}
@@ -697,7 +446,12 @@ export default function HomePage() {
       <OurPartner />
 
       {/* Testimonials */}
-      <Testimonial />
+      {/* <Testimonial /> */}
+
+      <h2 className="text-4xl font-bold text-center m-12 text-[#e4c272]">
+        What Our Clients Say
+      </h2>
+      <GoogleReviews />
 
       {/* footer section */}
       <Information />

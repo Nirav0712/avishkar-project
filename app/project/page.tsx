@@ -134,95 +134,78 @@ export default function ProjectsPage() {
                 {/* CONTENT */}
                 <div className="lg:w-1/2">
 
-                  <div className="bg-white shadow-xl rounded-2xl p-8 border border-gray-100 hover:shadow-2xl transition duration-300">
+                  <div className="bg-white  rounded-3xl p-8  transition duration-300">
 
-                    {/* Header */}
-                    <div className="flex items-center gap-4 mb-6">
-
-                      <span className="text-5xl font-bold text-[#e4c272]/40">
-                        {project.id}
+                    {/* Badges */}
+                    <div className="flex flex-wrap gap-4 mb-6 uppercase">
+                      <span className="text-[14px] font-bold text-gray-500 tracking-wide">
+                        {project.status || "UNDER CONSTRUCTION"}
                       </span>
-
-                      <h3 className="text-3xl font-bold text-[#0f1e3d]">
-                        {project.title}
-                      </h3>
-
+                      {project.isForSale && (
+                        <span className="px-5 py-2 rounded-full text-[13px] font-bold bg-[#f5e6ff] text-[#9b4dca] tracking-wider shadow-sm">
+                          FOR SALE
+                        </span>
+                      )}
+                      {project.featured && (
+                        <span className="px-5 py-2 rounded-full text-[13px] font-bold bg-[#00004d] text-white tracking-wider shadow-sm">
+                          FEATURED
+                        </span>
+                      )}
                     </div>
 
-                    {/* Address */}
-                    <div className="flex items-center gap-3 text-gray-600 mb-6">
+                    {/* Title */}
+                    <h3 className="text-4xl md:text-5xl font-bold text-[#0f1e3d] mb-4">
+                      {project.title}
+                    </h3>
 
-                      <i className="fas fa-map-marker-alt text-[#e4c272] text-lg"></i>
-
-                      <span className="font-medium">
-                        {project.address}
+                    {/* Address/Location */}
+                    <div className="flex items-center gap-2 text-gray-800 mb-10">
+                      <i className="fas fa-map-marker-alt text-lg"></i>
+                      <span className="text-lg font-medium">
+                        {project.location}
                       </span>
-
+                      {/* rera */}
+                      <br />
+                      <span className="flex items-center gap-1 bg-green-100 text-green-700 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full">
+                        <i className="fas fa-check-circle text-green-600"></i>
+                        RERA Verified
+                      </span>
                     </div>
 
-                    {/* Property Info */}
-                    <div className="grid grid-cols-3 gap-6 mb-8 text-center">
-
-                      <div className="bg-gray-50 p-4 rounded-xl">
-
-                        <i className="fas fa-dollar-sign text-[#e4c272] text-lg mb-1"></i>
-
-                        <p className="text-sm text-gray-500">Price</p>
-
-                        <p className="font-semibold text-[#0f1e3d]">
-                          {project.displayPrice}
-                        </p>
-
+                    {/* Property Info Bar */}
+                    <div className="bg-[#f8f9fa] rounded-2xl p-6 mb-10 flex items-center justify-between max-w-xl">
+                      <div className="flex items-center gap-4">
+                        <i className="fas fa-bed text-3xl text-[#0f1e3d]"></i>
+                        <span className="text-2xl font-bold text-gray-700">{project.bedrooms}</span>
                       </div>
-
-                      <div className="bg-gray-50 p-4 rounded-xl">
-
-                        <i className="fas fa-bed text-[#e4c272] text-lg mb-1"></i>
-
-                        <p className="text-sm text-gray-500">Bedrooms</p>
-
-                        <p className="font-semibold text-[#0f1e3d]">
-                          {project.bedrooms}
-                        </p>
-
+                      <div className="flex items-center gap-4">
+                        <i className="fas fa-bath text-3xl text-[#0f1e3d]"></i>
+                        <span className="text-2xl font-bold text-gray-700">{project.bathrooms || 3}</span>
                       </div>
-
-                      <div className="bg-gray-50 p-4 rounded-xl">
-
-                        <i className="fas fa-ruler-combined text-[#e4c272] text-lg mb-1"></i>
-
-                        <p className="text-sm text-gray-500">Area</p>
-
-                        <p className="font-semibold text-[#0f1e3d]">
-                          {project.PlotArea}
-                        </p>
-
+                      <div className="flex items-center gap-4">
+                        <i className="fas fa-ruler-combined text-3xl text-[#d4af37]"></i>
+                        <span className="text-2xl font-bold text-gray-700">{project.PlotArea}</span>
                       </div>
-
                     </div>
+
+
+                    {/* Price */}
+                    <div className="text-4xl font-extrabold text-[#e4c272] mb-8">
+                      {project.displayPrice}
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-gray-500 text-lg leading-relaxed mb-10 max-w-2xl">
+                      {project.description}
+                    </p>
 
                     {/* Button */}
-                    <Link
-                      href={`/project/${project.slug}`}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0f1e3d] text-white font-semibold hover:bg-[#e4c272] hover:text-black transition duration-300 group"
+                    <button onClick={() => window.location.href = `/project/${project.slug}`}
+                      className="cursor-pointer inline-flex items-center gap-4 px-10 py-5 rounded-2xl bg-[#00004d] text-white font-extrabold text-xl hover:bg-[#000033] transition-all duration-300 shadow-xl shadow-blue-900/40"
                     >
-                      View Details
-
-                      <svg
-                        className="w-5 h-5 group-hover:translate-x-2 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-
-                    </Link>
+                      {/* <i className="fas fa-phone-alt rotate-90 text-2xl text-green-400"></i> */}
+                      See Details
+                    </button>
 
                   </div>
 

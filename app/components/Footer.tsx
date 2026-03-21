@@ -91,6 +91,8 @@ export default function Footer() {
                 "Property Management",
                 "Interior Design",
                 "Consultancy & Research",
+                "Legal Advice & Document",
+                "Loan Against Property",
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-2 hover:text-[#e4c272] transition">
                   <span className="text-[#e4c272] text-sm">»</span>

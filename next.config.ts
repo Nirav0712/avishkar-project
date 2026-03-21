@@ -30,6 +30,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'peru-camel-628961.hostingersite.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.jalaramrealestate.com',
       }
     ],
   },

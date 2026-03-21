@@ -68,14 +68,14 @@ export default function AdminDashboard() {
     //             type === 'number' ? parseFloat(value) || 0 : value
     //     }));
     // };
-    const handleInputChange = (e:any) => {
-  const { name, value, type, checked } = e.target;
+    const handleInputChange = (e: any) => {
+        const { name, value, type, checked } = e.target;
 
-  setFormData({
-    ...formData,
-    [name]: type === "checkbox" ? checked : value
-  });
-};
+        setFormData({
+            ...formData,
+            [name]: type === "checkbox" ? checked : value
+        });
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -248,13 +248,13 @@ export default function AdminDashboard() {
                     {/* <div className="text-2xl font-bold mb-8 text-center pb-6 border-b border-white/10">
                         <span className="text-[#e4c272]">Avishkar</span>
                     </div> */}
-                     <div className="text-center mb-8 pb-6 border-b border-white/10">
-          <img src="/images/logo.png" alt="" />
-          {/* <h1 className="text-3xl font-bold text-yellow-400 tracking-wide">
+                    <div className="text-center mb-8 pb-6 border-b border-white/10">
+                        <img src="/images/logo.png" alt="" />
+                        {/* <h1 className="text-3xl font-bold text-yellow-400 tracking-wide">
             Avishkar Realty
           </h1> */}
-          
-        </div>
+
+                    </div>
 
                     <nav>
                         <ul className="space-y-2">
@@ -484,10 +484,12 @@ export default function AdminDashboard() {
                                     >
                                         <option value="Villa">Villa</option>
                                         <option value="Apartment">Apartment</option>
-                                        <option value="House">House</option>
-                                        <option value="Condo">Condo</option>
+                                        {/* <option value="House">House</option> */}
+                                        <option value="Bungalow">Bungalow</option>
                                         <option value="Land">Land</option>
                                         <option value="Retail">Retail</option>
+                                        <option value="Shop">Shop</option>
+                                        <option value="Showroom">Showroom</option>
                                     </select>
                                 </div>
 

@@ -210,10 +210,12 @@ function PropertiesContent() {
                     <option value="all">All Types</option>
                     <option value="Villa">Villa</option>
                     <option value="Apartment">Apartment</option>
-                    <option value="House">House</option>
-                    {/* <option value="Condo">Condo</option> */}
+                    {/* <option value="House">House</option> */}
+                    <option value="Bungalow">Bungalow</option>
                     <option value="Land">Land</option>
                     <option value="Retail">Retail</option>
+                    <option value="Shop">Shop</option>
+                    <option value="Showroom">Showroom</option>
                   </select>
                 </div>
 
