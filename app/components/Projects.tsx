@@ -14,10 +14,10 @@ export default function Projects() {
       <div className=" items-center gap-16">
 
 
-        <h2 className="text-5xl font-bold text-[#e4c272] leading-tight text-center ">
-          Exclusive  Luxury Projects
+        <h2 className="text-3xl md:text-5xl font-bold text-[#e4c272] leading-tight text-center ">
+          Exclusive Luxury Projects
         </h2>
-        <p className="text-gray-400 text-center pt-3">  Discover thoughtfully designed residences that blend elegance, comfort, and modern living.</p>
+        <p className="text-gray-400 text-center pt-3 px-4"> Discover thoughtfully designed residences that blend elegance, comfort, and modern living.</p>
 
         {/* RIGHT SLIDER */}
         <div className=" relative w-full overflow-hidden mt-10">
@@ -35,14 +35,14 @@ export default function Projects() {
               <Link
                 key={index}
                 href={`/project/${project.slug}`}
-                className="min-w-[320px] rounded-xl overflow-hidden shadow-lg relative group cursor-pointer"
+                className="min-w-[280px] sm:min-w-[320px] rounded-xl overflow-hidden shadow-lg relative group cursor-pointer"
               >
                 <Image
                   src={project.image}
                   alt={project.title}
                   width={400}
                   height={600}
-                  className="w-100 h-137.5 object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-100 h-[400px] md:h-[550px] object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
                 {/* Project Name */}

@@ -39,7 +39,7 @@ const WhatsappButton = ({ phoneNumber }: WhatsAppButtonProps) => {
           onClick={handleClick}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="relative bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95"
+          className="relative bg-green-500 hover:bg-green-600 text-white p-3 md:p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95"
           aria-label="Contact on WhatsApp"
         >
           <svg

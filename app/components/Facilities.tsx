@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const Facilities = () => {
@@ -46,18 +46,16 @@ const Facilities = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(3);
 
-  useState(() => {
-    if (typeof window !== "undefined") {
-      const updateItemsPerView = () => {
-        if (window.innerWidth < 768) setItemsPerView(1);
-        else if (window.innerWidth < 1024) setItemsPerView(2);
-        else setItemsPerView(3);
-      };
-      updateItemsPerView();
-      window.addEventListener("resize", updateItemsPerView);
-      return () => window.removeEventListener("resize", updateItemsPerView);
-    }
-  });
+  useEffect(() => {
+    const updateItemsPerView = () => {
+      if (window.innerWidth < 768) setItemsPerView(1);
+      else if (window.innerWidth < 1024) setItemsPerView(2);
+      else setItemsPerView(3);
+    };
+    updateItemsPerView();
+    window.addEventListener("resize", updateItemsPerView);
+    return () => window.removeEventListener("resize", updateItemsPerView);
+  }, []);
 
   const maxSlide = features.length - itemsPerView;
 

@@ -91,27 +91,27 @@ export default function PropertyShowCase() {
                 />
 
                 {/* Speech Bubble */}
-                <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-[#EAEAEA] rounded-[30px] px-3 py-2 md:px-5 md:py-4 flex items-center gap-2 shadow-xl w-auto max-w-[90%]">
+                <div className="absolute top-2 left-2 md:top-6 md:left-6 bg-[#EAEAEA] rounded-[20px] md:rounded-[30px] px-2 py-1 md:px-5 md:py-4 flex items-center gap-2 shadow-xl w-auto max-w-[95%]">
 
-                  <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0">
+                  <div className="w-12 h-12 md:w-20 md:h-20 rounded-xl md:rounded-2xl overflow-hidden shrink-0">
                     <Image
                       src="/images/project/aristo-avira2.jpeg"
                       alt="Mini"
                       width={120}
                       height={80}
-                      className="object-cover"
+                      className="object-cover w-full h-full"
                     />
                   </div>
 
-                  <h3 className="text-[#162544] font-semibold text-lg">
+                  <h3 className="text-[#162544] font-semibold text-xs md:text-lg">
                     MAINTENANCE & PARKING
                   </h3>
 
                   {/* Pointer */}
-                  <div className="absolute -bottom-4 left-16 w-0 h-0 
-                    border-l-12 border-l-transparent
-                    border-r-12 border-r-transparent
-                    border-t-14 border-t-[#EAEAEA]"
+                  <div className="absolute -bottom-2 md:-bottom-4 left-8 md:left-16 w-0 h-0 
+                    border-l-6 md:border-l-12 border-l-transparent
+                    border-r-6 md:border-r-12 border-r-transparent
+                    border-t-8 md:border-t-14 border-t-[#EAEAEA]"
                   />
                 </div>
 
@@ -147,18 +147,18 @@ export default function PropertyShowCase() {
               </div>
             </div>
 
-            {/*} Stats Circles */}
-            <div className="flex flex-wrap gap-6 md:gap-10 mt-10 md:mt-14 justify-center md:justify-center">
-              <div className="w-32 h-32 rounded-full border border-gray-400 flex flex-col items-center justify-center hover:border-[#e4c272] transition">
-                <span className="text-2xl font-bold">2500+</span>
-                <span className="text-sm text-gray-300 text-center">
+            {/* Stats Circles */}
+            <div className="flex flex-wrap gap-4 md:gap-10 mt-10 md:mt-14 justify-center">
+              <div className="w-28 h-28 md:w-32 md:h-32 rounded-full border border-gray-400 flex flex-col items-center justify-center hover:border-[#e4c272] transition p-2 text-center">
+                <span className="text-xl md:text-2xl font-bold">2500+</span>
+                <span className="text-[10px] md:text-sm text-gray-300">
                   Satisfied Client
                 </span>
               </div>
 
-              <div className="w-32 h-32 rounded-full border border-gray-400 flex flex-col items-center justify-center hover:border-[#e4c272] transition">
-                <span className="text-2xl font-bold">11+</span>
-                <span className="text-sm text-gray-300 text-center">
+              <div className="w-28 h-28 md:w-32 md:h-32 rounded-full border border-gray-400 flex flex-col items-center justify-center hover:border-[#e4c272] transition p-2 text-center">
+                <span className="text-xl md:text-2xl font-bold">11+</span>
+                <span className="text-[10px] md:text-sm text-gray-300">
                   Projects
                 </span>
               </div>

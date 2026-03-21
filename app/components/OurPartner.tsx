@@ -49,7 +49,7 @@ export default function OurPartner() {
         OUR PARTNERS
       </h2>
 
-      <p className="text-center text-gray-500 text-sm sm:text-base md:text-md font-semibold tracking-wide mb-8 sm:mb-12 md:mb-16 px-4 sm:px-8 md:px-50 lg:px-80">
+      <p className="text-center text-gray-500 text-sm sm:text-base md:text-md font-semibold tracking-wide mb-8 sm:mb-12 md:mb-16 px-4 md:px-20 lg:px-40">
         We have worked with some of the most reputable developers in the real estate industry, and we are proud to showcase our partnerships with them. Our partners are carefully selected based on their track record, quality of work, and commitment to excellence. We believe that strong partnerships are the foundation of success, and we are committed to building long-term relationships with our partners based on trust, respect, and mutual benefit.
       </p>
       <div className="max-w-7xl mx-auto px-6">
@@ -60,16 +60,16 @@ export default function OurPartner() {
           {visiblePartners.map((partner, index) => (
             <div
               key={index}
-              className="bg-white rounded-[25px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-8 text-center 
+              className="bg-white rounded-[25px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-6 md:p-8 text-center 
               flex flex-col items-center justify-center relative mt-10
               transition-all duration-300 
               hover:shadow-2xl hover:-translate-y-2 group"
             >
 
               {/* Logo Circle */}
-              <div className="w-28 h-28 absolute -top-10 left-1/2 -translate-x-1/2 
+              <div className="w-20 h-20 md:w-28 md:h-28 absolute -top-8 md:-top-10 left-1/2 -translate-x-1/2 
               rounded-full bg-white flex items-center justify-center 
-              border-4 border-[#f0f4f8] shadow-sm overflow-hidden p-4">
+              border-4 border-[#f0f4f8] shadow-sm overflow-hidden p-3 md:p-4">
 
                 <Image
                   src={partner.logo}

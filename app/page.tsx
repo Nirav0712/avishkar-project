@@ -257,17 +257,17 @@ export default function HomePage() {
         </div>
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center place-items-center">
-            <div className='w-32 h-32 md:w-50 md:h-50 rounded-full p-6 md:p-10 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
-              <div className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-1">5K+</div>
-              <div className="text-xs md:text-sm text-gray-600">Properties Sold</div>
+            <div className='w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-full p-4 md:p-8 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
+              <div className="text-2xl md:text-5xl font-bold text-[#0f1e3d] mb-1">5K+</div>
+              <div className="text-[10px] md:text-sm text-gray-600 uppercase tracking-wider">Properties Sold</div>
             </div>
-            <div className='w-32 h-32 md:w-50 md:h-50 rounded-full p-6 md:p-10 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
-              <div className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-1">2500</div>
-              <div className="text-xs md:text-sm text-gray-600">Happy Customers</div>
+            <div className='w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-full p-4 md:p-8 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
+              <div className="text-2xl md:text-5xl font-bold text-[#0f1e3d] mb-1">2500</div>
+              <div className="text-[10px] md:text-sm text-gray-600 uppercase tracking-wider">Happy Customers</div>
             </div>
-            <div className='w-32 h-32 md:w-50 md:h-50 rounded-full p-6 md:p-10 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
-              <div className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-1">12+</div>
-              <div className="text-xs md:text-sm text-gray-600">Years Experience</div>
+            <div className='w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-full p-4 md:p-8 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
+              <div className="text-2xl md:text-5xl font-bold text-[#0f1e3d] mb-1">12+</div>
+              <div className="text-[10px] md:text-sm text-gray-600 uppercase tracking-wider">Years Experience</div>
             </div>
           </div>
         </div>
@@ -286,7 +286,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-6 gap-3 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
             {[
               {
                 name: "Gota",
@@ -360,7 +360,7 @@ export default function HomePage() {
           </h2>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 justify-items-center">
             {services.map((service, index) => (
               <StyledWrapper key={index}>
                 <div className="book">

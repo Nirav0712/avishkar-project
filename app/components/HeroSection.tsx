@@ -53,7 +53,7 @@ export default function HeroSection() {
             </div>
 
 
-            <div className="absolute top-10 left-10 z-30">
+            <div className="hidden md:block absolute top-10 left-10 z-30">
                 <StyledWrapper>
                     <button
                         className="button"
@@ -115,7 +115,7 @@ export default function HeroSection() {
                 </div>
             </div>
 
-            <div className="absolute top-150 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none opacity-50">
+            <div className="absolute top-[40%] md:top-[65%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none opacity-30 md:opacity-50">
                 <Logospin />
             </div>
 
@@ -143,8 +143,12 @@ const StyledWrapper = styled.div`
     border: none;
     background: transparent;
     color: #fff;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
+    @media (min-width: 768px) {
+      width: 150px;
+      height: 150px;
+    }
     border-radius: 50%;
     overflow: hidden;
     position: relative;
@@ -165,15 +169,22 @@ const StyledWrapper = styled.div`
       position: absolute;
       top: 0;
       left: 50%;
-      transform-origin: 50% 75px;
+      transform-origin: 50% 50px;
+      @media (min-width: 768px) {
+        transform-origin: 50% 75px;
+      }
       transform: translateX(-50%) rotate(calc(9.47deg * var(--index)));
     }
   }
 
   .button__circle {
     position: relative;
-    width: 130px;
-    height: 130px;
+    width: 80px;
+    height: 80px;
+    @media (min-width: 768px) {
+      width: 130px;
+      height: 130px;
+    }
     overflow: hidden;
     background: transparent;
     color: #2aabee;

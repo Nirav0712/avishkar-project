@@ -80,11 +80,11 @@ export default function Header() {
       {/* Main Header */}
       <header className="bg-[#0f1e3d] shadow-md sticky top-0 z-50 transition-all">
         <div className="max-w-7xl mx-auto px-4 ">
-          <nav className="flex items-center justify-between py-10 ">
+          <nav className="flex items-center justify-between py-4 md:py-10 ">
             {/* Logo */}
             <Link href="/" className="text-2xl font-bold text-secondary ">
               {/* Veer<span className="text-primary">RealEstate</span> */}
-              <img src="/images/logo.png" alt="logo" className="h-15 w-auto object-contain" />
+              <img src="/images/logo.png" alt="logo" className="h-10 md:h-16 w-auto object-contain" />
             </Link>
 
             {/* Desktop Menu */}
