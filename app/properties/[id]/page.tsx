@@ -193,9 +193,9 @@ export default function PropertyDetailsPage() {
                                         <img
                                             src={images[currentImageIndex]}
                                             alt={`${property.title} - Image ${currentImageIndex + 1}`}
-                                            
-                                            className="object-contain"
-                                            // priority
+
+                                            className="object-contain w-full h-full items-center justify-center"
+                                        // priority
                                         />
 
                                         {images.length > 1 && (
@@ -273,7 +273,7 @@ export default function PropertyDetailsPage() {
                                             <img
                                                 src={imgUrl}
                                                 alt={`Thumbnail ${idx + 1}`}
-                                                
+
                                                 className="object-cover"
                                             />
                                         </button>

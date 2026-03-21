@@ -64,7 +64,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
                         src={property.image.split(',')[0]}
                         alt={property.title}
 
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="object-cover group-hover:scale-110 transition-transform duration-500 w-full h-full items-center justify-center"
                     />
 
                     {/* Badges */}
