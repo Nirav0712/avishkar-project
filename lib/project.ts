@@ -25,6 +25,7 @@ export type Project = {
     totalUnits?: number;
     bathrooms?: number;
     isForSale?: boolean;
+    rera?: string;
 };
 
 export const projects: Project[] = [
@@ -56,6 +57,7 @@ export const projects: Project[] = [
         ],
         featured: true,
         isForSale: true,
+        rera: "PR/GJ/AHMEDABAD/AHMEDABAD CITY/AUDA/RAA01680/EX1/071218",
     },
 
     {
@@ -86,6 +88,7 @@ export const projects: Project[] = [
         ],
         featured: true,
         isForSale: true,
+        rera: "PR/GJ/GANDHINAGAR/GANDHINAGAR/Gandhinagar Municipal Corporation/MAA13377/230424/311228",
     },
 
     {
@@ -113,6 +116,7 @@ export const projects: Project[] = [
             "/images/project/evara3.png",
         ],
         featured: true,
+        rera : "PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/RAA14314/A1R/300625/311228.",
     },
     {
         id: 4,
@@ -138,6 +142,7 @@ export const projects: Project[] = [
             "/images/project/signet3.png",
         ],
         featured: true,
+        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/MAA14360/281024/311229.",
     },
     {
         id: 5,
@@ -189,7 +194,8 @@ export const projects: Project[] = [
             "/images/project/amber2.jpeg",
             "/images/project/amber3.jpeg",
         ],
-        featured: true
+        featured: true,
+        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/MAA15692/130825/311229.",
     },
     {
         id: 6,
@@ -222,6 +228,7 @@ export const projects: Project[] = [
             "/images/project/pr3.jpeg",
         ],
         featured: true,
+        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/AUDA/MAA12447/131023",
     },
     {
         id: 7,
@@ -261,7 +268,8 @@ export const projects: Project[] = [
             "Multipurpose court ",
             "Indoor games ",
             "Children play area "
-        ]
+        ],
+        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/RAA14887/270225/311229 (or RAA14887/A1R/020226/311229).",
     },
     {
         id: 8,
@@ -311,7 +319,8 @@ export const projects: Project[] = [
             "Club Class Amenities",
             "Premium Residential Towers",
             "Corner Plot (100 ft & 60 ft Road)"
-        ]
+        ],
+        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/RAA16283/030126/310330.",
     },
     {
         id: 9,
@@ -360,7 +369,8 @@ export const projects: Project[] = [
             "Yoga Space & Activity Studio",
             "Toddler's Play Area & Kids Play Zone",
             "Senior Citizen Sitting & Lawn Area"
-        ]
+        ],
+        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/AUDA/RAA11582/110423",
     },
     {
         id: 10,
@@ -408,7 +418,8 @@ export const projects: Project[] = [
             "/images/project/ARISTO-Anantam3.jpeg"
         ],
         featured: true,
-        possession: "Mid 2028"
+        possession: "Mid 2028",
+        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/MAA14872/250225/310530.",
     },
     {
         id: 11,
@@ -444,7 +455,8 @@ export const projects: Project[] = [
         possession: "December 2026",
         totalTowers: 3,
         totalFloors: 13,
-        totalUnits: 152
+        totalUnits: 152,
+        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/MAA13750/290624/311228",
     },
     {
         id: 12,
@@ -462,5 +474,6 @@ export const projects: Project[] = [
         image: "/images/project/bg4.jpg", // Placeholder
         featured: true,
         isForSale: true,
+        rera :"PR/GJ/GANDHINAGAR/GANDHINAGAR/Others/RAA11803/220523.",
     }
 ];

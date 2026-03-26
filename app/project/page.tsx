@@ -158,18 +158,24 @@ export default function ProjectsPage() {
                       {project.title}
                     </h3>
 
-                    {/* Address/Location */}
-                    <div className="flex items-center gap-2 text-gray-800 mb-10">
-                      <i className="fas fa-map-marker-alt text-lg"></i>
-                      <span className="text-lg font-medium">
-                        {project.location}
-                      </span>
-                      {/* rera */}
-                      <br />
-                      <span className="flex items-center gap-1 bg-green-100 text-green-700 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full">
-                        <i className="fas fa-check-circle text-green-600"></i>
-                        RERA Verified
-                      </span>
+                    <div className="flex flex-col mb-4">
+                      {/* Address/Location */}
+                      <div className="flex items-center gap-2 text-gray-800 mb-3" >
+                        <i className="fas fa-map-marker-alt text-lg"></i>
+                        <span className="text-lg font-medium">
+                          {project.location}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 text-gray-800">
+                        <div>
+                          <span className="flex items-center gap-1 bg-green-100 text-green-700 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full">
+                            <i className="fas fa-check-circle text-green-600"></i>
+
+                            RERA Approved :- <span className=" text-gray-500">{project.rera}</span>
+                          </span>
+
+                        </div>
+                      </div>
                     </div>
 
                     {/* Property Info Bar */}
