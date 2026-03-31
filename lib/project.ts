@@ -26,12 +26,13 @@ export type Project = {
     bathrooms?: number;
     isForSale?: boolean;
     rera?: string;
+    blogId?: number;
 };
 
 export const projects: Project[] = [
     {
         id: 1,
-        title: "Om Heights",
+        title: "Om Eclat Heights",
         slug: "om-heights",
         location: "Zundal, Ahmedabad",
         status: "Upcoming",
@@ -58,6 +59,7 @@ export const projects: Project[] = [
         featured: true,
         isForSale: true,
         rera: "PR/GJ/AHMEDABAD/AHMEDABAD CITY/AUDA/RAA01680/EX1/071218",
+        blogId: 11,
     },
 
     {
@@ -89,6 +91,7 @@ export const projects: Project[] = [
         featured: true,
         isForSale: true,
         rera: "PR/GJ/GANDHINAGAR/GANDHINAGAR/Gandhinagar Municipal Corporation/MAA13377/230424/311228",
+        blogId: 12,
     },
 
     {
@@ -96,7 +99,7 @@ export const projects: Project[] = [
         id: 3,
         title: "EVARA",
         slug: "evara",
-        location: "S.G. Highway, Ahmedabad",
+        location: "Iconic Road, S.G. Highway, Ahmedabad",
         status: "Under Construction",
         zone: "west",
         unitTypes: [
@@ -107,7 +110,7 @@ export const projects: Project[] = [
         bedrooms: 3,
         displayPrice: "Price On Request",
         PlotArea: "2,25,000+ Sq. Ft.",
-        address: "Evara, Near Vaishnodevi Circle, S.G. Highway, Ahmedabad",
+        address: "Evara, Near Vaishnodevi Circle, Iconic Road, S.G. Highway, Ahmedabad",
         description: "EVARA is an iconic masterpiece featuring five majestic residential towers (up to 39 floors) and one exclusive 7-storey club tower. The project offers 3 & 4 BHK cloud-facing apartments and penthouses with over 60% open land. Highlights include a resort-style entrance, 600 ft spacing between 4BHK towers, a temperature-controlled indoor pool, and a rooftop infinity pool.",
         image: "/images/project/evara2.png",
         images: [
@@ -116,13 +119,14 @@ export const projects: Project[] = [
             "/images/project/evara3.png",
         ],
         featured: true,
-        rera : "PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/RAA14314/A1R/300625/311228.",
+        rera: "PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/RAA14314/A1R/300625/311228.",
+        blogId: 13,
     },
     {
         id: 4,
         title: "SIGNET",
         slug: "signet",
-        location: "Ahmedabad (Specific locality not explicitly named, but features 5-road corner connectivity)",
+        location: "New Ranip, Ahmedabad",
         status: "Under Construction",
         zone: "north-west",
         unitTypes: [
@@ -133,7 +137,7 @@ export const projects: Project[] = [
         bedrooms: 4,
         displayPrice: "Price On Request",
         PlotArea: "5 Road Corner Plot",
-        address: "Signet, Near 18.00 MT. & 20.00 MT. Wide TPS Roads",
+        address: "Signet, Near 18.00 MT. & 20.00 MT. Wide TPS Roads, New Ranip, Ahmedabad",
         description: "Signet offers a blend of grandeur and elegance with its 3 & 4 BHK residential units and shops. The project is uniquely situated on a 5-road corner plot, ensuring 3-side open units for every flat. Residents enjoy premium amenities including a 21-foot expansive balcony, a dedicated clubhouse, a wading pool, and various sports facilities like a skating rink and bicycle track for kids.",
         image: "/images/project/signet1.png",
         images: [
@@ -142,13 +146,14 @@ export const projects: Project[] = [
             "/images/project/signet3.png",
         ],
         featured: true,
-        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/MAA14360/281024/311229.",
+        rera: "PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/MAA14360/281024/311229.",
+        blogId: 14,
     },
     {
         id: 5,
         title: "THE Amber",
         slug: "the-amber",
-        location: "Nikol - Naroda Area, Ahmedabad",
+        location: "Jagatpur, Nikol - Naroda Area, Ahmedabad",
         status: "Under Construction",
         zone: "east",
         unitTypes: [
@@ -195,41 +200,43 @@ export const projects: Project[] = [
             "/images/project/amber3.jpeg",
         ],
         featured: true,
-        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/MAA15692/130825/311229.",
+        rera: "PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/MAA15692/130825/311229.",
+        blogId: 15,
     },
-    {
-        id: 6,
-        title: "PROPOSED RESIDENCE APARTMENT",
-        slug: "proposed-residence-sanjay-bhai",
-        location: "Ahmedabad",
-        status: "Proposed",
-        zone: "north-west",
-        unitTypes: [
-            {
-                type: "1 BHK (Type 1)",
-                area: "Living: 12'3\"x10'6\", Master Bedroom: 10'0\"x11'0\"",
-                description: "Compact 1BHK layout featuring a kitchen with wash yard, a master bedroom with a standing balcony and 5'0\" cupboard space, and a single toilet."
-            },
-            {
-                type: "1 BHK (Type 2)",
-                area: "Living: 12'3\"x12'6\", Master Bedroom: 10'0\"x10'9\"",
-                description: "Enhanced 1BHK configuration offering a larger living room, two toilets (Master and Common), and a dedicated balcony."
-            }
-        ],
-        bedrooms: 1,
-        displayPrice: "Price On Request",
-        PlotArea: "30.00 MT. Road access",
-        address: "Ahmedabad (Specific locality not explicitly named) ",
-        description: "A proposed residential apartment project in Ahmedabad designed by Earth Creation. The development features a mix of commercial shops on the ground floor and 1 BHK residential units on typical floors. Amenities include an open theater, gym, yoga and meditation deck, and outdoor games on the terrace.",
-        image: "/images/project/pr1.jpeg",
-        images: [
-            "/images/project/pr1.jpeg",
-            "/images/project/pr2.jpeg",
-            "/images/project/pr3.jpeg",
-        ],
-        featured: true,
-        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/AUDA/MAA12447/131023",
-    },
+    // {
+    //     id: 6,
+    //     title: "PROPOSED RESIDENCE APARTMENT",
+    //     slug: "proposed-residence-sanjay-bhai",
+    //     location: "Ahmedabad",
+    //     status: "Proposed",
+    //     zone: "north-west",
+    //     unitTypes: [
+    //         {
+    //             type: "1 BHK (Type 1)",
+    //             area: "Living: 12'3\"x10'6\", Master Bedroom: 10'0\"x11'0\"",
+    //             description: "Compact 1BHK layout featuring a kitchen with wash yard, a master bedroom with a standing balcony and 5'0\" cupboard space, and a single toilet."
+    //         },
+    //         {
+    //             type: "1 BHK (Type 2)",
+    //             area: "Living: 12'3\"x12'6\", Master Bedroom: 10'0\"x10'9\"",
+    //             description: "Enhanced 1BHK configuration offering a larger living room, two toilets (Master and Common), and a dedicated balcony."
+    //         }
+    //     ],
+    //     bedrooms: 1,
+    //     displayPrice: "Price On Request",
+    //     PlotArea: "30.00 MT. Road access",
+    //     address: "Ahmedabad (Specific locality not explicitly named) ",
+    //     description: "A proposed residential apartment project in Ahmedabad designed by Earth Creation. The development features a mix of commercial shops on the ground floor and 1 BHK residential units on typical floors. Amenities include an open theater, gym, yoga and meditation deck, and outdoor games on the terrace.",
+    //     image: "/images/project/pr1.jpeg",
+    //     images: [
+    //         "/images/project/pr1.jpeg",
+    //         "/images/project/pr2.jpeg",
+    //         "/images/project/pr3.jpeg",
+    //     ],
+    //     featured: true,
+    //     rera: "PR/GJ/AHMEDABAD/AHMEDABAD CITY/AUDA/MAA12447/131023",
+    //     blogId: 16,
+    // },
     {
         id: 7,
         title: "SADHNA OBSIDIAN",
@@ -269,13 +276,14 @@ export const projects: Project[] = [
             "Indoor games ",
             "Children play area "
         ],
-        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/RAA14887/270225/311229 (or RAA14887/A1R/020226/311229).",
+        rera: "PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/RAA14887/270225/311229 (or RAA14887/A1R/020226/311229).",
+        blogId: 17,
     },
     {
         id: 8,
         title: "ARISTO AVIRA",
         slug: "aristo-avira",
-        location: "Ahmedabad",
+        location: "Chharodi, North West, Ahmedabad",
         status: "Under Construction",
         zone: "North-West",
         unitTypes: [
@@ -303,7 +311,7 @@ export const projects: Project[] = [
         bedrooms: 4,
         displayPrice: "1.95 Cr - 2.27 Cr* All Inclusive",
         PlotArea: "14 Storey Towers",
-        address: "Aristo Avira, Ahmedabad",
+        address: "Chharodi, North West, Ahmedabad",
         description: "Aristo Avira is a premium residential development by Parth Goklani featuring 4 towers with 214 residential units and 57 commercial units (Ground + 1). Located on a 2 road corner plot (100 ft & 60 ft), the project offers spacious homes with modern design, large 48 ft sitting balconies, two master bedrooms, and club class amenities. Possession is scheduled for December 2028.",
         image: "/images/project/aristo-avira3.jpeg",
         images: [
@@ -320,7 +328,8 @@ export const projects: Project[] = [
             "Premium Residential Towers",
             "Corner Plot (100 ft & 60 ft Road)"
         ],
-        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/RAA16283/030126/310330.",
+        rera: "PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/RAA16283/030126/310330.",
+        blogId: 18,
     },
     {
         id: 9,
@@ -370,7 +379,7 @@ export const projects: Project[] = [
             "Toddler's Play Area & Kids Play Zone",
             "Senior Citizen Sitting & Lawn Area"
         ],
-        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/AUDA/RAA11582/110423",
+        rera: "PR/GJ/AHMEDABAD/AHMEDABAD CITY/AUDA/RAA11582/110423",
     },
     {
         id: 10,
@@ -419,13 +428,13 @@ export const projects: Project[] = [
         ],
         featured: true,
         possession: "Mid 2028",
-        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/MAA14872/250225/310530.",
+        rera: "PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/MAA14872/250225/310530.",
     },
     {
         id: 11,
         title: "Shantam Parmeshwar",
         slug: "shantam-parmeshwar",
-        location: "Vandematram, Gota, Ahmedabad",
+        location: "Vandematram Road, Gota, Ahmedabad",
         status: "Under Construction",
         zone: "north-west",
         unitTypes: [
@@ -443,7 +452,7 @@ export const projects: Project[] = [
         bedrooms: 3,
         displayPrice: "Price On Request",
         PlotArea: "2268 - 2286 Sq Ft",
-        address: "Shantam Parmeshwar, Vandematram, Gota, Ahmedabad, Gujarat",
+        address: "Shantam Parmeshwar, Vandematram Road Gota, Ahmedabad, Gujarat",
         description: "Shantam Parmeshwar by Dobariya & Co. is a premium residential project located in the fast-growing area of Vandematram, Gota, Ahmedabad. The project features 3 towers with 13 storeys and offers only 152 exclusive residential units. Designed with hanging balconies and a no-vehicle zone on the ground floor, the development ensures a safe and peaceful environment for residents. The project provides some of the largest 3BHK homes in the segment along with modern lifestyle amenities including banquet hall, movie theatre, gymnasium, library, indoor games, landscaped gardens, kids play area, and more.",
         image: "/images/project/Shantam-Parmeshwar1.jpeg",
         images: [
@@ -456,24 +465,8 @@ export const projects: Project[] = [
         totalTowers: 3,
         totalFloors: 13,
         totalUnits: 152,
-        rera :"PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/MAA13750/290624/311228",
+        rera: "PR/GJ/AHMEDABAD/AHMEDABAD CITY/Ahmedabad Municipal Corporation/MAA13750/290624/311228",
+        blogId: 19,
     },
-    {
-        id: 12,
-        title: "Shlokam Sharnam",
-        slug: "shlokam-sharnam",
-        location: "Sargasan, Gandhinagar",
-        status: "Under Construction",
-        zone: "Gandhinagar",
-        bedrooms: 4,
-        bathrooms: 5,
-        displayPrice: "₹1.66 Cr - ₹1.78 Cr",
-        PlotArea: "3465 - 3690 sqft",
-        address: "Sargasan, Gandhinagar",
-        description: "Shlokam Sharnam offers spacious 4 BHK homes in Sargasan, Gandhinagar, designed for modern living. Enjoy top amenities, prime connectivity, and strong future value...",
-        image: "/images/project/bg4.jpg", // Placeholder
-        featured: true,
-        isForSale: true,
-        rera :"PR/GJ/GANDHINAGAR/GANDHINAGAR/Others/RAA11803/220523.",
-    }
+
 ];

@@ -205,13 +205,21 @@ export default function ProjectsPage() {
                       {project.description}
                     </p>
 
-                    {/* Button */}
-                    <button onClick={() => window.location.href = `/project/${project.slug}`}
-                      className="cursor-pointer inline-flex items-center gap-4 px-10 py-5 rounded-2xl bg-[#00004d] text-white font-extrabold text-xl hover:bg-[#000033] transition-all duration-300 shadow-xl shadow-blue-900/40"
-                    >
-                      {/* <i className="fas fa-phone-alt rotate-90 text-2xl text-green-400"></i> */}
-                      See Details
-                    </button>
+                    <div className="flex flex-wrap gap-4">
+                      <button onClick={() => window.location.href = `/project/${project.slug}`}
+                        className="cursor-pointer inline-flex items-center gap-4 px-10 py-5 rounded-2xl bg-[#00004d] text-white font-extrabold text-xl hover:bg-[#000033] transition-all duration-300 shadow-xl shadow-blue-900/40"
+                      >
+                        See Details
+                      </button>
+
+                      {project.blogId && (
+                        <Link href={`/blog/${project.blogId}`}
+                          className="cursor-pointer inline-flex items-center gap-4 px-10 py-5 rounded-2xl border-2 border-[#00004d] text-[#00004d] font-extrabold text-xl hover:bg-[#00004d] hover:text-white transition-all duration-300"
+                        >
+                          Read Blog
+                        </Link>
+                      )}
+                    </div>
 
                   </div>
 

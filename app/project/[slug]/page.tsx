@@ -3,6 +3,7 @@
 import { useParams, notFound } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 import { projects } from "@/lib/project";
 
 import Header from "@/app/components/Header";
@@ -188,16 +189,29 @@ export default function ProjectDetailsPage() {
 
                 {/* Description */}
                 <div className="mt-6">
-
                   <h2 className="text-2xl font-bold mb-4">
                     Description
                   </h2>
-
                   <p className="text-gray-600 leading-relaxed">
                     {project.description}
                   </p>
-
                 </div>
+
+                {/* Blog Link */}
+                {project.blogId && (
+                  <div className="mt-8 p-6 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-between">
+                    <div>
+                      <h3 className="text-xl font-bold text-[#0f1e3d] mb-1">Detailed Analysis Available</h3>
+                      <p className="text-gray-600 italic text-sm">Read our expert blog post about {project.title}</p>
+                    </div>
+                    <Link
+                      href={`/blog/${project.blogId}`}
+                      className="px-6 py-3 bg-[#e4c272] text-[#0f1e3d] font-bold rounded-lg hover:bg-[#0f1e3d] hover:text-[#e4c272] transition-all duration-300 shadow-md"
+                    >
+                      Read Blog
+                    </Link>
+                  </div>
+                )}
 
 
                 {/* Property Details */}
