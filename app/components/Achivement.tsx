@@ -16,27 +16,27 @@ const Achivement = () => {
 
             {/* LEFT TEXT */}
             <div>
-              <p className="text-orange-500 font-semibold mb-4">
+              <p className="text-[#e4c272] font-semibold mb-4">
                 Our Achievement
               </p>
 
               <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
-                Building <span className="text-green-400">Dreams</span>, <br />
-                Creating <span className="text-green-400">Success</span> Stories
+                Building <span className="text-[#e4c272]">Dreams</span>, <br />
+                Creating <span className="text-[#e4c272]">Success</span> Stories
               </h2>
             </div>
 
             {/* RIGHT STATS */}
             <div className="flex gap-12 text-white">
               <div>
-                <h3 className="text-4xl font-bold">40+</h3>
+                <h3 className="text-4xl font-bold">11+</h3>
                 <p className="text-gray-300 mt-2">Featured Projects</p>
               </div>
 
               <div className="flex items-start gap-6">
-                <span className="text-gray-400 text-3xl">·</span>
+                <span className="text-gray-400 text-3xl"></span>
                 <div>
-                  <h3 className="text-4xl font-bold">500+</h3>
+                  <h3 className="text-4xl font-bold">2500+</h3>
                   <p className="text-gray-300 mt-2">Satisfied Clients</p>
                 </div>
               </div>

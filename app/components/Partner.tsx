@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Partner = () => {
   const partners = [
-    { name: "gold", logo: "/images/Partner/1.png" },
+    { name: "sbi", logo: "/images/Partner/sbilogo.png" },
     { name: "sankalp", logo: "/images/Partner/2.png" },
     { name: "vadilal", logo: "/images/Partner/3.png" },
     { name: "adani", logo: "/images/Partner/4.png" },
@@ -28,8 +28,8 @@ const Partner = () => {
         {/* Main Flex Row */}
         <div className="flex flex-col lg:flex-row items-center gap-16">
           {/* LEFT SIDE TEXT */}
-          <div className="lg:w-1/3 text-left">
-            <h2 className="text-5xl md:text-5xl font-bold text-[#162544] leading-tight">
+          <div className="w-full lg:w-1/3 text-left">
+            <h2 className="text-3xl md:text-5xl font-bold text-[#162544] leading-tight">
               Partnerships built on trust and success.
             </h2>
           </div>

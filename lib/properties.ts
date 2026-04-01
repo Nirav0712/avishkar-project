@@ -8,6 +8,7 @@ export interface Property {
     bedrooms: number;
     bathrooms: number;
     area: number;
+    category: 'Residential' | 'Commercial' | 'Industrial';
     featured: boolean;
     image: string;
     description: string;
@@ -27,6 +28,7 @@ export const sampleProperties: Property[] = [
         bedrooms: 5,
         bathrooms: 4,
         area: 4500,
+        category: 'Residential',
         featured: true,
         image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80',
         description: 'Stunning beachfront villa with panoramic Arabian Sea views, infinity pool, and modern amenities.',
@@ -44,6 +46,7 @@ export const sampleProperties: Property[] = [
         bedrooms: 3,
         bathrooms: 2,
         area: 1800,
+        category: 'Residential',
         featured: true,
         image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80',
         description: 'Sleek modern apartment near tech parks with city skyline views and premium amenities.',
@@ -61,6 +64,7 @@ export const sampleProperties: Property[] = [
         bedrooms: 4,
         bathrooms: 3,
         area: 2500,
+        category: 'Residential',
         featured: true,
         image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80',
         description: 'Beautiful family home in gated community with excellent schools nearby.',
@@ -78,6 +82,7 @@ export const sampleProperties: Property[] = [
         bedrooms: 4,
         bathrooms: 3,
         area: 3200,
+        category: 'Residential',
         featured: true,
         image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
         description: 'Exclusive penthouse with golf course views, private elevator, and world-class finishes.',
@@ -95,6 +100,7 @@ export const sampleProperties: Property[] = [
         bedrooms: 3,
         bathrooms: 2,
         area: 1600,
+        category: 'Residential',
         featured: true,
         image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80',
         description: 'Serene cottage with valley views, surrounded by nature and trekking trails.',
@@ -112,6 +118,7 @@ export const sampleProperties: Property[] = [
         bedrooms: 2,
         bathrooms: 2,
         area: 1400,
+        category: 'Residential',
         featured: true,
         image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80',
         description: 'Modern loft with contemporary design, high ceilings, and premium amenities.',
@@ -129,6 +136,7 @@ export const sampleProperties: Property[] = [
         bedrooms: 6,
         bathrooms: 5,
         area: 5500,
+        category: 'Residential',
         featured: false,
         image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
         description: 'Direct beach access, infinity pool, home theater, and wine cellar.',
@@ -146,6 +154,7 @@ export const sampleProperties: Property[] = [
         bedrooms: 5,
         bathrooms: 4,
         area: 3800,
+        category: 'Residential',
         featured: false,
         image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
         description: 'Breathtaking Himalayan views with modern architecture and eco-friendly design.',
@@ -163,6 +172,7 @@ export const sampleProperties: Property[] = [
         bedrooms: 1,
         bathrooms: 1,
         area: 650,
+        category: 'Residential',
         featured: false,
         image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80',
         description: 'Efficient studio apartment perfect for young professionals near IT parks.',
@@ -180,6 +190,7 @@ export const sampleProperties: Property[] = [
         bedrooms: 3,
         bathrooms: 2,
         area: 2000,
+        category: 'Residential',
         featured: false,
         image: 'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=800&q=80',
         description: 'Sustainable row house with solar panels, rainwater harvesting, and beautiful garden.',
@@ -197,6 +208,7 @@ export const sampleProperties: Property[] = [
         bedrooms: 0,
         bathrooms: 0,
         area: 15000,
+        category: 'Commercial',
         featured: false,
         image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
         description: 'Premium commercial land in high-growth IT corridor, approved for mixed-use development.',
@@ -212,6 +224,7 @@ export const sampleProperties: Property[] = [
         bedrooms: 0,
         bathrooms: 0,
         area: 8000,
+        category: 'Residential',
         featured: false,
         image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
         description: 'HMDA approved residential plot near HITEC City, all utilities available.',

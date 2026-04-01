@@ -11,40 +11,57 @@ export default function Footer() {
 
           {/* Column 1 - About */}
           <div>
-            <img src="/images/logo.png" alt="logo" className="w-56 mb-6" />
+            <img src="/images/logo.png" alt="logo" className="w-66 mb-6" />
 
             <p className="text-white/70 leading-relaxed mb-6">
               Building modern, sustainable, and customer-focused real estate
               solutions that turn dreams into addresses.
             </p>
 
-            <div className="flex gap-4 mt-6">
-              {/* <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
-                <i className="fab fa-facebook-f text-sm"></i>
-              </div> */}
+            <div className="flex gap-3">
+
+              {/* Facebook */}
               <a
-                href="https://www.facebook.com/avishkar.realty.in?mibextid=wwXIfr&rdid=25JQj9cHJt68kr8F&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1AjAyp2oT2%2F%3Fmibextid%3DwwXIfr#"
+                href="https://www.facebook.com/avishkar.realty.in"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="w-10 h-10 bg-[#1877F2] text-white rounded-lg flex items-center justify-center hover:scale-110 transition"
               >
-                <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
-                  <i className="fab fa-facebook-f text-sm"></i>
-                </div>
+                <i className="fab fa-facebook-f text-lg"></i>
               </a>
 
-              {/* <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
-                <i className="fab fa-instagram text-sm"></i>
-              </div> */}
+              {/* Instagram */}
               <a
-                href="https://www.instagram.com/ajay_prajapati_1709?igsh=YXZyOGhkdzR0NGkw&utm_source=qr"
+                href="https://www.instagram.com/ajay_prajapati_1709"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="w-10 h-10 bg-linear-to-r from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white rounded-lg flex items-center justify-center hover:scale-110 transition"
               >
-                <div className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
-                  <i className="fab fa-instagram text-sm"></i>
-                </div>
+                <i className="fab fa-instagram text-lg"></i>
               </a>
+
+              {/* YouTube */}
+              <a
+                href="https://www.youtube.com/channel/UC9J4_1_1_1_1_1_1_1_1_1_1_1_1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-[#FF0000] text-white rounded-lg flex items-center justify-center hover:scale-110 transition"
+              >
+                <i className="fab fa-youtube text-lg"></i>
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/company/avishkar-realty-in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-[#0077B5] text-white rounded-lg flex items-center justify-center hover:scale-110 transition"
+              >
+                <i className="fab fa-linkedin-in text-lg"></i>
+              </a>
+
             </div>
+
           </div>
 
           {/* Column 2 - Quick Links */}
@@ -65,7 +82,7 @@ export default function Footer() {
             <ul className="space-y-3 text-white/70">
               {[
                 { name: "Home", url: "/" },
-                { name: "About", url: "/about" },
+                { name: "About", url: "/about-us" },
                 { name: "Properties", url: "/properties" },
                 { name: "New Projects", url: "/new-projects" },
                 { name: "Blog", url: "/blog" },
@@ -73,10 +90,10 @@ export default function Footer() {
               ].map((item, i) => (
                 <li
                   key={i}
-                  className="flex items-center gap-2 hover:text-orange-500 transition-colors duration-300"
+                  className="flex items-center gap-2 hover:text-[#e4c272] transition-colors duration-300"
                 >
-                  <span className="text-orange-500 text-sm">»</span>
-                  <Link href={item.url} className="hover:text-orange-500">
+                  <span className="text-[#e4c272] text-sm">»</span>
+                  <Link href={item.url} className="hover:text-[#e4c272]">
                     {item.name}
                   </Link>
                 </li>
@@ -94,9 +111,11 @@ export default function Footer() {
                 "Property Management",
                 "Interior Design",
                 "Consultancy & Research",
+                "Legal Advice & Document",
+                "Loan Against Property",
               ].map((item, i) => (
-                <li key={i} className="flex items-center gap-2 hover:text-orange-500 transition">
-                  <span className="text-orange-500 text-sm">»</span>
+                <li key={i} className="flex items-center gap-2 hover:text-[#e4c272] transition">
+                  <span className="text-[#e4c272] text-sm">»</span>
                   <Link href="#">{item}</Link>
                 </li>
               ))}
@@ -118,11 +137,11 @@ export default function Footer() {
                 "photo-1570129477492-45c003edd2be",
                 "photo-1505761671935-60b3a7427bad",
               ].map((id, i) => (
-                <div key={i} className="overflow-hidden rounded hover:text-orange-500">
+                <div key={i} className="overflow-hidden rounded hover:text-[#e4c272]">
                   <img
                     src={`https://images.unsplash.com/${id}`}
                     alt="gallery"
-                    className="w-full h-70px object-cover hover:scale-110 transition duration-300 hover:text-orange-500 group-hover:scale-110"
+                    className="w-full h-70px object-cover hover:scale-110 transition duration-300 hover:text-[#e4c272] group-hover:scale-110"
                   />
                 </div>
               ))}
@@ -132,13 +151,13 @@ export default function Footer() {
 
         {/* Bottom Orange Bar */}
         <div className="mt-16 mb-6">
-          <div className="bg-[#E4572E] text-white rounded-full px-8 py-4 flex flex-col md:flex-row justify-between items-center text-sm">
+          <div className="bg-[#fafafa66] text-[#0f1e3d] rounded-full px-8 py-4 flex flex-col md:flex-row justify-between items-center text-sm">
 
             <p>
-              © 2025 Copyrights by Avishkar. Developed by
-              <a href="https://thedigitalconnect.in/" className="hover:underline text-white hover:text-white transition">
-                .The Digital Connect
-              </a>
+              © 2025 Copyrights by Avishkar. Developed by <span>
+                <a href="https://thedigitalconnect.in/" className="hover:underline text-[#0f1e3d] hover:text-[#e4c272] transition">
+                  The Digital Connect
+                </a></span>
             </p>
 
             {/* <div className="flex gap-6 mt-2 md:mt-0">
@@ -152,11 +171,11 @@ export default function Footer() {
 
             <div className="flex gap-6 mt-2 md:mt-0">
 
-              <a href="/terms" className="hover:underline text-white hover:text-orange-500 transition">
+              <a href="/terms" className="hover:underline text-[#0f1e3d] hover:text-[#e4c272] transition">
                 Terms & Conditions
               </a>
 
-              <a href="/privacy" className="hover:underline text-white hover:text-orange-500 transition">
+              <a href="/privacy" className="hover:underline text-[#0f1e3d] hover:text-[#e4c272] transition">
                 Privacy Policy
               </a>
 

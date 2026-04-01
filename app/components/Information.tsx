@@ -10,46 +10,56 @@ const Information = () => {
 
           {/* ADDRESS */}
           <div className="flex items-start gap-4">
-            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-orange-600 text-xl shadow">
-              📍
+            <div className="bg-white w-25 h-12 rounded-full flex items-center justify-center text-[#0f1e3d] text-xl shadow">
+              <i className="fas fa-map-marker-alt text-lg"></i>
             </div>
             <div>
-              <h3 className="text-orange-600 font-semibold text-lg">
+              <h3 className="text-[#0f1e3d] font-semibold text-lg">
                 Address
               </h3>
               <p className="text-gray-700 mt-1 text-sm leading-relaxed">
+
                 Status Elysium, 23, Road, nr. Shree Vishnudhara Gardens,
                 Gota, Ahmedabad, Gujarat 382481
+
               </p>
             </div>
           </div>
 
           {/* EMAIL */}
           <div className="flex items-start gap-4">
-            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-orange-600 text-xl shadow">
-              ✉
+            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-[#0f1e3d] text-xl shadow">
+              <i className="fa fa-envelope"></i>
             </div>
             <div>
-              <h3 className="text-orange-600 font-semibold text-lg">
+              <h3 className="text-[#0f1e3d] font-semibold text-lg">
                 Send Email
               </h3>
               <p className="text-gray-700 mt-1 text-sm">
-                avishkarrealty1@gmail.com
+                <a href="mailto:avishkarrealty1@gmail.com" className="text-[#0f1e3d] hover:underline ">
+                  avishkarrealty1@gmail.com
+                </a>
               </p>
             </div>
           </div>
 
           {/* PHONE */}
           <div className="flex items-start gap-4">
-            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-orange-600 text-xl shadow">
-              📞
+            <div className="bg-white w-12 h-12 rounded-full flex items-center justify-center text-[#0f1e3d] text-xl shadow">
+              <i className="fa fa-phone"></i>
             </div>
             <div>
-              <h3 className="text-orange-600 font-semibold text-lg">
-                Call Emergency
+              <h3 className="text-[#0f1e3d] font-semibold text-lg">
+                Call
               </h3>
-              <p className="text-gray-700 mt-1 text-sm">
-                +91 70413 95595
+              <p className="text-gray-700 mt-1 text-sm hover:underline">
+                <a href="tel:+917041395595" className="text-[#0f1e3d] hover:underline">
+                  +91 70413 95595
+                </a>
+                <br />
+                <a href="tel:+919825029913" className="text-[#0f1e3d] hover:underline">
+                  +91 98250 29913
+                </a>
               </p>
             </div>
           </div>

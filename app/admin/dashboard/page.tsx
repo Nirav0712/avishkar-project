@@ -1,9 +1,11 @@
 'use client';
 
+
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getProperties, addProperty, updateProperty, deleteProperty, type Property, formatPrice } from '@/lib/properties';
+import { type Property, formatPrice } from '@/lib/properties';
+// import router from "next/router";
 
 export default function AdminDashboard() {
     const [properties, setProperties] = useState<Property[]>([]);
@@ -11,11 +13,14 @@ export default function AdminDashboard() {
     const [editingProperty, setEditingProperty] = useState<Property | null>(null);
     const [deleteId, setDeleteId] = useState<number | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isUploading, setIsUploading] = useState(false);
     const [formData, setFormData] = useState<Partial<Property>>({
         title: '',
         price: 0,
         location: '',
         type: 'House',
+        category: 'Residential',
         status: 'For Sale',
         bedrooms: 0,
         bathrooms: 0,
@@ -28,34 +33,76 @@ export default function AdminDashboard() {
     });
 
     useEffect(() => {
-        loadProperties();
+        fetchProperties();
     }, []);
 
-    const loadProperties = () => {
-        const props = getProperties();
-        setProperties(props);
+    const fetchProperties = async () => {
+        try {
+            setIsLoading(true);
+            const res = await fetch('/api/properties');
+            if (!res.ok) throw new Error('Failed to fetch properties');
+            const data = await res.json();
+            const validData = data.map((p: any) => ({
+                ...p,
+                featured: p.featured === 1 || p.featured === true,
+                price: Number(p.price) || 0,
+                bedrooms: Number(p.bedrooms) || 0,
+                bathrooms: Number(p.bathrooms) || 0,
+                area: Number(p.area) || 0,
+                image: p.image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+            }));
+            setProperties(validData);
+        } catch (error) {
+            console.error('Error fetching properties:', error);
+            alert('Failed to load properties');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value, type } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked :
-                type === 'number' ? parseFloat(value) || 0 : value
-        }));
+    // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    //     const { name, value, type } = e.target;
+    //     setFormData(prev => ({
+    //         ...prev,
+    //         [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked :
+    //             type === 'number' ? parseFloat(value) || 0 : value
+    //     }));
+    // };
+    const handleInputChange = (e: any) => {
+        const { name, value, type, checked } = e.target;
+
+        setFormData({
+            ...formData,
+            [name]: type === "checkbox" ? checked : value
+        });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (editingProperty) {
-            updateProperty(editingProperty.id, formData);
-        } else {
-            addProperty(formData as Omit<Property, 'id'>);
-        }
+        try {
+            if (editingProperty) {
+                const res = await fetch(`/api/properties/${editingProperty.id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+                if (!res.ok) throw new Error('Failed to update property');
+            } else {
+                const res = await fetch('/api/properties', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+                if (!res.ok) throw new Error('Failed to create property');
+            }
 
-        loadProperties();
-        closeModal();
+            fetchProperties();
+            closeModal();
+        } catch (error) {
+            console.error('Error saving property:', error);
+            alert('Failed to save property');
+        }
     };
 
     const handleEdit = (property: Property) => {
@@ -69,13 +116,22 @@ export default function AdminDashboard() {
         setShowDeleteModal(true);
     };
 
-    const confirmDelete = () => {
+    const confirmDelete = async () => {
         if (deleteId !== null) {
-            deleteProperty(deleteId);
-            loadProperties();
-            alert('Property deleted successfully');
-            setShowDeleteModal(false);
-            setDeleteId(null);
+            try {
+                const res = await fetch(`/api/properties/${deleteId}`, {
+                    method: 'DELETE',
+                });
+                if (!res.ok) throw new Error('Failed to delete property');
+
+                fetchProperties();
+                alert('Property deleted successfully');
+                setShowDeleteModal(false);
+                setDeleteId(null);
+            } catch (error) {
+                console.error('Error deleting property:', error);
+                alert('Failed to delete property');
+            }
         }
     };
 
@@ -86,6 +142,7 @@ export default function AdminDashboard() {
             price: 0,
             location: '',
             type: 'House',
+            category: 'Residential',
             status: 'For Sale',
             bedrooms: 0,
             bathrooms: 0,
@@ -104,6 +161,72 @@ export default function AdminDashboard() {
         setEditingProperty(null);
     };
 
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files || e.target.files.length === 0) return;
+
+        const files = Array.from(e.target.files);
+
+        // 5MB Limit Check
+        if (files.some(file => file.size > 5 * 1024 * 1024)) {
+            alert('One or more files exceed 5MB limit. Please upload smaller images.');
+            return;
+        }
+
+        setIsUploading(true);
+        let uploadedUrls: string[] = [];
+
+        try {
+            const uploadUrl = process.env.NEXT_PUBLIC_UPLOAD_API_URL || 'http://localhost/upload.php';
+
+            for (const file of files) {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                const res = await fetch(uploadUrl, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!res.ok) {
+                    throw new Error(`Server responded with ${res.status} ${res.statusText}`);
+                }
+
+                const data = await res.json();
+
+                if (data.success) {
+                    uploadedUrls.push(data.url);
+                } else {
+                    alert('Upload failed for a file: ' + data.message);
+                }
+            }
+
+            if (uploadedUrls.length > 0) {
+                setFormData(prev => ({
+                    ...prev,
+                    image: prev.image ? prev.image + ',' + uploadedUrls.join(',') : uploadedUrls.join(',')
+                }));
+            }
+        } catch (error: any) {
+            console.error('Error uploading image:', error);
+            if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+                alert('Connection Failed: Could not reach the upload server.\n\n1. Check if NEXT_PUBLIC_UPLOAD_API_URL is set correctly in .env\n2. Ensure your Hostinger script is deployed and accessible.\n3. Check CORS settings.');
+            } else {
+                alert('Error uploading image: ' + (error.message || 'Unknown error'));
+            }
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    const handleLogout = async () => {
+        try {
+            await fetch('/api/logout', { method: 'POST' });
+            window.location.href = '/login';
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
+
     const stats = [
         { label: 'Total Properties', value: properties.length, icon: 'fa-home', color: 'primary' },
         { label: 'For Sale', value: properties.filter(p => p.status === 'For Sale').length, icon: 'fa-tag', color: 'success' },
@@ -111,37 +234,58 @@ export default function AdminDashboard() {
         { label: 'Featured', value: properties.filter(p => p.featured).length, icon: 'fa-star', color: 'warning' },
     ];
 
+    if (isLoading) {
+        return <div className="flex h-screen items-center justify-center">Loading...</div>;
+    }
+
     return (
         <>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
             <div className="flex min-h-screen bg-gray-50">
                 {/* Sidebar */}
-                <aside className="w-64 bg-secondary text-white p-6 sticky top-0 h-screen overflow-y-auto">
-                    <div className="text-2xl font-bold mb-8 text-center pb-6 border-b border-white/10">
-                        Veer<span className="text-primary">RealEstate</span>
+                <aside className="w-64 bg-[#0f1e3d] text-white p-6 sticky top-0 h-screen overflow-y-auto">
+                    {/* <div className="text-2xl font-bold mb-8 text-center pb-6 border-b border-white/10">
+                        <span className="text-[#e4c272]">Avishkar</span>
+                    </div> */}
+                    <div className="text-center mb-8 pb-6 border-b border-white/10">
+                        <img src="/images/logo.png" alt="" />
+                        {/* <h1 className="text-3xl font-bold text-yellow-400 tracking-wide">
+            Avishkar Realty
+          </h1> */}
+
                     </div>
 
                     <nav>
                         <ul className="space-y-2">
                             <li>
-                                <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-secondary font-medium">
+                                <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#e4c272] text-[#0f1e3d] font-medium">
                                     <i className="fas fa-tachometer-alt w-5"></i>
                                     Dashboard
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:bg-primary hover:text-secondary transition-colors">
-                                    <i className="fas fa-home w-5"></i>
-                                    Properties
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/" className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:bg-primary hover:text-secondary transition-colors">
+                                <Link href="/" className="flex items-center gap-3 px-4 py-3 rounded-lg text-[#e4c272] hover:bg-[#e4c272] hover:text-[#0f1e3d] transition-colors">
                                     <i className="fas fa-globe w-5"></i>
                                     View Website
                                 </Link>
                             </li>
+                            <li>
+                                <button
+                                    onClick={handleLogout}
+                                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-[#e4c272] hover:bg-[#e4c272] hover:text-[#0f1e3d] transition-colors text-left"
+                                >
+                                    <i className="fas fa-sign-out-alt w-5"></i>
+                                    Logout
+                                </button>
+                            </li>
+
+                            {/* <li>
+                                <Link href="/admin/dashboard/register" className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:bg-primary hover:text-secondary transition-colors">
+                                    <i className="fas fa-user-plus w-5"></i>
+                                    Create Account
+                                </Link>
+                            </li> */}
                         </ul>
                     </nav>
                 </aside>
@@ -151,12 +295,12 @@ export default function AdminDashboard() {
                     {/* Header */}
                     <div className="bg-white rounded-xl p-6 shadow-sm mb-8 flex justify-between items-center">
                         <div>
-                            <h1 className="text-3xl font-bold text-secondary">Property Management</h1>
+                            <h1 className="text-3xl font-bold text-[#0f1e3d]">Property Management</h1>
                             <p className="text-gray-600 mt-1">Manage your real estate listings</p>
                         </div>
                         <button
                             onClick={openModal}
-                            className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors flex items-center gap-2"
+                            className="bg-[#0f1e3d] text-[#e4c272] px-6 py-3 rounded-lg font-semibold hover:bg-[#e4c272] hover:text-[#0f1e3d] border hover:border-[#0f1e3d] transition-colors flex items-center gap-2"
                         >
                             <i className="fas fa-plus"></i>
                             Add Property
@@ -180,7 +324,7 @@ export default function AdminDashboard() {
                                     <i className={`fas ${stat.icon}`}></i>
                                 </div>
                                 <div>
-                                    <div className="text-3xl font-bold text-secondary">{stat.value}</div>
+                                    <div className="text-3xl font-bold text-Commercial">{stat.value}</div>
                                     <div className="text-gray-600 text-sm">{stat.label}</div>
                                 </div>
                             </div>
@@ -190,20 +334,21 @@ export default function AdminDashboard() {
                     {/* Properties Table */}
                     <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                         <div className="p-6 border-b border-gray-200">
-                            <h2 className="text-xl font-semibold text-secondary">All Properties</h2>
+                            <h2 className="text-xl font-semibold text-[#0f1e3d]">All Properties</h2>
                         </div>
 
                         <div className="overflow-x-auto">
                             <table className="w-full">
                                 <thead className="bg-gray-50">
                                     <tr>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Image</th>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Title</th>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Type</th>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Price</th>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Status</th>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Location</th>
-                                        <th className="px-6 py-4 text-left text-sm font-semibold text-secondary">Actions</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Image</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Title</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Type</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Price</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Category</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Status</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Location</th>
+                                        <th className="px-6 py-4 text-left text-sm font-semibold text-[#0f1e3d]">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
@@ -211,18 +356,18 @@ export default function AdminDashboard() {
                                         <tr key={property.id} className="hover:bg-gray-50 transition-colors">
                                             <td className="px-6 py-4">
                                                 <div className="relative w-20 h-20 rounded-lg overflow-hidden">
-                                                    <Image
-                                                        src={property.image}
+                                                    <img
+                                                        src={property.image.split(',')[0]}
                                                         alt={property.title}
-                                                        fill
+
                                                         className="object-cover"
                                                     />
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <div className="font-medium text-secondary">{property.title}</div>
+                                                <div className="font-medium text-[#0f1e3d]">{property.title}</div>
                                                 {property.featured && (
-                                                    <span className="inline-block mt-1 text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">
+                                                    <span className="inline-block mt-1 text-xs bg-[#e4c272] text-[#0f1e3d] px-2 py-0.5 rounded">
                                                         Featured
                                                     </span>
                                                 )}
@@ -230,6 +375,9 @@ export default function AdminDashboard() {
                                             <td className="px-6 py-4 text-gray-600">{property.type}</td>
                                             <td className="px-6 py-4 font-semibold text-primary">
                                                 {formatPrice(property.price)}
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <div className="font-small">{property.category}</div>
                                             </td>
                                             <td className="px-6 py-4">
                                                 <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${property.status === 'For Sale'
@@ -277,7 +425,7 @@ export default function AdminDashboard() {
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
                         <div className="p-6 border-b border-gray-200 flex justify-between items-center sticky top-0 bg-white">
-                            <h2 className="text-2xl font-bold text-secondary">
+                            <h2 className="text-2xl font-bold text-[#0f1e3d]">
                                 {editingProperty ? 'Edit Property' : 'Add New Property'}
                             </h2>
                             <button
@@ -298,7 +446,7 @@ export default function AdminDashboard() {
                                         value={formData.title}
                                         onChange={handleInputChange}
                                         required
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -310,7 +458,7 @@ export default function AdminDashboard() {
                                         value={formData.price}
                                         onChange={handleInputChange}
                                         required
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -322,7 +470,7 @@ export default function AdminDashboard() {
                                         value={formData.location}
                                         onChange={handleInputChange}
                                         required
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -332,14 +480,32 @@ export default function AdminDashboard() {
                                         name="type"
                                         value={formData.type}
                                         onChange={handleInputChange}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     >
                                         <option value="Villa">Villa</option>
                                         <option value="Apartment">Apartment</option>
-                                        <option value="House">House</option>
-                                        <option value="Condo">Condo</option>
+                                        {/* <option value="House">House</option> */}
+                                        <option value="Bungalow">Bungalow</option>
                                         <option value="Land">Land</option>
                                         <option value="Retail">Retail</option>
+                                        <option value="Shop">Shop</option>
+                                        <option value="Showroom">Showroom</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Property Category
+                                    </label>
+                                    <select
+                                        name="category"
+                                        value={formData.category}
+                                        onChange={handleInputChange}
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
+                                    >
+                                        <option value="Residential">Residential</option>
+                                        <option value="Commercial">Commercial</option>
+                                        <option value="Industrial">Industrial</option>
                                     </select>
                                 </div>
 
@@ -349,7 +515,7 @@ export default function AdminDashboard() {
                                         name="status"
                                         value={formData.status}
                                         onChange={handleInputChange}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     >
                                         <option value="For Sale">For Sale</option>
                                         <option value="For Rent">For Rent</option>
@@ -364,7 +530,7 @@ export default function AdminDashboard() {
                                         value={formData.bedrooms}
                                         onChange={handleInputChange}
                                         min="0"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -376,7 +542,7 @@ export default function AdminDashboard() {
                                         value={formData.bathrooms}
                                         onChange={handleInputChange}
                                         min="0"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -388,7 +554,7 @@ export default function AdminDashboard() {
                                         value={formData.area}
                                         onChange={handleInputChange}
                                         min="0"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -399,7 +565,7 @@ export default function AdminDashboard() {
                                         name="yearBuilt"
                                         value={formData.yearBuilt}
                                         onChange={handleInputChange}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
@@ -411,20 +577,69 @@ export default function AdminDashboard() {
                                         value={formData.parking}
                                         onChange={handleInputChange}
                                         min="0"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
                                     />
                                 </div>
 
                                 <div className="md:col-span-2">
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Property Image</label>
+
+                                    {/* File Input */}
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <label className={`flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors ${isUploading ? 'opacity-50 pointer-events-none' : ''}`}>
+                                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                                {isUploading ? (
+                                                    <i className="fas fa-spinner fa-spin text-2xl text-primary mb-2"></i>
+                                                ) : (
+                                                    <i className="fas fa-cloud-upload-alt text-2xl text-gray-400 mb-2"></i>
+                                                )}
+                                                <p className="text-sm text-gray-500">
+                                                    {isUploading ? 'Uploading...' : 'Click to upload image'}
+                                                </p>
+                                            </div>
+                                            <input
+                                                type="file"
+                                                className="hidden"
+                                                accept="image/*"
+                                                multiple
+                                                onChange={handleImageUpload}
+                                                disabled={isUploading}
+                                            />
+                                        </label>
+                                    </div>
+
+                                    {/* Image Preview */}
+                                    {formData.image && (
+                                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                                            {formData.image.split(',').filter(Boolean).map((url, idx) => (
+                                                <div key={idx} className="relative w-full h-32 rounded-lg overflow-hidden border border-gray-200">
+                                                    <img
+                                                        src={url}
+                                                        alt={`Preview ${idx + 1}`}
+
+                                                        className="object-cover"
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            const newUrls = formData.image!.split(',').filter((_, i) => i !== idx);
+                                                            setFormData(prev => ({ ...prev, image: newUrls.join(',') }));
+                                                        }}
+                                                        className="absolute top-2 right-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors shadow-md text-sm"
+                                                    >
+                                                        <i className="fas fa-times"></i>
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {/* Hidden Input for URL */}
                                     <input
-                                        type="url"
+                                        type="hidden"
                                         name="image"
                                         value={formData.image}
-                                        onChange={handleInputChange}
                                         required
-                                        placeholder="https://example.com/image.jpg"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                                     />
                                 </div>
 
@@ -446,7 +661,7 @@ export default function AdminDashboard() {
                                             name="featured"
                                             checked={formData.featured}
                                             onChange={handleInputChange}
-                                            className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
+                                            className="w-5 h-5 text-[#0f1e3d] border-gray-300 rounded focus:ring-[#0f1e3d]"
                                         />
                                         <span className="text-sm font-medium text-gray-700">Mark as Featured Property</span>
                                     </label>
@@ -456,7 +671,7 @@ export default function AdminDashboard() {
                             <div className="flex gap-4 mt-8">
                                 <button
                                     type="submit"
-                                    className="flex-1 bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+                                    className="flex-1 bg-[#0f1e3d] text-[#e4c272] border px-8 py-3 rounded-lg font-semibold hover:bg-[#e4c272] hover:text-[#0f1e3d] hover:border-[#0f1e3d] transition-colors"
                                 >
                                     {editingProperty ? 'Update Property' : 'Add Property'}
                                 </button>
@@ -498,3 +713,4 @@ export default function AdminDashboard() {
         </>
     );
 }
+
