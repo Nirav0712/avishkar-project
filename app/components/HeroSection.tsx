@@ -70,7 +70,8 @@ export default function HeroSection() {
                             ))}
                         </p>
                         <div className="button__circle">
-                            <img src="/arlogo.png" alt="icoimg.png" className="animate-[spin_8s_linear_infinite] w-full h-full object-contain p-2" />
+                            {/* <img src="/arlogo.png" alt="icoimg.png" className="animate-[spin_8s_linear_infinite] w-full h-full object-contain p-2" /> */}
+                            <img src="/arlogo.png" alt="icoimg.png" className="w-full h-full object-contain p-2" />
                         </div>
                     </button>
                 </StyledWrapper>
