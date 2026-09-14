@@ -4,35 +4,35 @@ import Image from "next/image";
 import { useState } from "react";
 
 const partners = [
-  { name: "ADANI REALTY", logo: "https://www.jalaramrealestate.com/images/x1.png", projects: "30+ Projects" },
-  { name: "GODREJ PROPERTIES", logo: "https://www.jalaramrealestate.com/images/x2.png", projects: "20+ Projects" },
-  { name: "SHIVALIK", logo: "https://www.jalaramrealestate.com/images/x3.png", projects: "33+ Projects" },
-  { name: "HN SAFAL", logo: "https://www.jalaramrealestate.com/images/x4.png", projects: "25+ Projects" },
-  { name: "GOYAL & CO.", logo: "https://www.jalaramrealestate.com/images/x5.png", projects: "22+ Projects" },
-  { name: "GALA", logo: "https://www.jalaramrealestate.com/images/x6.png", projects: "20+ Projects" },
-  { name: "SHILP", logo: "https://www.jalaramrealestate.com/images/x7.png", projects: "15+ Projects" },
-  { name: "SOBHA REALTY", logo: "https://www.jalaramrealestate.com/images/x8.png", projects: "25+ Projects" },
-  { name: "ARISTO", logo: "https://www.jalaramrealestate.com/images/x9.png", projects: "20+ Projects" },
-  { name: "TREMONT", logo: "https://www.jalaramrealestate.com/images/x10.png", projects: "21+ Projects" },
-  { name: "AG HIGHLINE", logo: "https://www.jalaramrealestate.com/images/q1.png", projects: "10+ Projects" },
-  { name: "TGS", logo: "https://www.jalaramrealestate.com/images/q2.png", projects: "12+ Projects" },
-  { name: "REWA", logo: "https://www.jalaramrealestate.com/images/q3.png", projects: "5+ Projects" },
-  { name: "SILVER LUXURIA", logo: "https://www.jalaramrealestate.com/images/q4.png", projects: "10+ Projects" },
-  { name: "ELEGANCE", logo: "https://www.jalaramrealestate.com/images/q5.png", projects: "10+ Projects" },
-  { name: "SHALIGRAM", logo: "https://www.jalaramrealestate.com/images/q6.png", projects: "15+ Projects" },
-  { name: "ORYN", logo: "https://www.jalaramrealestate.com/images/q7.png", projects: "20+ Projects" },
-  { name: "THE REGAL", logo: "https://www.jalaramrealestate.com/images/q8.png", projects: "5+ Projects" },
-  { name: "THE NEST", logo: "https://www.jalaramrealestate.com/images/q9.png", projects: "10+ Projects" },
-  { name: "PARIJAT", logo: "https://www.jalaramrealestate.com/images/q10.png", projects: "5+ Projects" },
-  { name: "REAL ESTATE PARTNER", logo: "https://www.jalaramrealestate.com/images/q11.png", projects: "10+ Projects" },
-  { name: "SANKALP", logo: "https://www.jalaramrealestate.com/images/q12.png", projects: "30+ Projects" },
-  { name: "TROGON", logo: "https://www.jalaramrealestate.com/images/q13.png", projects: "25+ Projects" },
-  { name: "SARANG", logo: "https://www.jalaramrealestate.com/images/q14.png", projects: "10+ Projects" },
-  { name: "ANANTRARA", logo: "https://www.jalaramrealestate.com/images/q15.png", projects: "10+ Projects" },
-  { name: "VIVAN AURA", logo: "https://www.jalaramrealestate.com/images/q16.png", projects: "30+ Projects" },
-  { name: "SANTAM PARMESHWAR", logo: "https://www.jalaramrealestate.com/images/q17.png", projects: "10+ Projects" },
-  { name: "DHAROHAR", logo: "https://www.jalaramrealestate.com/images/q18.png", projects: "20+ Projects" },
-  { name: "THE EVARA", logo: "https://www.jalaramrealestate.com/images/q19.png", projects: "20+ Projects" }
+  { name: "ADANI REALTY", logo: "/images/Partner/4.png", projects: "30+ Projects" },
+  { name: "GODREJ PROPERTIES", logo: "/images/OurPartners/godrej.svg", projects: "20+ Projects" },
+  { name: "SHIVALIK", logo: "/images/OurPartners/shivalik.svg", projects: "33+ Projects" },
+  { name: "HN SAFAL", logo: "/images/OurPartners/hnsafal.webp", projects: "25+ Projects" },
+  { name: "GOYAL & CO.", logo: "/images/OurPartners/goyalco.png", projects: "22+ Projects" },
+  { name: "GALA", logo: "/images/Partner/1.png", projects: "20+ Projects" },
+  { name: "SHILP", logo: "/images/OurPartners/shilp.svg", projects: "15+ Projects" },
+  { name: "SOBHA REALTY", logo: "/images/OurPartners/sobha.jpg", projects: "25+ Projects" },
+  { name: "ARISTO", logo: "/images/OurPartners/aristo.svg", projects: "20+ Projects" },
+  { name: "TREMONT", logo: "/images/OurPartners/tremont.svg", projects: "21+ Projects" },
+  { name: "AG HIGHLINE", logo: "/images/OurPartners/AGgroup.png", projects: "10+ Projects" },
+  { name: "TGS", logo: "/images/OurPartners/tgs.webp", projects: "12+ Projects" },
+  { name: "REWA", logo: "/images/OurPartners/rewa.svg", projects: "5+ Projects" },
+  { name: "SILVER LUXURIA", logo: "/images/OurPartners/avirat.png", projects: "10+ Projects" },
+  { name: "ELEGANCE", logo: "/images/OurPartners/elegance.png", projects: "10+ Projects" },
+  { name: "SHALIGRAM", logo: "/images/OurPartners/shaligram.svg", projects: "15+ Projects" },
+  { name: "ORYN", logo: "/images/OurPartners/oryn.webp", projects: "20+ Projects" },
+  { name: "THE REGAL", logo: "/images/OurPartners/theregal.svg", projects: "5+ Projects" },
+  { name: "THE NEST", logo: "/images/OurPartners/thenest.svg", projects: "10+ Projects" },
+  { name: "PARIJAT", logo: "/images/OurPartners/parijat.png", projects: "5+ Projects" },
+  { name: "REAL ESTATE PARTNER", logo: "/images/OurPartners/realestatepartner.svg", projects: "10+ Projects" },
+  { name: "SANKALP", logo: "/images/OurPartners/sankalp.png", projects: "30+ Projects" },
+  { name: "TROGON", logo: "/images/OurPartners/trogon.svg", projects: "25+ Projects" },
+  { name: "SARANG", logo: "/images/OurPartners/sarang.jpg", projects: "10+ Projects" },
+  { name: "ANANTRARA", logo: "/images/OurPartners/anantara.webp", projects: "10+ Projects" },
+  { name: "VIVAN AURA", logo: "/images/OurPartners/vivan.png", projects: "30+ Projects" },
+  { name: "SANTAM PARMESHWAR", logo: "/images/OurPartners/santam.svg", projects: "10+ Projects" },
+  { name: "DHAROHAR", logo: "/images/OurPartners/dharohar.webp", projects: "20+ Projects" },
+  { name: "THE EVARA", logo: "/images/OurPartners/evara.jpg", projects: "20+ Projects" }
 ];
 
 export default function OurPartner() {
@@ -76,6 +76,7 @@ export default function OurPartner() {
                   alt={partner.name}
                   width={100}
                   height={100}
+                  unoptimized
                   className="object-contain group-hover:scale-110 transition-transform duration-300"
                 />
 

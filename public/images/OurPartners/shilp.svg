@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon-shilp.png" />
+    <link rel="apple-touch-icon" href="/favicon-shilp.png" />
+    <link rel="shortcut icon" type="image/png" href="/favicon-shilp.png" />
+
+    <!-- Meta Tags -->
+    <meta name="author" content="Shilp Group" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="3 days" />
+    <meta name="distribution" content="global" />
+    <meta name="rating" content="general" />
+    <meta name="theme-color" content="#1e3a8a" />
+    <meta name="msapplication-TileColor" content="#1e3a8a" />
+    <meta name="msapplication-TileImage" content="/favicon-shilp.png" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="geo.region" content="IN-GJ" />
+    <meta name="geo.placename" content="Ahmedabad, Gujarat, India" />
+    <meta name="geo.position" content="23.0336228;72.50742470000002" />
+    <meta name="ICBM" content="23.0336228, 72.50742470000002" />
+
+    <!-- Google Tag Manager -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-K2KCDH3F');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- ✅ FIX 1: Preconnect — fonts + supabase + backend -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://rmuprxtzeefgpqnhxiqz.supabase.co" crossorigin />
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//rmuprxtzeefgpqnhxiqz.supabase.co" />
+
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/bannerhomepage.webp"
+      fetchpriority="high"
+    />
+
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap" />
+    </noscript>
+
+    <!-- Google Tag Manager only. Additional GA4/Ads configuration should be handled inside GTM. -->
+    <!-- Remove duplicate gtag/js loads to reduce unused JavaScript and blocking scripts. -->
+
+    <script>
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+              n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s);
+          }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '377018624066135');
+          fbq('track', 'PageView');
+        }, 4000);
+      });
+    </script>
+
+    <!-- Website Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Shilp Group",
+      "url": "https://shilpgroup.com",
+      "description": "Leading real estate and construction company in Ahmedabad, Gujarat offering premium residential and commercial properties",
+      "publisher": { "@type": "Organization", "name": "Shilp Group" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://shilpgroup.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs": [
+        "https://www.facebook.com/shilpgroup",
+        "https://www.instagram.com/shilpgroup",
+        "https://www.linkedin.com/company/shilpgroup",
+        "https://www.youtube.com/c/shilpgroup"
+      ]
+    }
+    </script>
+
+    <!-- Organization Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "Shilp Group",
+      "image": "https://lh3.googleusercontent.com/p/AF1QipMhahmVulbkVRpfjBqlNr7x_KVL-VLSjMhOOAd_=s1360-w1360-h1020-rw",
+      "@id": "https://shilpgroup.com",
+      "url": "https://shilpgroup.com/",
+      "telephone": "+91 79 4005 6757",
+      "email": "info@shilpgroup.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "SHILP HOUSE, Rajpath Rangoli Rd, opposite Rajpath Club",
+        "addressLocality": "Ahmedabad",
+        "addressRegion": "Gujarat",
+        "postalCode": "380054",
+        "addressCountry": "IN"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": 23.0336228, "longitude": 72.50742470000002 },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "11:00",
+        "closes": "19:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/shilpgroup",
+        "https://www.instagram.com/shilpgroup",
+        "https://www.linkedin.com/company/shilpgroup",
+        "https://www.youtube.com/c/shilpgroup"
+      ],
+      "areaServed": [{
+        "@type": "City",
+        "name": "Ahmedabad",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "Gujarat",
+          "containedInPlace": { "@type": "Country", "name": "India" }
+        }
+      }],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Real Estate Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Residential Construction", "description": "Premium residential apartments and villas" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Commercial Construction", "description": "Modern commercial spaces and office complexes" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Residential Plots", "description": "Prime residential plots in developed areas" } }
+        ]
+      },
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "reviewCount": "150" },
+      "priceRange": "$$$$",
+      "foundingDate": "1995",
+      "numberOfEmployees": "500+"
+    }
+    </script>
+
+    <!-- Local Business Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Shilp Group",
+      "image": "https://shilpgroup.com/assets/shilp-group-footer-logo-ZCXCddhP.svg",
+      "@id": "https://shilpgroup.com",
+      "url": "https://shilpgroup.com",
+      "telephone": "+91 79 4005 6757",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "SHILP HOUSE, Rajpath Rangoli Rd, opposite Rajpath Club",
+        "addressLocality": "Ahmedabad",
+        "addressRegion": "Gujarat",
+        "postalCode": "380054",
+        "addressCountry": "IN"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": 23.0336228, "longitude": 72.50742470000002 },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "11:00",
+        "closes": "19:00"
+      }
+    }
+    </script>
+    <script type="module" crossorigin src="/assets/index-B6czOMAh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/vendor-Cs8yHCv6.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-DocLktC4.css">
+  </head>
+  
+
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2KCDH3F"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="root"></div>
+  </body>
+
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=377018624066135&ev=PageView&noscript=1" />
+  </noscript>
+</html>

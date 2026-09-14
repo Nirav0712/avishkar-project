@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" width="100%" height="100%">
+  <g transform="translate(10, 5)">
+    <!-- Shaligram Symbol -->
+    <circle cx="45" cy="48" r="32" fill="none" stroke="#233a6b" stroke-width="4" />
+    <path d="M 45 22 L 45 74 M 22 48 L 68 48 M 28 31 L 62 65" stroke="#d4af37" stroke-width="3.5" stroke-linecap="round" />
+    <!-- Text -->
+    <text x="95" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="25" font-weight="800" fill="#233a6b" letter-spacing="2">SHALIGRAM</text>
+    <text x="95" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#d4af37" letter-spacing="3">GROUP</text>
+  </g>
+</svg>

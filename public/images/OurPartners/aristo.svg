@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" width="100%" height="100%">
+  <g transform="translate(10, 5)">
+    <!-- Aristo Symbol -->
+    <polygon points="45,12 78,82 12,82" fill="none" stroke="#c49a45" stroke-width="4.5"/>
+    <path d="M 28 58 L 62 58" stroke="#c49a45" stroke-width="3.5"/>
+    <circle cx="45" cy="40" r="7" fill="#162544"/>
+    <!-- Text -->
+    <text x="95" y="48" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="800" fill="#162544" letter-spacing="4">ARISTO</text>
+    <text x="95" y="70" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#c49a45" letter-spacing="4">BUILDCON</text>
+  </g>
+</svg>
