@@ -2,11 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { projects } from "@/lib/project";
-
+import { useState, useEffect } from "react";
+import { projects as fallbackProjects, type Project } from "@/lib/project";
 
 export default function Projects() {
-  const duplicated = [...projects, ...projects];
+  const [projectList, setProjectList] = useState<Project[]>(fallbackProjects);
+
+  useEffect(() => {
+    fetch('/api/projects')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setProjectList(data);
+        }
+      })
+      .catch(err => console.error('Error fetching dynamic projects for slider:', err));
+  }, []);
+
+  const duplicated = [...projectList, ...projectList];
 
   return (
     <section className="bg-[#0f1f3d] py-20 overflow-hidden">

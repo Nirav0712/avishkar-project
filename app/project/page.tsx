@@ -9,9 +9,21 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Information from "../components/Information";
 import Partner from "../components/Partner";
-import { projects } from "@/lib/project";
+import { projects as fallbackProjects, type Project } from "@/lib/project";
 
 export default function ProjectsPage() {
+  const [projectList, setProjectList] = useState<Project[]>(fallbackProjects);
+
+  useEffect(() => {
+    fetch('/api/projects')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setProjectList(data);
+        }
+      })
+      .catch(err => console.error('Error fetching live projects:', err));
+  }, []);
 
   const heroImages = [
     "/images/project/bg4.jpg",
@@ -109,7 +121,7 @@ export default function ProjectsPage() {
 
           <div className="space-y-20">
 
-            {projects.map((project, index) => (
+            {projectList.map((project, index) => (
 
               <div
                 key={project.id}

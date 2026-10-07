@@ -2,9 +2,9 @@
 
 import { useParams, notFound } from "next/navigation";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { projects } from "@/lib/project";
+import { projects as fallbackProjects, type Project } from "@/lib/project";
 
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
@@ -32,7 +32,7 @@ function DetailImageCarousel({ project }: any) {
     <div className="relative h-96 md:h-125 rounded-2xl overflow-hidden mb-8 bg-gray-100">
 
       <Image
-        src={images[current]}
+        src={images[current] || project.image || '/images/project/bg4.jpg'}
         alt={project.title}
         fill
         className="object-cover"
@@ -93,14 +93,34 @@ export default function ProjectDetailsPage() {
   const params = useParams();
   const slug = params.slug as string;
 
-  const project = projects.find((p) => p.slug === slug);
+  const [allProjects, setAllProjects] = useState<Project[]>(fallbackProjects);
+  const [project, setProject] = useState<any>(fallbackProjects.find((p) => p.slug === slug));
+
+  useEffect(() => {
+    fetch('/api/projects')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setAllProjects(data);
+          const found = data.find((p: any) => p.slug === slug || String(p.id) === slug);
+          if (found) {
+            setProject(found);
+          }
+        }
+      })
+      .catch(err => console.error('Error fetching live project details:', err));
+  }, [slug]);
 
   if (!project) {
-    notFound();
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-xl font-semibold text-gray-700">Loading project...</div>
+      </div>
+    );
   }
 
-  const similarProjects = projects
-    .filter((p) => p.slug !== slug)
+  const similarProjects = allProjects
+    .filter((p) => p.slug !== slug && p.id !== project.id)
     .slice(0, 3);
 
   return (
@@ -277,7 +297,7 @@ export default function ProjectDetailsPage() {
 
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
 
-                      {project.amenities.map((amenity, index) => (
+                      {project.amenities.map((amenity: any, index: number) => (
 
                         <div
                           key={index}
