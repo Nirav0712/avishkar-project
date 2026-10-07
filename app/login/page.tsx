@@ -8,25 +8,32 @@ export default function Login() {
   
   const router = useRouter(); 
 
-const handleSubmit = async (e: any) => {
-  e.preventDefault();
+  const [loading, setLoading] = useState(false);
 
-  const res = await fetch("/api/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(form),
-  });
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setLoading(true);
 
-  const data = await res.json();
-  // alert(data.message || data.error);
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-  if (res.ok) {
-    //Redirect to admin dashboard
-    router.push("/admin/dashboard");
-  } else {
-    alert(data.error || "Login failed");
-  }
-};
+      const data = await res.json();
+
+      if (res.ok) {
+        window.location.href = "/admin/dashboard";
+      } else {
+        alert(data.error || "Login failed");
+        setLoading(false);
+      }
+    } catch (err: any) {
+      alert("An error occurred during login: " + err.message);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0b1c2d] px-4">
@@ -67,9 +74,10 @@ const handleSubmit = async (e: any) => {
 
           <button
             type="submit"
-            className="w-full bg-yellow-500 hover:bg-yellow-600 transition duration-300 text-black font-semibold p-3 rounded-lg shadow-lg"
+            disabled={loading}
+            className="w-full bg-yellow-500 hover:bg-yellow-600 disabled:opacity-50 transition duration-300 text-black font-semibold p-3 rounded-lg shadow-lg"
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
  

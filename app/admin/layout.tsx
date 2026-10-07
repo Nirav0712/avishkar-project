@@ -34,7 +34,7 @@ export default async function AdminLayout({
     }
 
     if (!isValid) {
-        redirect('/api/logout');
+        redirect('/login');
     }
 
     return <>{children}</>;
