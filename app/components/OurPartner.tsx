@@ -30,87 +30,72 @@ const partners = [
   { name: "SARANG", logo: "/images/OurPartners/sarang.jpg", projects: "10+ Projects" },
   { name: "ANANTRARA", logo: "/images/OurPartners/anantara.webp", projects: "10+ Projects" },
   { name: "VIVAN AURA", logo: "/images/OurPartners/vivan.png", projects: "30+ Projects" },
-  { name: "SANTAM PARMESHWAR", logo: "/images/OurPartners/santam.svg", projects: "10+ Projects" },
+  { name: "SHANTAM PARMESHWAR", logo: "/images/OurPartners/santam.svg", projects: "10+ Projects" },
   { name: "DHAROHAR", logo: "/images/OurPartners/dharohar.webp", projects: "20+ Projects" },
   { name: "THE EVARA", logo: "/images/OurPartners/evara.jpg", projects: "20+ Projects" }
 ];
 
 export default function OurPartner() {
-
   const [showAll, setShowAll] = useState(false);
-
   const visiblePartners = showAll ? partners : partners.slice(0, 15);
 
   return (
-    <section className="bg-gray-50 py-24">
+    <section className="bg-slate-50/70 py-20 lg:py-28 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Section Heading */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-200/70 border border-slate-300 text-slate-800 text-xs font-bold uppercase tracking-wider mb-3">
+            <i className="fas fa-handshake text-[#d4af37]"></i>
+            <span>Institutional Collaborations</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Distinguished <span className="text-[#0f1e3d]">Developer Partnerships</span>
+          </h2>
+          <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+            Avishkar Realty is proud to collaborate with Gujarat's most reputed real estate developers, providing direct developer pricing, priority unit selection, and zero brokerage on new project bookings.
+          </p>
+        </div>
 
-      {/* Heading */}
-      <h2 className="text-center text-[#0f1f3d] text-3xl font-bold tracking-wide mb-10">
-        OUR PARTNERS
-      </h2>
-
-      <p className="text-center text-gray-500 text-sm sm:text-base md:text-md font-semibold tracking-wide mb-8 sm:mb-12 md:mb-16 px-4 md:px-20 lg:px-40">
-        We have worked with some of the most reputable developers in the real estate industry, and we are proud to showcase our partnerships with them. Our partners are carefully selected based on their track record, quality of work, and commitment to excellence. We believe that strong partnerships are the foundation of success, and we are committed to building long-term relationships with our partners based on trust, respect, and mutual benefit.
-      </p>
-      <div className="max-w-7xl mx-auto px-6">
-
-        {/* Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
-
+        {/* Partner Logos Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
           {visiblePartners.map((partner, index) => (
             <div
               key={index}
-              className="bg-white rounded-[25px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] p-6 md:p-8 text-center 
-              flex flex-col items-center justify-center relative mt-10
-              transition-all duration-300 
-              hover:shadow-2xl hover:-translate-y-2 group"
+              className="bg-white/80 backdrop-blur-md rounded-2xl border border-white/80 p-5 sm:p-6 text-center flex flex-col items-center justify-center transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-[#d4af37]/40 group shadow-sm"
             >
-
-              {/* Logo Circle */}
-              <div className="w-20 h-20 md:w-28 md:h-28 absolute -top-8 md:-top-10 left-1/2 -translate-x-1/2 
-              rounded-full bg-white flex items-center justify-center 
-              border-4 border-[#f0f4f8] shadow-sm overflow-hidden p-3 md:p-4">
-
+              <div className="w-20 h-16 sm:w-24 sm:h-20 flex items-center justify-center p-2 mb-3">
                 <Image
                   src={partner.logo}
                   alt={partner.name}
-                  width={100}
-                  height={100}
+                  width={96}
+                  height={80}
                   unoptimized
-                  className="object-contain group-hover:scale-110 transition-transform duration-300"
+                  className="max-h-full max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300 group-hover:scale-105"
                 />
-
               </div>
 
-              {/* Name */}
-              <h3 className="text-md font-bold text-gray-800 uppercase tracking-tight mt-13">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-tight group-hover:text-[#0b1528] line-clamp-1">
                 {partner.name}
               </h3>
 
-              {/* Projects */}
-              <p className="text-md text-gray-400 font-medium mt-3">
+              <span className="text-[11px] text-[#d4af37] font-semibold mt-1">
                 {partner.projects}
-              </p>
-
+              </span>
             </div>
           ))}
-
         </div>
 
-        {/* Button */}
-        <div className="flex justify-center mt-16">
-
+        {/* Toggle Button */}
+        <div className="flex justify-center mt-12">
           <button
             onClick={() => setShowAll(!showAll)}
-            className="bg-[#162544] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#e4c272] hover:text-black transition"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white hover:bg-[#0b1528] text-slate-800 hover:text-white border border-slate-300 text-xs sm:text-sm font-bold transition-all duration-200 shadow-sm hover:shadow-md"
           >
-            {showAll ? "View Less ↑" : "View More ↓"}
+            <span>{showAll ? "View Less Developers" : "View All 29+ Partner Developers"}</span>
+            <i className={`fas fa-chevron-${showAll ? 'up' : 'down'} text-xs`}></i>
           </button>
-
         </div>
-
       </div>
-
     </section>
   );
 }

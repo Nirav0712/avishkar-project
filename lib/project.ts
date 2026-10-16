@@ -27,6 +27,11 @@ export type Project = {
     isForSale?: boolean;
     rera?: string;
     blogId?: number;
+    youtubeUrl?: string;
+    instagramUrl?: string;
+    videoThumbnail?: string;
+    videoTitle?: string;
+    hasVideo?: boolean;
 };
 
 export const projects: Project[] = [
@@ -60,6 +65,11 @@ export const projects: Project[] = [
         isForSale: true,
         rera: "PR/GJ/AHMEDABAD/AHMEDABAD CITY/AUDA/RAA01680/EX1/071218",
         blogId: 11,
+        youtubeUrl: "https://www.youtube.com/shorts/5p8xYzKz7q8",
+        instagramUrl: "https://www.instagram.com/reel/C7k9yX6v1A2/",
+        videoThumbnail: "/images/project/Om-heights1.png",
+        videoTitle: "Om Eclat Heights | 9:16 Vertical Walkthrough & Flat Tour",
+        hasVideo: true,
     },
 
     {
@@ -92,6 +102,11 @@ export const projects: Project[] = [
         isForSale: true,
         rera: "PR/GJ/GANDHINAGAR/GANDHINAGAR/Gandhinagar Municipal Corporation/MAA13377/230424/311228",
         blogId: 12,
+        youtubeUrl: "https://www.youtube.com/shorts/5p8xYzKz7q8",
+        instagramUrl: "https://www.instagram.com/reel/C7k9yX6v1A2/",
+        videoThumbnail: "/images/project/the-regal3.png",
+        videoTitle: "The Regal 4 BHK Ultra-Luxury Sample Flat Walkthrough",
+        hasVideo: true,
     },
 
     {

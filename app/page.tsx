@@ -1,527 +1,469 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import PropertyCard from "./components/PropertyCard";
-import { getProperties, formatPrice, type Property } from "@/lib/properties";
-import Testimonial from "./components/Testimonial";
-import PropertyShowCase from "./components/PropertyShowCase";
-import Partner from "./components/Partner";
-import Information from "./components/Information";
-import Facilities from "./components/Facilities";
-import React from 'react';
-import Projects from "./components/Projects";
-import OurPartner from "./components/OurPartner";
-import Logospin from "./components/Logospin";
 import HeroSection from "./components/HeroSection";
-import styled from 'styled-components';
+import PropertyCard from "./components/PropertyCard";
+import Projects from "./components/Projects";
+import PropertyShowCase from "./components/PropertyShowCase";
+import OurPartner from "./components/OurPartner";
 import GoogleReviews from "./components/GoogleReviews";
+import Information from "./components/Information";
+import { getProperties, type Property } from "@/lib/properties";
 
 export default function HomePage() {
   const [properties, setProperties] = useState<Property[]>([]);
-  const [activeTab, setActiveTab] = useState<string>("all");
-  const [searchStatus, setSearchStatus] = useState<string>("For Sale");
+  const [activeCategory, setActiveCategory] = useState<string>("all");
   const [loading, setLoading] = useState(true);
 
+  // Quick consultation lead form state
+  const [formName, setFormName] = useState("");
+  const [formPhone, setFormPhone] = useState("");
+  const [formEmail, setFormEmail] = useState("");
+  const [formType, setFormType] = useState("Residential");
+  const [formBudget, setFormBudget] = useState("₹75 Lacs - ₹1.5 Cr");
+  const [formSubmitting, setFormSubmitting] = useState(false);
+  const [formSuccess, setFormSuccess] = useState(false);
+  const [formError, setFormError] = useState("");
+
   useEffect(() => {
-    const fetchFeaturedProperties = async () => {
+    const fetchProperties = async () => {
       setLoading(true);
       try {
         const response = await fetch('/api/properties');
         if (response.ok) {
           const data = await response.json();
-          const validData = data.map((p: any) => ({
-            ...p,
-            featured: p.featured === 1 || p.featured === true,
-            price: Number(p.price) || 0,
-            bedrooms: Number(p.bedrooms) || 0,
-            bathrooms: Number(p.bathrooms) || 0,
-            area: Number(p.area) || 0,
-            image: p.image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
-          }));
-          console.log("Fetched database properties:", validData);
-          setProperties(validData);
+          if (Array.isArray(data) && data.length > 0) {
+            const validData = data.map((p: any) => ({
+              ...p,
+              featured: p.featured === 1 || p.featured === true,
+              price: Number(p.price) || 0,
+              bedrooms: Number(p.bedrooms) || 0,
+              bathrooms: Number(p.bathrooms) || 0,
+              area: Number(p.area) || 0,
+              image: p.image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+            }));
+            // If DB only has 1 property, combine with sample properties so users see full rich catalog
+            const localProps = getProperties();
+            const combined = [...validData, ...localProps.filter(lp => !validData.some((vp: any) => vp.id === lp.id))];
+            setProperties(combined);
+          } else {
+            setProperties(getProperties());
+          }
         } else {
-          // fallback to localStorage or dummy data if API fails
-          const allProperties = getProperties();
-          setProperties(allProperties);
+          setProperties(getProperties());
         }
       } catch (error) {
-        console.error("Failed to fetch properties from DB:", error);
-        const allProperties = getProperties();
-        setProperties(allProperties);
+        console.error("Error loading properties:", error);
+        setProperties(getProperties());
       } finally {
         setLoading(false);
       }
     };
-    fetchFeaturedProperties();
+    fetchProperties();
   }, []);
 
-  const featuredProperties = properties.filter((p) => p.featured).slice(0, 6);
-  // const displayedProperties =
-  //   activeTab === "all"
-  //     ? featuredProperties
-  //     : featuredProperties.filter((p) => p.type === activeTab) || featuredProperties.filter((p) => p.category === activeTab);
   const displayedProperties = properties.filter((property) => {
-    if (activeTab === "all") return true;
-
+    if (activeCategory === "all") return true;
     return (
-      property.type === activeTab ||
-      property.category === activeTab
+      property.category?.toLowerCase() === activeCategory.toLowerCase() ||
+      property.type?.toLowerCase() === activeCategory.toLowerCase()
     );
-  });
+  }).slice(0, 6);
 
-  // Get one random property for each requirement category
-  const requirementProperties = useMemo(() => {
-    const categories = ["Commercial", "Industrial", "Residential"];
-    return categories.map(cat => {
-      const catProps = properties.filter(p => p.category === cat);
-      if (catProps.length === 0) return null;
-      return catProps[Math.floor(Math.random() * catProps.length)];
-    }).filter(p => p !== null) as Property[];
-  }, [properties]);
-
-  const handleCategoryClick = (category: string) => {
-    const params = new URLSearchParams();
-    params.set("category", category);
-    window.location.href = `/properties?${params.toString()}`;
-  };
-
-  const handleLocationClick = (location: string) => {
-    const params = new URLSearchParams();
-    params.set("location", location);
-    window.location.href = `/properties?${params.toString()}`;
-  };
-
-  const services = [
-    {
-      title: "Retail space Leasing",
-      icon: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png",
-      description: "Premium retail locations for your business growth."
-    },
-    {
-      title: "Property Management",
-      icon: "https://cdn-icons-png.flaticon.com/512/1534/1534959.png",
-      description: "Professional management for your valuable assets."
-    },
-    {
-      title: "Interior Designing",
-      icon: "https://cdn-icons-png.flaticon.com/512/942/942748.png",
-      description: "Transforming spaces into beautiful, functional homes."
-    },
-    {
-      title: "Consultancy & Research",
-      icon: "https://cdn-icons-png.flaticon.com/512/1995/1995485.png",
-      description: "Expert market insights for informed property decisions."
-    },
-    {
-      title: "Corporate Space Leasing",
-      icon: "https://cdn-icons-png.flaticon.com/512/1040/1040230.png",
-      description: "Strategically located offices for modern enterprises."
-    },
-    {
-      title: "Legal Advice & Document",
-      icon: "https://cdn-icons-png.flaticon.com/512/2991/2991148.png",
-      description: "Hassle-free legal support for all property matters."
-    },
-    {
-      title: "Investment in Rented Prop",
-      icon: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
-      description: "Secure investments with guaranteed rental returns."
-    },
-    {
-      title: "Loan Against Property",
-      icon: "https://cdn-icons-png.flaticon.com/512/2965/2965879.png",
-      description: "Financial solutions tailored to your property value."
-    }
-  ];
-
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleQuickLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const params = new URLSearchParams();
+    if (!formName || !formPhone) {
+      setFormError("Please enter your name and contact number.");
+      return;
+    }
+    setFormSubmitting(true);
+    setFormError("");
 
-    params.set("status", searchStatus);
-    if (formData.get("location"))
-      params.set("location", formData.get("location") as string);
-    if (formData.get("type") !== "all")
-      params.set("type", formData.get("type") as string);
-    if (formData.get("bedrooms") !== "all")
-      params.set("bedrooms", formData.get("bedrooms") as string);
+    try {
+      const res = await fetch('/api/enquire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formName,
+          phone: formPhone,
+          email: formEmail || null,
+          source: 'Homepage VIP Consultation Form',
+          property_type: formType,
+          budget: formBudget,
+          priority: 'High',
+          notes: `Requested tailored recommendations for ${formType} with budget ${formBudget}.`
+        })
+      });
 
-    window.location.href = `/properties?${params.toString()}`;
+      if (!res.ok) throw new Error('Submission failed');
+      setFormSuccess(true);
+      setFormName("");
+      setFormPhone("");
+      setFormEmail("");
+    } catch {
+      setFormError("Unable to submit. Please reach us directly on WhatsApp or call.");
+    } finally {
+      setFormSubmitting(false);
+    }
   };
 
   return (
-    <>
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      />
-
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col selection:bg-[#d4af37] selection:text-[#0b1528]">
       <Header />
 
+      <main className="flex-grow">
+        {/* Hero Section */}
+        <HeroSection />
 
-      {/* Hero Section with Auto-Scrolling Background */}
-      <HeroSection />
+        {/* Verified Confidence & Stat Bar */}
+        <section className="py-10 bg-white border-b border-slate-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center">
+              <div className="p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
+                <span className="text-3xl sm:text-4xl font-black text-[#0b1528] block">50+</span>
+                <span className="text-xs sm:text-sm font-semibold text-[#d4af37] uppercase tracking-wider mt-1 block">
+                  Top Developer Partners
+                </span>
+                <p className="text-[11px] text-slate-500 mt-0.5">Adani, Godrej, Shivalik & more</p>
+              </div>
 
+              <div className="p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
+                <span className="text-3xl sm:text-4xl font-black text-[#0b1528] block">100%</span>
+                <span className="text-xs sm:text-sm font-semibold text-[#d4af37] uppercase tracking-wider mt-1 block">
+                  RERA Compliance
+                </span>
+                <p className="text-[11px] text-slate-500 mt-0.5">Clean legal titles & verified plans</p>
+              </div>
 
-      {/* our partners */}
-      <Partner />
+              <div className="p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
+                <span className="text-3xl sm:text-4xl font-black text-[#0b1528] block">500+</span>
+                <span className="text-xs sm:text-sm font-semibold text-[#d4af37] uppercase tracking-wider mt-1 block">
+                  Satisfied Families
+                </span>
+                <p className="text-[11px] text-slate-500 mt-0.5">Across North & West Ahmedabad</p>
+              </div>
 
+              <div className="p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
+                <span className="text-3xl sm:text-4xl font-black text-[#0b1528] block">₹0</span>
+                <span className="text-xs sm:text-sm font-semibold text-[#d4af37] uppercase tracking-wider mt-1 block">
+                  Buyer Brokerage
+                </span>
+                <p className="text-[11px] text-slate-500 mt-0.5">On all new developer projects</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      {/* Featured Properties */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-4">
-              Featured Properties
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Handpicked selection of our finest properties available for sale
-              and rent
-            </p>
+        {/* Flagship Projects Section (Real DB Projects in Ahmedabad) */}
+        <Projects />
+
+        {/* Featured Properties Grid */}
+        <section className="py-20 lg:py-28 max-w-7xl mx-auto px-4 sm:px-6 w-full">
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#d4af37]/15 border border-[#d4af37]/30 text-[#855f05] text-xs font-bold uppercase tracking-wider mb-3">
+                <i className="fas fa-home text-[10px]"></i>
+                <span>Prime Listings</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+                Featured Properties <span className="text-[#0b1528]">for Discerning Buyers</span>
+              </h2>
+              <p className="mt-3 text-slate-600 text-sm sm:text-base max-w-xl font-light">
+                Explore handpicked luxury villas, penthouses, modern apartments, and premium commercial assets.
+              </p>
+            </div>
+
+            {/* Category Filter Pills */}
+            <div className="flex items-center gap-2 flex-wrap">
+              {[
+                { id: "all", label: "All Properties" },
+                { id: "Residential", label: "Residential" },
+                { id: "Commercial", label: "Commercial" },
+                { id: "Villa", label: "Villas & Plots" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveCategory(tab.id)}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
+                    activeCategory === tab.id
+                      ? "bg-[#0b1528] text-white shadow-md shadow-[#0b1528]/20"
+                      : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Property Type Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12">
-            {["all", "Villa", "Apartment", "Bungalow", "Land", "Showroom", "Shop"].map((type) => (
-              <button
-                key={type}
-                onClick={() => setActiveTab(type)}
-                className={`px-6 py-2.5 rounded-lg font-medium transition-colors ${activeTab === type
-                  ? "bg-[#0f1e3d] text-[#e4c272]"
-                  : "bg-white text-gray-700 hover:bg-[#0f1e3d] hover:text-[#e4c272] border border-gray-300"
-                  }`}
-              >
-                {type === "all" ? "All" : `${type}s`}
-              </button>
-            ))}
-            {["Industrial"].map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveTab(category)}
-                className={`px-6 py-2.5 rounded-lg font-medium transition-colors ${activeTab === category
-                  ? "bg-[#0f1e3d] text-[#e4c272]"
-                  : "bg-white text-gray-700 hover:bg-[#0f1e3d] hover:text-[#e4c272] border border-gray-300"
-                  }`}
-              >
-                {category === "all" ? "All" : `${category}s`}
-              </button>
-            ))}
-          </div>
-
-          {/* Property Grid or Loader */}
+          {/* Properties Grid */}
           {loading ? (
-            <div className="flex flex-col items-center justify-center py-20">
-              <div className="w-16 h-16 border-4 border-[#e4c272] border-t-transparent rounded-full animate-spin mb-4"></div>
-              <p className="text-xl text-[#0f1e3d] font-medium">Loading properties...</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="h-96 rounded-2xl bg-slate-200 animate-pulse"></div>
+              ))}
             </div>
           ) : displayedProperties.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {displayedProperties.map((property) => (
-                <PropertyCard key={property.id} property={property} />
+              {displayedProperties.map((prop) => (
+                <PropertyCard key={prop.id} property={prop} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <i className="fas fa-home text-6xl text-gray-300 mb-4"></i>
-              <p className="text-gray-600">
-                No properties found in this category.
-              </p>
+            <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 p-8">
+              <i className="fas fa-search text-3xl text-slate-300 mb-3"></i>
+              <h3 className="text-lg font-bold text-slate-700">No properties in this category yet</h3>
+              <p className="text-sm text-slate-500 mt-1">Try switching to &quot;All Properties&quot; or browsing our new projects.</p>
             </div>
           )}
 
-          <div className="text-center mt-12">
+          {/* View All Properties Button */}
+          <div className="mt-14 text-center">
             <Link
               href="/properties"
-              className="inline-block bg-transparent border-2 border-[#0f1e3d] text-[#0f1e3d] px-10 py-4 rounded-lg font-semibold hover:bg-[#0f1e3d] hover:text-[#e4c272] transition-all text-lg"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#0b1528] hover:bg-[#162544] text-white text-sm font-bold tracking-wide transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5"
             >
-              View All Properties
+              <span>Explore Complete Property Catalogue</span>
+              <i className="fas fa-arrow-right text-xs text-[#e4c272]"></i>
             </Link>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Property Showcase Section */}
-      <PropertyShowCase />
+        {/* Project Spotlight (The Amber) */}
+        <PropertyShowCase />
 
-      {/* Stats Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-[#0f1e3d] mb-4">Our Achievements</h2>
-          <p className="text-xl text-gray-600">Numbers that speak for themselves</p>
-        </div>
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center place-items-center">
-            <div className='w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-full p-4 md:p-8 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
-              <div className="text-2xl md:text-5xl font-bold text-[#0f1e3d] mb-1">5K+</div>
-              <div className="text-[10px] md:text-sm text-gray-600 uppercase tracking-wider">Properties Sold</div>
+        {/* Explore Properties by Area in Ahmedabad */}
+        <section className="py-20 lg:py-28 bg-white border-y border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-bold uppercase tracking-wider mb-3">
+                <i className="fas fa-map-marked-alt text-[#d4af37]"></i>
+                <span>Strategic Growth Hubs</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Explore Ahmedabad&apos;s <span className="text-[#0b1528]">Prime Neighbourhoods</span>
+              </h2>
+              <p className="mt-3 text-slate-600 text-sm sm:text-base">
+                Discover exceptional properties across the fastest-appreciating residential and commercial corridors in Gujarat.
+              </p>
             </div>
-            <div className='w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-full p-4 md:p-8 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
-              <div className="text-2xl md:text-5xl font-bold text-[#0f1e3d] mb-1">2500</div>
-              <div className="text-[10px] md:text-sm text-gray-600 uppercase tracking-wider">Happy Customers</div>
-            </div>
-            <div className='w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-full p-4 md:p-8 bg-white shadow-xl flex flex-col items-center justify-center text-center border-2 border-[#0f1e3d] hover:scale-110 transition-transform duration-300 cursor-pointer'>
-              <div className="text-2xl md:text-5xl font-bold text-[#0f1e3d] mb-1">12+</div>
-              <div className="text-[10px] md:text-sm text-gray-600 uppercase tracking-wider">Years Experience</div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  name: "SG Highway",
+                  desc: "Corporate headquarters, luxury high-rises & vibrant entertainment.",
+                  image: "/images/slider/slider1.jpeg",
+                  tag: "High Appreciation"
+                },
+                {
+                  name: "Vaishnodevi Circle",
+                  desc: "Premier 4 BHK apartments, lake gardens & arterial connectivity.",
+                  image: "/images/project/the-regal1.png",
+                  tag: "Elite Residences"
+                },
+                {
+                  name: "Zundal & Chandkheda",
+                  desc: "Family-focused 2 & 3 BHK gated communities with zero space wastage.",
+                  image: "/images/project/Om-heights1.png",
+                  tag: "Best Value"
+                },
+                {
+                  name: "Gota & Vandematram",
+                  desc: "Established infrastructure, premium schools & peaceful residences.",
+                  image: "/images/project/Shantam-Parmeshwar1.jpeg",
+                  tag: "Family Haven"
+                }
+              ].map((area, idx) => (
+                <Link
+                  key={idx}
+                  href={`/properties?location=${encodeURIComponent(area.name)}`}
+                  className="group relative h-80 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6"
+                >
+                  <img
+                    src={area.image}
+                    alt={area.name}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b1528] via-[#0b1528]/50 to-transparent"></div>
+
+                  <span className="relative z-10 self-start text-[10px] font-bold uppercase tracking-wider text-[#0b1528] bg-[#d4af37] px-2.5 py-1 rounded-md mb-2">
+                    {area.tag}
+                  </span>
+                  <h3 className="relative z-10 text-xl font-bold text-white group-hover:text-[#e4c272] transition-colors">
+                    {area.name}
+                  </h3>
+                  <p className="relative z-10 text-xs text-slate-300 mt-1 line-clamp-2 font-light">
+                    {area.desc}
+                  </p>
+                </Link>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
+        {/* Developer Partners */}
+        <OurPartner />
 
-      {/* Popular Cities */}
-      <section className="py-20 ">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-[#0f1e3d] mb-4">
-              Explore Properties by Area
+        {/* Real Customer Reviews Section */}
+        <section className="py-20 lg:py-28 bg-[#f1f5f9] relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-12 text-center">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-slate-200 text-slate-800 text-xs font-bold uppercase tracking-wider mb-3">
+              <i className="fas fa-quote-left text-[#d4af37]"></i>
+              <span>Customer Satisfaction</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Trusted by Homebuyers & <span className="text-[#0b1528]">Commercial Investors</span>
             </h2>
-            <p className="text-xl text-gray-600">
-              Exclusive real estate in India's major urban hubs
+            <p className="mt-3 text-slate-600 text-sm sm:text-base max-w-xl mx-auto">
+              Read authentic Google reviews from clients who found their dream homes and successful commercial deals with us.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
-            {[
-              {
-                name: "Gota",
-                count: "2,500+ Properties",
-                icon: "fa-building",
-              },
-              {
-                name: "Chandlodiya",
-                count: "1,800+ Properties",
-                icon: "fa-laptop",
-              },
-              {
-                name: "Zundal",
-                count: "1,200+ Properties",
-                icon: "fa-graduation-cap",
-              },
-              {
-                name: "Vaishnodevi",
-                count: "450+ Properties",
-                icon: "fa-umbrella-beach",
-              },
-              {
-                name: "Science City",
-                count: "900+ Properties",
-                icon: "fa-city"
-              },
-              {
-                name: "Ognaj",
-                count: "450+ Properties",
-                icon: "fa-warehouse",
-              },
-              // {
-              //   name: "Zundal",
-              //   count: "450+ Properties",
-              //   icon: "fa-parking",
-              // },
-            ].map((city, index) => (
-              <div
-                key={index}
-                onClick={() => handleLocationClick(city.name)}
-                className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer"
-              >
-                <div className="w-16 h-16 mx-auto mb-4 bg-[#e4c272]/10 rounded-full flex items-center justify-center">
-                  <i className={`fas ${city.icon} text-3xl text-[#e4c272]`}></i>
+          <GoogleReviews />
+        </section>
+
+        {/* VIP Property Consultation Glass Card (Direct CRM Lead Submission) */}
+        <section className="py-20 lg:py-24 bg-gradient-to-b from-[#f1f5f9] to-[#0b1528] px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto bg-white/80 backdrop-blur-xl border border-white/80 rounded-3xl p-8 sm:p-12 shadow-2xl relative">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <span className="text-xs font-bold text-[#d4af37] uppercase tracking-widest block mb-1">
+                Personalized Advisory
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Request a VIP Property Consultation
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 mt-2">
+                Share your requirements. Our real estate specialist will curate matching RERA-approved properties and schedule private site visits for you.
+              </p>
+            </div>
+
+            {formSuccess ? (
+              <div className="p-8 text-center bg-emerald-50 border border-emerald-200 rounded-2xl animate-in fade-in">
+                <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                  <i className="fas fa-check"></i>
                 </div>
-                <h3 className="text-lg font-semibold text-[#0f1e3d] mb-2">
-                  {city.name}
-                </h3>
-                <p className="text-sm text-gray-600">{city.count}</p>
+                <h3 className="text-xl font-bold text-emerald-900">Enquiry Submitted to Our Team!</h3>
+                <p className="text-sm text-emerald-700 mt-2 max-w-md mx-auto">
+                  Thank you! Your requirements have been logged in our CRM. An executive from Avishkar Realty will reach out to you within 24 hours.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setFormSuccess(false)}
+                  className="mt-6 px-6 py-2.5 rounded-full bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700"
+                >
+                  Submit Another Inquiry
+                </button>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            ) : (
+              <form onSubmit={handleQuickLeadSubmit} className="space-y-4">
+                {formError && (
+                  <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium">
+                    {formError}
+                  </div>
+                )}
 
-      {/* projects scollers section */}
-      <Projects />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Full Name *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Ramesh Patel"
+                      value={formName}
+                      onChange={(e) => setFormName(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-sm focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]"
+                    />
+                  </div>
 
-
-
-      {/* valued partners */}
-      <section className="bg-[#f3f3f3] py-16">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <p className="text-[#e4c272] bg-[#0f1f3d] py-2 px-4 inline-block text-md font-semibold mb-2 mx-auto">
-            Our Services
-          </p>
-
-          {/* Main Heading */}
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0f1f3d] mb-12">
-            We Provide Best Services.
-          </h2>
-
-          {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 justify-items-center">
-            {services.map((service, index) => (
-              <StyledWrapper key={index}>
-                <div className="book">
-                  <p className="px-4 text-center">{service.description}</p>
-                  <div className="cover">
-                    <div className="bg-white rounded-3xl shadow-md p-8 border border-[#e4c272] transition duration-300 w-full h-full flex flex-col items-center justify-center">
-                      <img
-                        src={service.icon}
-                        alt={service.title}
-                        className="w-24 h-24 mx-auto mb-4 transition-transform duration-300 hover:scale-125"
-                      />
-                      <p className="text-[#0f1f3d] font-medium text-center">
-                        {service.title}
-                      </p>
-                    </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Phone Number (WhatsApp) *</label>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="+91 98765 43210"
+                      value={formPhone}
+                      onChange={(e) => setFormPhone(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-sm focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]"
+                    />
                   </div>
                 </div>
-              </StyledWrapper>
-            ))}
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
+                    <input
+                      type="email"
+                      placeholder="name@example.com"
+                      value={formEmail}
+                      onChange={(e) => setFormEmail(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-sm focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Property Type</label>
+                    <select
+                      value={formType}
+                      onChange={(e) => setFormType(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-sm focus:outline-none focus:border-[#d4af37] cursor-pointer"
+                    >
+                      <option value="Residential">Residential (2/3/4 BHK)</option>
+                      <option value="Commercial">Commercial / Retail</option>
+                      <option value="Penthouse">Luxury Penthouse</option>
+                      <option value="Villa">Independent Villa</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Budget Preference</label>
+                    <select
+                      value={formBudget}
+                      onChange={(e) => setFormBudget(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-sm focus:outline-none focus:border-[#d4af37] cursor-pointer"
+                    >
+                      <option value="Under ₹75 Lakhs">Under ₹75 Lakhs</option>
+                      <option value="₹75 Lacs - ₹1.5 Cr">₹75 Lacs - ₹1.5 Cr</option>
+                      <option value="₹1.5 Cr - ₹3 Cr">₹1.5 Cr - ₹3 Cr</option>
+                      <option value="Above ₹3 Cr">Above ₹3 Cr</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="pt-3">
+                  <button
+                    type="submit"
+                    disabled={formSubmitting}
+                    className="w-full py-4 rounded-xl bg-[#0b1528] hover:bg-[#162544] text-[#e4c272] text-sm font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 shadow-lg disabled:opacity-50"
+                  >
+                    {formSubmitting ? (
+                      <>
+                        <i className="fas fa-spinner fa-spin"></i>
+                        <span>Registering Enquiry...</span>
+                      </>
+                    ) : (
+                      <>
+                        <i className="fas fa-paper-plane"></i>
+                        <span>Request Custom Property Portfolio</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
+        </section>
 
-        </div>
-      </section>
-
-      {/* How It Works */}
-
-      {/* <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              How It Works
-            </h2>
-            <p className="text-xl text-white">
-              Simple steps to find your perfect property
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-sm text-center">
-              <div className="text-6xl text-primary mb-6">
-                <i className="fas fa-search"></i>
-              </div>
-              <h3 className="text-2xl font-semibold text-secondary mb-4">
-                Search Property
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Browse through our extensive database of properties using
-                advanced filters to find exactly what you need.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl shadow-sm text-center">
-              <div className="text-6xl text-primary mb-6">
-                <i className="fas fa-calendar-check"></i>
-              </div>
-              <h3 className="text-2xl font-semibold text-secondary mb-4">
-                Schedule Visit
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Book a convenient time to visit the property and get a
-                comprehensive tour from our expert agents.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-xl shadow-sm text-center">
-              <div className="text-6xl text-primary mb-6">
-                <i className="fas fa-key"></i>
-              </div>
-              <h3 className="text-2xl font-semibold text-secondary mb-4">
-                Get Your Keys
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Complete the paperwork and move into your dream home with our
-                hassle-free process.
-              </p>
-            </div> */}
-
-
-      {/* facilities section  */}
-      <Facilities />
-
-
-      {/* current developers section */}
-      <OurPartner />
-
-      {/* Testimonials */}
-      {/* <Testimonial /> */}
-
-      <h2 className="text-4xl font-bold text-center m-12 text-[#e4c272]">
-        What Our Clients Say
-      </h2>
-      <GoogleReviews />
-
-      {/* footer section */}
-      <Information />
+        {/* Office & Direct Contact Information */}
+        <Information />
+      </main>
 
       <Footer />
-    </>
+    </div>
   );
 }
-
-const StyledWrapper = styled.div`
-  .book {
-    position: relative;
-    border-radius: 20px;
-    width: 220px;
-    height: 240px;
-    background-color: whitesmoke;
-    -webkit-box-shadow: 1px 1px 12px #e4c272;
-    box-shadow: 1px 1px 12px #e4c272;
-    -webkit-transform: preserve-3d;
-    -ms-transform: preserve-3d;
-    transform: preserve-3d;
-    -webkit-perspective: 2000px;
-    perspective: 2000px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    color: #000;
-  }
-
-  .cover {
-    top: 0;
-    position: absolute;
-    background-color: lightgray;
-    width: 100%;
-    height: 100%;
-    border-radius: 30px;
-    cursor: pointer;
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
-    -webkit-transform-origin: 0;
-    -ms-transform-origin: 0;
-    transform-origin: 0;
-    // -webkit-box-shadow: 1px 1px 12px #e4c272;
-    // box-shadow: 1px 1px 12px #e4c272;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-  }
-
-  .book:hover .cover {
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
-    -webkit-transform: rotatey(-80deg);
-    -ms-transform: rotatey(-80deg);
-    transform: rotatey(-80deg);
-  }
-
-  p {
-    font-size: 20px;
-    font-weight: bolder;
-  }`;

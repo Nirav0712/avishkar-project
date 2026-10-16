@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
+import { validateAdminSession } from '@/lib/auth';
+import { parseYouTubeUrl, parseInstagramUrl } from '@/lib/video';
 
 function parseProjectRow(row: any) {
     let images: string[] = [];
@@ -36,6 +38,13 @@ function parseProjectRow(row: any) {
         amenities = row.amenities;
     }
 
+    const hasVideo = Boolean(
+        row.hasVideo === 1 || 
+        row.hasVideo === true || 
+        Boolean(row.youtubeUrl && row.youtubeUrl.trim()) || 
+        Boolean(row.instagramUrl && row.instagramUrl.trim())
+    );
+
     return {
         ...row,
         featured: Boolean(row.featured === 1 || row.featured === true || row.featured === '1'),
@@ -43,6 +52,11 @@ function parseProjectRow(row: any) {
         images,
         unitTypes,
         amenities,
+        hasVideo,
+        youtubeUrl: row.youtubeUrl || null,
+        instagramUrl: row.instagramUrl || null,
+        videoThumbnail: row.videoThumbnail || null,
+        videoTitle: row.videoTitle || null,
     };
 }
 
@@ -70,6 +84,9 @@ export async function GET() {
 // POST new project
 export async function POST(request: NextRequest) {
     try {
+        const { user, errorResponse } = await validateAdminSession(request, ['admin', 'super_admin']);
+        if (errorResponse) return errorResponse;
+
         const body = await request.json();
         let {
             title,
@@ -95,11 +112,41 @@ export async function POST(request: NextRequest) {
             totalTowers = null,
             totalFloors = null,
             totalUnits = null,
+            youtubeUrl = '',
+            instagramUrl = '',
+            videoThumbnail = '',
+            videoTitle = '',
+            hasVideo = false,
         } = body;
 
         if (!title || !location) {
             return NextResponse.json({ error: 'Title and location are required' }, { status: 400 });
         }
+
+        // Validate and normalize video URLs if provided
+        let cleanYoutube = youtubeUrl?.trim() || null;
+        let cleanInstagram = instagramUrl?.trim() || null;
+
+        if (cleanYoutube) {
+            const parsedYt = parseYouTubeUrl(cleanYoutube);
+            if (!parsedYt) {
+                return NextResponse.json({ error: 'Invalid YouTube URL. Please provide a valid YouTube Shorts or watch URL.' }, { status: 400 });
+            }
+            cleanYoutube = parsedYt.originalUrl;
+            if (!videoThumbnail && parsedYt.thumbnailUrl) {
+                videoThumbnail = parsedYt.thumbnailUrl;
+            }
+        }
+
+        if (cleanInstagram) {
+            const parsedIg = parseInstagramUrl(cleanInstagram);
+            if (!parsedIg) {
+                return NextResponse.json({ error: 'Invalid Instagram URL. Please provide a valid Instagram Reel or Post link.' }, { status: 400 });
+            }
+            cleanInstagram = parsedIg.originalUrl;
+        }
+
+        const isVideoActive = Boolean(hasVideo || cleanYoutube || cleanInstagram);
 
         if (!slug || slug.trim() === '') {
             slug = generateSlug(title);
@@ -123,8 +170,9 @@ export async function POST(request: NextRequest) {
                 title, slug, location, status, zone, bedrooms, bathrooms,
                 displayPrice, PlotArea, address, description, image, images,
                 featured, isForSale, rera, blogId, unitTypes, amenities,
-                possession, totalTowers, totalFloors, totalUnits
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                possession, totalTowers, totalFloors, totalUnits,
+                youtubeUrl, instagramUrl, videoThumbnail, videoTitle, hasVideo
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 title,
                 slug,
@@ -149,6 +197,11 @@ export async function POST(request: NextRequest) {
                 totalTowers ? Number(totalTowers) : null,
                 totalFloors ? Number(totalFloors) : null,
                 totalUnits ? Number(totalUnits) : null,
+                cleanYoutube,
+                cleanInstagram,
+                videoThumbnail || null,
+                videoTitle || null,
+                isVideoActive ? 1 : 0,
             ]
         );
 
@@ -156,6 +209,11 @@ export async function POST(request: NextRequest) {
             id: result.insertId,
             ...body,
             slug,
+            youtubeUrl: cleanYoutube,
+            instagramUrl: cleanInstagram,
+            videoThumbnail,
+            videoTitle,
+            hasVideo: isVideoActive,
         }, { status: 201 });
     } catch (error: any) {
         console.error('Database error in POST /api/projects:', error);

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import { validateAdminSession } from '@/lib/auth';
+import { parseYouTubeUrl, parseInstagramUrl } from '@/lib/video';
 
 function parseProjectRow(row: any) {
     let images: string[] = [];
@@ -36,6 +38,13 @@ function parseProjectRow(row: any) {
         amenities = row.amenities;
     }
 
+    const hasVideo = Boolean(
+        row.hasVideo === 1 || 
+        row.hasVideo === true || 
+        Boolean(row.youtubeUrl && row.youtubeUrl.trim()) || 
+        Boolean(row.instagramUrl && row.instagramUrl.trim())
+    );
+
     return {
         ...row,
         featured: Boolean(row.featured === 1 || row.featured === true || row.featured === '1'),
@@ -43,6 +52,11 @@ function parseProjectRow(row: any) {
         images,
         unitTypes,
         amenities,
+        hasVideo,
+        youtubeUrl: row.youtubeUrl || null,
+        instagramUrl: row.instagramUrl || null,
+        videoThumbnail: row.videoThumbnail || null,
+        videoTitle: row.videoTitle || null,
     };
 }
 
@@ -72,7 +86,8 @@ export async function GET(
             return NextResponse.json({ error: 'Project not found' }, { status: 404 });
         }
 
-        return NextResponse.json(parseProjectRow(rows[0]));
+        const project = parseProjectRow(rows[0]);
+        return NextResponse.json(project);
     } catch (error) {
         console.error('Database error in GET /api/projects/[id]:', error);
         return NextResponse.json({ error: 'Failed to fetch project' }, { status: 500 });
@@ -85,6 +100,9 @@ export async function PUT(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { user, errorResponse } = await validateAdminSession(request, ['admin', 'super_admin']);
+        if (errorResponse) return errorResponse;
+
         const { id } = await params;
         const body = await request.json();
 
@@ -112,11 +130,41 @@ export async function PUT(
             totalTowers = null,
             totalFloors = null,
             totalUnits = null,
+            youtubeUrl = '',
+            instagramUrl = '',
+            videoThumbnail = '',
+            videoTitle = '',
+            hasVideo = false,
         } = body;
 
         if (!title || !location) {
             return NextResponse.json({ error: 'Title and location are required' }, { status: 400 });
         }
+
+        // Validate and normalize video URLs if provided
+        let cleanYoutube = youtubeUrl?.trim() || null;
+        let cleanInstagram = instagramUrl?.trim() || null;
+
+        if (cleanYoutube) {
+            const parsedYt = parseYouTubeUrl(cleanYoutube);
+            if (!parsedYt) {
+                return NextResponse.json({ error: 'Invalid YouTube URL. Please provide a valid YouTube Shorts, youtu.be or watch URL.' }, { status: 400 });
+            }
+            cleanYoutube = parsedYt.originalUrl;
+            if (!videoThumbnail && parsedYt.thumbnailUrl) {
+                videoThumbnail = parsedYt.thumbnailUrl;
+            }
+        }
+
+        if (cleanInstagram) {
+            const parsedIg = parseInstagramUrl(cleanInstagram);
+            if (!parsedIg) {
+                return NextResponse.json({ error: 'Invalid Instagram URL. Please provide a valid Instagram Reel or Post link.' }, { status: 400 });
+            }
+            cleanInstagram = parsedIg.originalUrl;
+        }
+
+        const isVideoActive = Boolean(hasVideo || cleanYoutube || cleanInstagram);
 
         if (!slug || slug.trim() === '') {
             slug = generateSlug(title);
@@ -152,7 +200,12 @@ export async function PUT(
                 possession = ?,
                 totalTowers = ?,
                 totalFloors = ?,
-                totalUnits = ?
+                totalUnits = ?,
+                youtubeUrl = ?,
+                instagramUrl = ?,
+                videoThumbnail = ?,
+                videoTitle = ?,
+                hasVideo = ?
             WHERE id = ?`,
             [
                 title,
@@ -178,6 +231,11 @@ export async function PUT(
                 totalTowers ? Number(totalTowers) : null,
                 totalFloors ? Number(totalFloors) : null,
                 totalUnits ? Number(totalUnits) : null,
+                cleanYoutube,
+                cleanInstagram,
+                videoThumbnail || null,
+                videoTitle || null,
+                isVideoActive ? 1 : 0,
                 id,
             ]
         );
@@ -186,6 +244,11 @@ export async function PUT(
             id: Number(id),
             ...body,
             slug,
+            youtubeUrl: cleanYoutube,
+            instagramUrl: cleanInstagram,
+            videoThumbnail,
+            videoTitle,
+            hasVideo: isVideoActive,
         });
     } catch (error: any) {
         console.error('Database error in PUT /api/projects/[id]:', error);
@@ -199,7 +262,18 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { user, errorResponse } = await validateAdminSession(request, ['admin', 'super_admin']);
+        if (errorResponse) return errorResponse;
+
         const { id } = await params;
+
+        try {
+            await pool.query(
+                'INSERT INTO audit_logs (action, target_type, target_id, details) VALUES (?, ?, ?, ?)',
+                ['DELETE_PROJECT', 'project', id, `Project ID ${id} deleted by ${user?.name}`]
+            );
+        } catch {}
+
         await pool.query('DELETE FROM projects WHERE id = ?', [id]);
         return NextResponse.json({ message: 'Project deleted successfully' });
     } catch (error) {

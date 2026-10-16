@@ -1,531 +1,540 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { useState, useEffect, use } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import PropertyCard from '../../components/PropertyCard';
-import { type Property } from '@/lib/properties';
+import Information from '../../components/Information';
+import { type Property, formatPrice, getPropertyById, getProperties } from '@/lib/properties';
 
-export default function PropertyDetailsPage() {
-    const params = useParams();
-    const router = useRouter();
-    const [property, setProperty] = useState<Property | null>(null);
-    const [similarProperties, setSimilarProperties] = useState<Property[]>([]);
-    const [isFavorite, setIsFavorite] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+export default function PropertyDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const router = useRouter();
+  const resolvedParams = use(params);
+  const propertyId = resolvedParams.id;
 
-    useEffect(() => {
-        const fetchPropertyDetails = async () => {
-            try {
-                setIsLoading(true);
-                const id = parseInt(params.id as string);
+  const [property, setProperty] = useState<Property | null>(null);
+  const [similarProperties, setSimilarProperties] = useState<Property[]>([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
-                // Fetch current property
-                const res = await fetch(`/api/properties/${id}`);
-                if (!res.ok) {
-                    throw new Error('Property not found');
-                }
-                const propData = await res.json();
+  // Enquiry form state
+  const [leadName, setLeadName] = useState('');
+  const [leadPhone, setLeadPhone] = useState('');
+  const [leadEmail, setLeadEmail] = useState('');
+  const [leadMessage, setLeadMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-                // Ensure proper typing and formatting
-                const formattedProperty = {
-                    ...propData,
-                    featured: propData.featured === 1 || propData.featured === true,
-                    price: Number(propData.price) || 0,
-                    bedrooms: Number(propData.bedrooms) || 0,
-                    bathrooms: Number(propData.bathrooms) || 0,
-                    area: Number(propData.area) || 0,
-                    image: propData.image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
-                };
+  useEffect(() => {
+    const fetchProperty = async () => {
+      try {
+        setIsLoading(true);
+        const res = await fetch(`/api/properties/${propertyId}`);
+        let currentProp: Property | null = null;
 
-                setProperty(formattedProperty);
-
-                // Fetch similar properties
-                const allPropsRes = await fetch('/api/properties');
-                if (allPropsRes.ok) {
-                    const allPropsData = await allPropsRes.json();
-
-                    const similar = allPropsData
-                        .map((p: any) => ({
-                            ...p,
-                            featured: p.featured === 1 || p.featured === true,
-                            price: Number(p.price) || 0,
-                            bedrooms: Number(p.bedrooms) || 0,
-                            bathrooms: Number(p.bathrooms) || 0,
-                            area: Number(p.area) || 0,
-                            image: p.image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
-                        }))
-                        .filter((p: Property) => p.id !== id && p.type === formattedProperty.type)
-                        .slice(0, 3);
-                    setSimilarProperties(similar);
-                }
-
-                // Check if favorite
-                const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-                setIsFavorite(favorites.includes(id));
-            } catch (err) {
-                console.error("Error fetching property:", err);
-                setError("Property not found");
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        if (params.id) {
-            fetchPropertyDetails();
-        }
-    }, [params.id]);
-
-    const toggleFavorite = () => {
-        if (!property) return;
-
-        const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-        let newFavorites;
-
-        if (favorites.includes(property.id)) {
-            newFavorites = favorites.filter((id: number) => id !== property.id);
-            setIsFavorite(false);
+        if (res.ok) {
+          const propData = await res.json();
+          currentProp = {
+            ...propData,
+            featured: propData.featured === 1 || propData.featured === true,
+            price: Number(propData.price) || 0,
+            bedrooms: Number(propData.bedrooms) || 0,
+            bathrooms: Number(propData.bathrooms) || 0,
+            area: Number(propData.area) || 0,
+            image: propData.image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+          };
         } else {
-            newFavorites = [...favorites, property.id];
-            setIsFavorite(true);
+          // Fallback to local properties
+          const fallback = getPropertyById(propertyId);
+          if (fallback) currentProp = fallback;
         }
 
-        localStorage.setItem('favorites', JSON.stringify(newFavorites));
+        if (currentProp) {
+          setProperty(currentProp);
+          setLeadMessage(`Hi, I am interested in viewing "${currentProp.title}" (${currentProp.location}). Please contact me with pricing and site visit details.`);
+
+          // Similar properties
+          const allRes = await fetch('/api/properties');
+          let allProps: Property[] = [];
+          if (allRes.ok) {
+            allProps = await allRes.json();
+          } else {
+            allProps = getProperties();
+          }
+
+          const similar = allProps
+            .filter((p: Property) => String(p.id) !== String(propertyId) && p.type === currentProp?.type)
+            .slice(0, 3);
+          setSimilarProperties(similar);
+        }
+
+        // Favorites check
+        try {
+          const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+          setIsFavorite(favorites.includes(Number(propertyId)));
+        } catch {
+          // ignore
+        }
+      } catch (err) {
+        console.error("Error loading property:", err);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    const formatPrice = (price: number) => {
-        return new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: 'INR',
-            maximumFractionDigits: 0,
-        }).format(price);
-    };
-
-    // Auto-scroll images
-    useEffect(() => {
-        if (!property || !property.image) return;
-
-        const images = property.image.split(',').filter(Boolean);
-        if (images.length <= 1) return;
-
-        const interval = setInterval(() => {
-            setCurrentImageIndex((prev) => (prev + 1) % images.length);
-        }, 5000); // Change image every 5 seconds
-
-        return () => clearInterval(interval);
-    }, [property]);
-
-    if (isLoading) {
-        return (
-            <>
-                <Header />
-                <div className="flex h-screen items-center justify-center">
-                    <div className="flex flex-col items-center gap-4">
-                        <i className="fas fa-spinner fa-spin text-4xl text-primary"></i>
-                        <p className="text-xl font-medium text-gray-600">Loading property details...</p>
-                    </div>
-                </div>
-                <Footer />
-            </>
-        );
+    if (propertyId) {
+      fetchProperty();
     }
+  }, [propertyId]);
 
-    if (error || !property) {
-        return (
-            <>
-                <Header />
-                <div className="py-20 min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
-                    <i className="fas fa-search h-24 w-24 text-gray-300 mb-6 text-6xl"></i>
-                    <h1 className="text-3xl font-bold text-secondary mb-4">Property Not Found</h1>
-                    <p className="text-gray-600 mb-8 max-w-md">
-                        We couldn't find the property you're looking for. It might have been removed or the URL is incorrect.
-                    </p>
-                    <button
-                        onClick={() => router.push('/properties')}
-                        className="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
-                    >
-                        Browse All Properties
-                    </button>
-                </div>
-                <Footer />
-            </>
-        );
+  const toggleFavorite = () => {
+    try {
+      const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+      const numericId = Number(propertyId);
+      let newFavorites: number[];
+      if (favorites.includes(numericId)) {
+        newFavorites = favorites.filter((id: number) => id !== numericId);
+        setIsFavorite(false);
+      } else {
+        newFavorites = [...favorites, numericId];
+        setIsFavorite(true);
+      }
+      localStorage.setItem('favorites', JSON.stringify(newFavorites));
+    } catch {
+      // ignore
     }
+  };
 
-    const images = property.image.split(',').filter(Boolean);
+  const handleLeadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!leadName || !leadPhone) {
+      setSubmitError('Please provide your name and phone number.');
+      return;
+    }
+    setIsSubmitting(true);
+    setSubmitError('');
 
-    const nextImage = () => {
-        setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    };
+    try {
+      const res = await fetch('/api/enquire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: leadName,
+          phone: leadPhone,
+          email: leadEmail || null,
+          source: 'Property Detail Page',
+          property_id: Number(propertyId),
+          interested_in: property ? `${property.title} (ID #${property.id})` : `Property #${propertyId}`,
+          preferred_location: property?.location || '',
+          property_type: property?.type || '',
+          budget: property ? formatPrice(property.price) : '',
+          priority: 'High',
+          notes: leadMessage || 'Requested consultation and inspection for this property.'
+        })
+      });
 
-    const prevImage = () => {
-        setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
-    };
+      if (!res.ok) {
+        throw new Error('Failed to record inquiry');
+      }
 
+      setSubmitSuccess(true);
+      setLeadName('');
+      setLeadPhone('');
+      setLeadEmail('');
+    } catch {
+      setSubmitError('Unable to record your enquiry at this moment. You can connect directly via WhatsApp.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (isLoading) {
     return (
-        <>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+      <div className="min-h-screen bg-[#f8fafc] flex flex-col">
+        <Header />
+        <div className="flex-1 flex items-center justify-center py-20 text-slate-500">
+          <div className="flex flex-col items-center gap-3">
+            <i className="fas fa-circle-notch fa-spin text-3xl text-[#d4af37]"></i>
+            <span>Loading property details...</span>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
-            <Header />
+  if (!property) {
+    return (
+      <div className="min-h-screen bg-[#f8fafc] flex flex-col">
+        <Header />
+        <div className="flex-1 max-w-xl mx-auto px-4 py-24 text-center">
+          <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mx-auto mb-4 text-2xl">
+            <i className="fas fa-home"></i>
+          </div>
+          <h1 className="text-2xl font-bold text-slate-800">Property Not Found</h1>
+          <p className="text-sm text-slate-500 mt-2">
+            The property you are looking for may have been sold, archived, or is temporarily unavailable.
+          </p>
+          <Link
+            href="/properties"
+            className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0b1528] text-white text-xs font-bold"
+          >
+            <i className="fas fa-arrow-left"></i>
+            <span>Browse Available Listings</span>
+          </Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
-            <div className="py-12 bg-gray-50 min-h-screen">
-                <div className="container mx-auto px-4 max-w-7xl">
-                    {/* Breadcrumb */}
-                    <div className="flex items-center gap-2 text-sm text-gray-600 mb-8 overflow-x-auto whitespace-nowrap pb-2">
-                        <button onClick={() => router.push('/')} className="hover:text-primary transition-colors">Home</button>
-                        <i className="fas fa-chevron-right text-xs"></i>
-                        <button onClick={() => router.push('/properties')} className="hover:text-primary transition-colors">Properties</button>
-                        <i className="fas fa-chevron-right text-xs"></i>
-                        <span className="text-[#0f1e3d] font-medium truncate">{property.title}</span>
-                    </div>
+  const rawImages = property.image ? property.image.split(',').map(s => s.trim()).filter(Boolean) : [];
+  const galleryImages = rawImages.length > 0 ? rawImages : ["https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"];
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {/* Main Content */}
-                        <div className="lg:col-span-2">
-                            {/* Image Carousel */}
-                            <div className="relative h-100 md:h-137.5 rounded-2xl overflow-hidden mb-8 group bg-gray-100 shadow-sm group">
-                                {images.length > 0 ? (
-                                    <>
-                                        <img
-                                            src={images[currentImageIndex]}
-                                            alt={`${property.title} - Image ${currentImageIndex + 1}`}
+  return (
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col">
+      <Header />
 
-                                            className="object-contain w-full h-full items-center justify-center"
-                                        // priority
-                                        />
+      {/* Breadcrumb Bar */}
+      <div className="bg-slate-100/70 border-b border-slate-200 py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs text-slate-500">
+          <Link href="/" className="hover:text-slate-900">Home</Link>
+          <span>/</span>
+          <Link href="/properties" className="hover:text-slate-900">Properties</Link>
+          <span>/</span>
+          <span className="text-slate-900 font-semibold truncate max-w-xs">{property.title}</span>
+        </div>
+      </div>
 
-                                        {images.length > 1 && (
-                                            <>
-                                                {/* Navigation buttons */}
-                                                <button
-                                                    onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 hover:bg-white text-secondary flex items-center justify-center shadow-lg transition-all opacity-0 group-hover:opacity-100 z-10"
-                                                    aria-label="Previous image"
-                                                >
-                                                    <i className="fas fa-chevron-left text-lg"></i>
-                                                </button>
-                                                <button
-                                                    onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 hover:bg-white text-secondary flex items-center justify-center shadow-lg transition-all opacity-0 group-hover:opacity-100 z-10"
-                                                    aria-label="Next image"
-                                                >
-                                                    <i className="fas fa-chevron-right text-lg"></i>
-                                                </button>
-
-                                                {/* Dots indicator */}
-                                                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10 bg-black/20 px-4 py-2 rounded-full backdrop-blur-sm">
-                                                    {images.map((_, idx) => (
-                                                        <button
-                                                            key={idx}
-                                                            onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
-                                                            className={`w-2.5 h-2.5 rounded-full transition-all ${currentImageIndex === idx ? 'bg-[#e4c272] scale-125' : 'bg-white/50 hover:bg-white/80'}`}
-                                                            aria-label={`Go to image ${idx + 1}`}
-                                                        />
-                                                    ))}
-                                                </div>
-                                            </>
-                                        )}
-                                    </>
-                                ) : (
-                                    <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
-                                        <i className="fas fa-image text-6xl mb-4"></i>
-                                        <p>No image available</p>
-                                    </div>
-                                )}
-
-                                <div className="absolute top-6 left-6 flex flex-wrap gap-2 z-10">
-                                    {property.featured && (
-                                        <span className="bg-[#0f1e3d] text-white px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wide shadow-lg flex items-center gap-2">
-                                            <i className="fas fa-star text-xs"></i>
-                                            Featured
-                                        </span>
-                                    )}
-                                    <span className={`${property.status === 'For Sale' ? 'bg-[#e4c272]' : 'bg-[#e4c272]'
-                                        } text-[#0f1e3d] px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wide shadow-lg flex items-center gap-2`}>
-                                        <i className={`fas ${property.status === 'For Sale' ? 'fa-tag' : 'fa-key'} text-xs`}></i>
-                                        {property.status}
-                                    </span>
-                                </div>
-                                <button
-                                    onClick={toggleFavorite}
-                                    className={`absolute top-6 right-6 w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-lg z-10 ${isFavorite
-                                        ? 'bg-red-500 text-white'
-                                        : 'bg-white text-gray-600 hover:bg-red-50 hover:text-red-500'
-                                        }`}
-                                >
-                                    <i className={`${isFavorite ? 'fas' : 'far'} fa-heart text-xl`}></i>
-                                </button>
-                            </div>
-
-                            {/* Thumbnail Gallery */}
-                            {images.length > 1 && (
-                                <div className="flex gap-4 mb-8 overflow-x-auto pb-2 snap-x hide-scrollbar">
-                                    {images.map((imgUrl, idx) => (
-                                        <button
-                                            key={idx}
-                                            onClick={() => setCurrentImageIndex(idx)}
-                                            className={`relative h-24 min-w-24 md:min-w-32 rounded-xl overflow-hidden cursor-pointer transition-all snap-start ${currentImageIndex === idx ? 'ring-4 ring-primary ring-offset-2' : 'hover:opacity-80'}`}
-                                        >
-                                            <img
-                                                src={imgUrl}
-                                                alt={`Thumbnail ${idx + 1}`}
-
-                                                className="object-cover"
-                                            />
-                                        </button>
-                                    ))}
-                                </div>
-                            )}
-
-                            {/* Property Info */}
-                            <div className="bg-white rounded-2xl shadow-sm p-6 md:p-8 mb-8 border border-gray-100">
-                                <div className="flex flex-col md:flex-row md:items-start justify-between mb-6 gap-4">
-                                    <div>
-                                        <h1 className="text-3xl md:text-4xl font-bold text-[#0f1e3d] mb-3 leading-tight text-wrap">{property.title}</h1>
-                                        <div className="flex items-center text-gray-600">
-                                            <i className="fas fa-map-marker-alt text-[#e4c272] mr-2 text-lg"></i>
-                                            <span className="text-lg">{property.location}</span>
-                                        </div>
-                                    </div>
-                                    <div className="md:text-right bg-gray-50 p-4 rounded-xl border border-gray-100 self-start w-full md:w-auto">
-                                        <div className="text-sm text-gray-500 font-medium mb-1">Asking Price</div>
-                                        <div className="text-3xl font-bold text-[#0f1e3d]">
-                                            {formatPrice(property.price)}
-                                            {property.status === 'For Rent' && <span className="text-lg text-gray-600 font-normal">/mo</span>}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Features Grid */}
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-8 border-y border-gray-100">
-                                    {property.bedrooms > 0 && (
-                                        <div className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl">
-                                            <i className="fas fa-bed text-2xl text-[#e4c272] mb-3"></i>
-                                            <div className="font-bold text-[#0f1e3d] text-xl">{property.bedrooms}</div>
-                                            <div className="text-sm text-gray-500 font-medium">Bedrooms</div>
-                                        </div>
-                                    )}
-                                    <div className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl">
-                                        <i className="fas fa-bath text-2xl text-[#e4c272] mb-3"></i>
-                                        <div className="font-bold text-[#0f1e3d] text-xl">{property.bathrooms}</div>
-                                        <div className="text-sm text-gray-500 font-medium">Bathrooms</div>
-                                    </div>
-                                    <div className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl">
-                                        <i className="fas fa-ruler-combined text-2xl text-[#e4c272] mb-3"></i>
-                                        <div className="font-bold text-[#0f1e3d] text-xl">{property.area.toLocaleString()}</div>
-                                        <div className="text-sm text-gray-500 font-medium">Sq Ft</div>
-                                    </div>
-                                    {property.parking !== undefined && property.parking > 0 && (
-                                        <div className="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-xl">
-                                            <i className="fas fa-car text-2xl text-[#e4c272] mb-3"></i>
-                                            <div className="font-bold text-[#0f1e3d] text-xl">{property.parking}</div>
-                                            <div className="text-sm text-gray-500 font-medium">Parking Spaces</div>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Description */}
-                                <div className="mt-8">
-                                    <h2 className="text-2xl font-bold text-[#0f1e3d] mb-4 flex items-center gap-2">
-                                        <i className="fas fa-align-left text-[#e4c272]"></i>
-                                        Description
-                                    </h2>
-                                    <div className="text-gray-600 leading-relaxed space-y-4">
-                                        {property.description.split('\n').map((paragraph, i) => (
-                                            <p key={i}>{paragraph}</p>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Property Details */}
-                                <div className="mt-10">
-                                    <h2 className="text-2xl font-bold text-[#0f1e3d] mb-6 flex items-center gap-2">
-                                        <i className="fas fa-list-ul text-[#e4c272]"></i>
-                                        Property Details
-                                    </h2>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 bg-gray-50 p-6 rounded-xl border border-gray-100">
-                                        <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                                            <span className="text-gray-500 font-medium">Property ID:</span>
-                                            <span className="font-bold text-[#0f1e3d]">#{property.id}</span>
-                                        </div>
-                                        <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                                            <span className="text-gray-500 font-medium">Property Type:</span>
-                                            <span className="font-bold text-[#0f1e3d]">{property.type}</span>
-                                        </div>
-                                        <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                                            <span className="text-gray-500 font-medium">Status:</span>
-                                            <span className="font-bold text-[#0f1e3d]">{property.status}</span>
-                                        </div>
-                                        {property.yearBuilt ? (
-                                            <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                                                <span className="text-gray-500 font-medium">Year Built:</span>
-                                                <span className="font-bold text-[#0f1e3d]">{property.yearBuilt}</span>
-                                            </div>
-                                        ) : null}
-                                        <div className="flex justify-between items-center py-2 border-b border-gray-200 md:col-span-2">
-                                            <span className="text-gray-500 font-medium">Area:</span>
-                                            <span className="font-bold text-[#0f1e3d]">{property.area.toLocaleString()} sqft</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Amenities */}
-                                {property.amenities && property.amenities.length > 0 && (
-                                    <div className="mt-10">
-                                        <h2 className="text-2xl font-bold text-[#0f1e3d] mb-6 flex items-center gap-2">
-                                            <i className="fas fa-concierge-bell text-[#e4c272]"></i>
-                                            Features & Amenities
-                                        </h2>
-                                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                            {property.amenities.map((amenity, index) => (
-                                                <div key={index} className="flex items-center gap-3 text-gray-700 bg-gray-50 p-3 rounded-lg border border-gray-100">
-                                                    <div className="w-6 h-6 rounded-full bg-[#e4c272]/20 flex items-center justify-center shrink-0">
-                                                        <i className="fas fa-check text-[#e4c272] text-xs"></i>
-                                                    </div>
-                                                    <span className="font-medium">{amenity}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Sidebar */}
-                        <div className="lg:col-span-1">
-                            {/* Contact Form */}
-                            <div className="bg-white rounded-2xl shadow-sm p-6 mb-6 sticky top-24 border border-gray-100">
-                                <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
-                                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center shrink-0">
-                                        <i className="fas fa-user-tie text-2xl text-gray-400"></i>
-                                    </div>
-                                    <div>
-                                        <h3 className="font-bold text-[#0f1e3d] text-lg">Listing Agent</h3>
-                                        <p className="text-[#e4c272] font-medium text-sm">Avishkar Team</p>
-                                    </div>
-                                </div>
-
-                                <h3 className="text-xl font-bold text-[#0f1e3d] mb-6">Request Information</h3>
-                                <form className="space-y-4">
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
-                                        <div className="relative">
-                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <i className="fas fa-user text-gray-400"></i>
-                                            </div>
-                                            <input
-                                                type="text"
-                                                placeholder="John Doe"
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20 bg-gray-50 focus:bg-white transition-colors"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                                        <div className="relative">
-                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <i className="fas fa-envelope text-gray-400"></i>
-                                            </div>
-                                            <input
-                                                type="email"
-                                                placeholder="john@example.com"
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20 bg-gray-50 focus:bg-white transition-colors"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                                        <div className="relative">
-                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                <i className="fas fa-phone text-gray-400"></i>
-                                            </div>
-                                            <input
-                                                type="tel"
-                                                placeholder="+91 98765 43210"
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20 bg-gray-50 focus:bg-white transition-colors"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                                        <textarea
-                                            rows={4}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20 bg-gray-50 focus:bg-white transition-colors resize-none"
-                                            defaultValue={`Hi, I'm interested in viewing "${property.title}". Please get in touch with me to schedule a visit.`}
-                                        ></textarea>
-                                    </div>
-                                    <button
-                                        type="button"
-                                        onClick={(e) => { e.preventDefault(); alert('Message sent successfully! Our team will contact you soon.'); }}
-                                        className="w-full bg-white text-[#0f1e3d] border border-[#0f1e3d] px-6 py-4 rounded-xl font-bold hover:bg-[#0f1e3d] hover:text-[#e4c272] transition-colors shadow-lg shadow-gray-300/30 flex items-center justify-center gap-2 mt-2"
-                                    >
-                                        <i className="fas fa-paper-plane"></i>
-                                        Send Message
-                                    </button>
-                                </form>
-                            </div>
-
-                            {/* Share */}
-                            <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
-                                <h3 className="text-xl font-bold text-[#0f1e3d] mb-4 flex items-center gap-2">
-                                    <i className="fas fa-share-alt text-[#0f1e3d]"></i>
-                                    Share Property
-                                </h3>
-                                <div className="grid grid-cols-4 gap-3">
-                                    <button className="flex items-center justify-center bg-[#1877F2] text-white py-3 rounded-xl hover:bg-[#1877F2]/90 transition-colors shadow-sm">
-                                        <i className="fab fa-facebook-f text-lg"></i>
-                                    </button>
-                                    <button className="flex items-center justify-center bg-[#1DA1F2] text-white py-3 rounded-xl hover:bg-[#1DA1F2]/90 transition-colors shadow-sm">
-                                        <i className="fab fa-twitter text-lg"></i>
-                                    </button>
-                                    <button className="flex items-center justify-center bg-[#25D366] text-white py-3 rounded-xl hover:bg-[#25D366]/90 transition-colors shadow-sm">
-                                        <i className="fab fa-whatsapp text-lg"></i>
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(window.location.href);
-                                            alert('Link copied to clipboard!');
-                                        }}
-                                        className="flex items-center justify-center bg-gray-800 text-white py-3 rounded-xl hover:bg-gray-900 transition-colors shadow-sm"
-                                        title="Copy Link"
-                                    >
-                                        <i className="fas fa-link text-lg"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Similar Properties */}
-                    {similarProperties.length > 0 && (
-                        <div className="mt-24 mb-12">
-                            <div className="flex items-end justify-between mb-8">
-                                <div>
-                                    <h2 className="text-sm font-bold text-[#e4c272] uppercase tracking-widest mb-1 mt-2">More Options</h2>
-                                    <h3 className="text-3xl md:text-4xl font-bold text-[#0f1e3d]">Similar Properties</h3>
-                                </div>
-                                <button onClick={() => router.push('/properties')} className="hidden md:flex items-center gap-2 text-[#0f1e3d] font-semibold hover:bg-[#e4c272] transition-colors border-2 border-[#0f1e3d] px-5 py-2.5 rounded-full">
-                                    View All <i className="fas fa-arrow-right"></i>
-                                </button>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                {similarProperties.map((prop) => (
-                                    <PropertyCard key={prop.id} property={prop} />
-                                ))}
-                            </div>
-                            <button onClick={() => router.push('/properties')} className="mt-8 w-full md:hidden flex items-center justify-center gap-2 text-[#0f1e3d] font-semibold border-2 border-primary/20 px-5 py-3 rounded-xl">
-                                View All Properties <i className="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    )}
-                </div>
+      {/* Main Body */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+        {/* Top Title & Price Row */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-slate-200">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="bg-[#d4af37] text-[#0b1528] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                {property.status}
+              </span>
+              <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-semibold">
+                {property.type}
+              </span>
+              {property.featured && (
+                <span className="bg-[#0b1528] text-[#e4c272] px-3 py-1 rounded-full text-xs font-bold">
+                  ★ Featured
+                </span>
+              )}
             </div>
 
-            <Footer />
-        </>
-    );
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              {property.title}
+            </h1>
+
+            <div className="flex items-center gap-2 text-sm text-slate-500 mt-2">
+              <i className="fas fa-map-marker-alt text-[#d4af37]"></i>
+              <span>{property.location}</span>
+            </div>
+          </div>
+
+          {/* Price & Action */}
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <span className="block text-xs font-medium text-slate-500 uppercase tracking-wider">
+                Listing Price
+              </span>
+              <span className="text-2xl sm:text-4xl font-black text-[#0b1528]">
+                {formatPrice(property.price)}
+                {property.status === 'For Rent' && <span className="text-sm font-normal text-slate-500">/mo</span>}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={toggleFavorite}
+              className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all ${
+                isFavorite
+                  ? 'bg-rose-50 border-rose-200 text-rose-500'
+                  : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+              }`}
+              title="Save to Wishlist"
+            >
+              <i className={`fas fa-heart text-lg ${isFavorite ? 'scale-110' : ''}`}></i>
+            </button>
+          </div>
+        </div>
+
+        {/* Gallery Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+          {/* Main Photo Gallery */}
+          <div className="lg:col-span-8">
+            <div className="relative h-[340px] sm:h-[480px] rounded-3xl overflow-hidden shadow-md bg-slate-900 group">
+              <img
+                src={galleryImages[selectedImageIndex]}
+                alt={property.title}
+                className="w-full h-full object-cover transition-transform duration-500 cursor-pointer group-hover:scale-102"
+                onClick={() => setLightboxOpen(true)}
+              />
+
+              {/* View Fullscreen Action */}
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(true)}
+                className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md text-white px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-black/80 transition-colors"
+              >
+                <i className="fas fa-expand"></i>
+                <span>Fullscreen Gallery</span>
+              </button>
+            </div>
+
+            {/* Thumbnail Row */}
+            {galleryImages.length > 1 && (
+              <div className="flex items-center gap-3 mt-4 overflow-x-auto pb-2 scrollbar-thin">
+                {galleryImages.map((img, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setSelectedImageIndex(idx)}
+                    className={`relative w-20 h-16 rounded-xl overflow-hidden border-2 shrink-0 transition-all ${
+                      selectedImageIndex === idx ? 'border-[#d4af37] scale-105 shadow-sm' : 'border-transparent opacity-70 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={img} alt={`Thumb ${idx + 1}`} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Property Overview Badges */}
+            <div className="mt-8 bg-white/80 backdrop-blur-md rounded-3xl border border-white/80 p-6 shadow-sm">
+              <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <i className="fas fa-info-circle text-[#d4af37]"></i>
+                Key Specifications
+              </h2>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                  <i className="fas fa-bed text-[#d4af37] text-lg mb-1 block"></i>
+                  <span className="text-xs text-slate-500 font-medium">Bedrooms</span>
+                  <p className="text-base font-bold text-slate-900">{property.bedrooms > 0 ? `${property.bedrooms} BHK` : 'N/A'}</p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                  <i className="fas fa-bath text-[#d4af37] text-lg mb-1 block"></i>
+                  <span className="text-xs text-slate-500 font-medium">Bathrooms</span>
+                  <p className="text-base font-bold text-slate-900">{property.bathrooms > 0 ? `${property.bathrooms} Baths` : 'Commercial'}</p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                  <i className="fas fa-vector-square text-[#d4af37] text-lg mb-1 block"></i>
+                  <span className="text-xs text-slate-500 font-medium">Super Built-up</span>
+                  <p className="text-base font-bold text-slate-900">{property.area.toLocaleString('en-IN')} sqft</p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                  <i className="fas fa-car text-[#d4af37] text-lg mb-1 block"></i>
+                  <span className="text-xs text-slate-500 font-medium">Covered Parking</span>
+                  <p className="text-base font-bold text-slate-900">{property.parking ? `${property.parking} Spots` : 'Available'}</p>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="mt-8 pt-6 border-t border-slate-100">
+                <h3 className="text-base font-bold text-slate-900 mb-3">About This Property</h3>
+                <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-line font-light">
+                  {property.description || "Thoughtfully designed premium residential property offering modern architecture, ample natural light, and strategic connectivity to schools, hospitals, and transit hubs across Ahmedabad."}
+                </p>
+              </div>
+
+              {/* Amenities List */}
+              {property.amenities && property.amenities.length > 0 && (
+                <div className="mt-8 pt-6 border-t border-slate-100">
+                  <h3 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i className="fas fa-concierge-bell text-[#d4af37]"></i>
+                    Amenities & Facilities
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {property.amenities.map((amenity, idx) => (
+                      <div key={idx} className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700 font-medium">
+                        <span className="w-5 h-5 rounded-full bg-[#d4af37]/20 flex items-center justify-center text-[#d4af37] text-[10px] shrink-0">
+                          <i className="fas fa-check"></i>
+                        </span>
+                        <span>{amenity}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Sticky Lead Capture CRM Form */}
+          <div className="lg:col-span-4">
+            <div className="bg-white/90 backdrop-blur-xl border border-white/80 rounded-3xl p-6 sm:p-8 shadow-xl sticky top-24">
+              <div className="flex items-center gap-3 pb-4 mb-4 border-b border-slate-100">
+                <div className="w-12 h-12 rounded-2xl bg-[#0b1528] text-[#e4c272] flex items-center justify-center text-lg shadow-sm">
+                  <i className="fas fa-user-shield"></i>
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 text-base">Direct Property Enquiry</h3>
+                  <span className="text-xs text-[#d4af37] font-semibold">Attributed to Property #{property.id}</span>
+                </div>
+              </div>
+
+              {submitSuccess ? (
+                <div className="p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center">
+                  <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                    <i className="fas fa-check"></i>
+                  </div>
+                  <h4 className="font-bold text-emerald-900 text-base">Enquiry Sent to CRM!</h4>
+                  <p className="text-xs text-emerald-700 mt-1">
+                    Our sales advisor will reach out to schedule your private site inspection.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setSubmitSuccess(false)}
+                    className="mt-4 px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700"
+                  >
+                    Submit Another Query
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleLeadSubmit} className="space-y-4 text-xs">
+                  {submitError && (
+                    <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl">
+                      {submitError}
+                    </div>
+                  )}
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Your Full Name *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Anand Shah"
+                      value={leadName}
+                      onChange={(e) => setLeadName(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#d4af37]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Phone Number (WhatsApp) *</label>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="+91 98765 43210"
+                      value={leadPhone}
+                      onChange={(e) => setLeadPhone(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#d4af37]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Email Address</label>
+                    <input
+                      type="email"
+                      placeholder="anand@example.com"
+                      value={leadEmail}
+                      onChange={(e) => setLeadEmail(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#d4af37]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Message / Inspection Request</label>
+                    <textarea
+                      rows={3}
+                      value={leadMessage}
+                      onChange={(e) => setLeadMessage(e.target.value)}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#d4af37] resize-none"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 rounded-xl bg-[#0b1528] hover:bg-[#162544] text-[#e4c272] font-bold text-xs tracking-wide transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <i className="fas fa-spinner fa-spin"></i>
+                        <span>Registering...</span>
+                      </>
+                    ) : (
+                      <>
+                        <i className="fas fa-paper-plane"></i>
+                        <span>Schedule Site Visit</span>
+                      </>
+                    )}
+                  </button>
+
+                  <a
+                    href={`https://wa.me/917041395595?text=${encodeURIComponent(`Hi Avishkar Realty, I am viewing property #${property.id}: "${property.title}" in ${property.location}. Please connect with me regarding pricing and site visit.`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs tracking-wide transition-all flex items-center justify-center gap-2 shadow-sm"
+                  >
+                    <i className="fab fa-whatsapp text-sm"></i>
+                    <span>Connect Instantly on WhatsApp</span>
+                  </a>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Similar Properties Showcase */}
+        {similarProperties.length > 0 && (
+          <div className="mt-20 pt-10 border-t border-slate-200">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <span className="text-xs font-bold text-[#d4af37] uppercase tracking-wider block mb-1">Comparable Options</span>
+                <h2 className="text-2xl font-bold text-slate-900">Similar Properties You May Like</h2>
+              </div>
+              <Link
+                href="/properties"
+                className="text-xs font-bold text-[#0b1528] hover:text-[#d4af37] flex items-center gap-1.5"
+              >
+                <span>View All</span>
+                <i className="fas fa-arrow-right text-[10px]"></i>
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {similarProperties.map((p) => (
+                <PropertyCard key={p.id} property={p} />
+              ))}
+            </div>
+          </div>
+        )}
+      </main>
+
+      {/* Lightbox Modal */}
+      {lightboxOpen && (
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(false)}
+            className="absolute top-6 right-6 text-white text-2xl hover:text-[#d4af37] transition-colors"
+          >
+            ✕
+          </button>
+          <div className="max-w-5xl max-h-[85vh] w-full flex items-center justify-center">
+            <img
+              src={galleryImages[selectedImageIndex]}
+              alt="Fullscreen View"
+              className="max-h-[80vh] max-w-full object-contain rounded-2xl shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
+
+      <Information />
+      <Footer />
+    </div>
+  );
 }

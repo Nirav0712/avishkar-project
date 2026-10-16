@@ -1,13 +1,20 @@
 "use client";
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 interface WhatsAppButtonProps {
   phoneNumber: string;
 }
 
 const WhatsappButton = ({ phoneNumber }: WhatsAppButtonProps) => {
+  const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
+
+  // Do not render floating customer widget on admin or login screens
+  if (pathname?.startsWith('/admin') || pathname?.startsWith('/login')) {
+    return null;
+  }
 
   const whatsappMessage = `Hello! I'm interested in buying/renting a property. Could you please share available options and pricing details?`;
 

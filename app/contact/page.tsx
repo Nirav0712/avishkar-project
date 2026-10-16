@@ -1,18 +1,22 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Information from '../components/Information';
+import { useState } from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Information from "../components/Information";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    subject: "General Inquiry",
+    message: ""
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -21,327 +25,302 @@ export default function ContactPage() {
     });
   };
 
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   alert('Thank you for contacting us! We\'ll get back to you soon.');
-  //   setFormData({
-  //     name: '',
-  //     email: '',
-  //     phone: '',
-  //     subject: '',
-  //     message: ''
-  //   });
-  // };
-
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.name || !formData.phone) {
+      setErrorMessage("Please enter your name and phone number.");
+      return;
+    }
 
-    const phoneNumber = "917041395595"; // your WhatsApp number with country code (no +)
+    setIsSubmitting(true);
+    setErrorMessage("");
 
-    const message = `New Contact Form Message
+    try {
+      const res = await fetch("/api/enquire", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email || null,
+          source: "Contact Page Form",
+          interested_in: formData.subject,
+          priority: "High",
+          notes: `Subject: ${formData.subject}\nMessage: ${formData.message}`
+        })
+      });
 
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Subject: ${formData.subject}
-
-Message:
-${formData.message}
-  `;
-
-    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-    window.open(whatsappURL, "_blank");
+      if (!res.ok) throw new Error("Failed to submit");
+      setIsSuccess(true);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "General Inquiry",
+        message: ""
+      });
+    } catch {
+      setErrorMessage("Unable to save your message right now. Please reach us via WhatsApp or phone.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-
-
   return (
-    <>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col">
       <Header />
 
-      {/* Hero Section */}
-      <section className="relative">
-
-        {/* 🔥 Map Background */}
-        <div className="h-125 w-full">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3669.7118586241227!2d72.5429606!3d23.1076415!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2ef97a43509148f%3A0x893ecc0405bf5886!2sAvishkar%20Realty!5e0!3m2!1sen!2sin!4v1773233935727!5m2!1sen!2sin"
-            className="w-full h-full"
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Ahmedabad Location Map"
-          />
-        </div>
-
-
-        {/* 🔥 Cards Section (Overlapping Map) */}
-        <div className="relative -mt-32 pb-24">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-              {/* Card 1 */}
-              <div className="bg-[#efefef] rounded-2xl p-10 text-center shadow-lg h-[280px] flex flex-col justify-center items-center">
-                <div className="w-16 h-16 mb-6 rounded-xl bg-[#0f1e3d] flex items-center justify-center">
-                  <i className="fas fa-map-marker-alt text-[#e4c272] text-2xl"></i>
-                </div>
-                <h3 className="text-xl font-semibold text-[#1f2d3d] mb-3">
-                  Our Address
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Status Elysium, 23, Road, nr. Shree Vishnudhara Gardens,
-                  Gota, Ahmedabad, Gujarat 382481
-                </p>
-              </div>
-
-              {/* Card 2 */}
-              <div className="bg-[#efefef] rounded-2xl p-10 text-center shadow-lg h-[280px] flex flex-col justify-center items-center">
-                <div className="w-16 h-16 mb-6 rounded-xl bg-[#0f1e3d] flex items-center justify-center">
-                  <i className="fas fa-envelope text-[#e4c272] text-2xl"></i>
-                </div>
-                <h3 className="text-xl font-semibold text-[#1f2d3d] mb-3">
-                  avishkarrealty1@gmail.com
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Email us anytime for any kind of query.
-                </p>
-              </div>
-
-              {/* Card 3 */}
-              <div className="bg-[#efefef] rounded-2xl p-10 text-center shadow-lg h-[280px] flex flex-col justify-center items-center">
-                <div className="w-16 h-16 mb-6 rounded-xl bg-[#0f1e3d] flex items-center justify-center">
-                  <i className="fas fa-phone text-[#e4c272] text-2xl"></i>
-                </div>
-                <h3 className="text-xl font-semibold text-[#1f2d3d] mb-3">
-                  +91 70413 95595
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  24/7/365 priority Live Chat and ticketing support.
-                </p>
-              </div>
-
-              {/* Card 4 */}
-              <div className="bg-[#efefef] rounded-2xl p-10 text-center shadow-lg h-[280px] flex flex-col justify-center items-center">
-                <div className="w-16 h-16 mb-6 rounded-xl bg-[#0f1e3d] flex items-center justify-center">
-                  <i className="fas fa-clock text-[#e4c272] text-2xl"></i>
-                </div>
-                <h3 className="text-xl font-semibold text-[#1f2d3d] mb-3">
-                  Opening Hour
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Monday - Sunday : 10 AM - 7 PM
-                </p>
-              </div>
-
-            </div>
+      {/* Hero Banner */}
+      <section className="bg-gradient-to-r from-[#0b1528] via-[#102447] to-[#0b1528] text-white py-16 sm:py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:24px_24px] opacity-15"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#e4c272] text-xs font-bold uppercase tracking-widest mb-3">
+            <i className="fas fa-headset text-xs"></i>
+            <span>Concierge Consultation</span>
           </div>
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
+            Connect with <span className="gold-gradient-text">Avishkar Realty</span>
+          </h1>
+          <p className="mt-3 text-slate-300 text-sm sm:text-base max-w-xl mx-auto font-light">
+            Whether you seek a luxury family home, a high-yield commercial asset, or verified market advice in Ahmedabad, our specialists are at your service.
+          </p>
         </div>
-
       </section>
 
+      {/* Contact Grid Section */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-14 flex-1 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          {/* Contact Details & Info Card (5 cols) */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="bg-white/80 backdrop-blur-xl border border-white/80 rounded-3xl p-8 shadow-sm">
+              <span className="text-xs font-bold text-[#d4af37] uppercase tracking-wider block mb-1">
+                Headquarters
+              </span>
+              <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight mb-4">
+                Visit Our Office
+              </h2>
+              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6 font-light">
+                Located conveniently in Gota, Ahmedabad. Meet our senior property advisors for personalized project portfolios and legal document review.
+              </p>
 
-
-      {/* Contact Form & Info */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Contact Info */}
-            <div className="lg:col-span-1">
-              <h2 className="text-3xl font-bold text-[#0f1e3d] mb-8">Contact Information</h2>
-
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#e4c272]/30 rounded-lg flex items-center justify-center shrink-0">
-                    <i className="fas fa-map-marker-alt text-[#e4c272] text-xl"></i>
+              <div className="space-y-5 text-xs sm:text-sm">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#d4af37] flex items-center justify-center shrink-0 text-base">
+                    <i className="fas fa-map-marker-alt"></i>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-[#0f1e3d] mb-1">Our Office</h3>
-                    <p className="text-gray-600">  Status Elysium, 23, Road, nr. Shree Vishnudhara Gardens, Gota,
-                      Ahmedabad, Gujarat 382481</p>
+                    <span className="font-bold text-slate-800 block">Address</span>
+                    <p className="text-slate-600 mt-0.5 leading-relaxed">
+                      Status Elysium, 23, Nr. Shree Vishnudhara Gardens, Gota, Ahmedabad, Gujarat 382481
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#e4c272]/30 rounded-lg flex items-center justify-center shrink-0">
-                    <i className="fas fa-phone text-[#e4c272] text-xl"></i>
+                <div className="flex items-start gap-3.5">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#d4af37] flex items-center justify-center shrink-0 text-base">
+                    <i className="fas fa-phone-alt"></i>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-[#0f1e3d] mb-1">Phone</h3>
-                    <a href="tel:+917041395595" className="text-[#0f1e3d] hover:underline">
+                    <span className="font-bold text-slate-800 block">Direct Phone</span>
+                    <a href="tel:+917041395595" className="text-slate-600 hover:text-[#d4af37] block mt-0.5 font-medium">
                       +91 70413 95595
                     </a>
-                    <br />
-                    <a href="tel:+919825029913" className="text-[#0f1e3d] hover:underline">
+                    <a href="tel:+919825029913" className="text-slate-600 hover:text-[#d4af37] block text-xs">
                       +91 98250 29913
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#e4c272]/30 rounded-lg flex items-center justify-center shrink-0">
-                    <i className="fas fa-envelope text-[#e4c272] text-xl"></i>
+                <div className="flex items-start gap-3.5">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#d4af37] flex items-center justify-center shrink-0 text-base">
+                    <i className="fas fa-envelope"></i>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-[#0f1e3d] mb-1">Email</h3>
-                    <a href="mailto:avishkarrealty1@gmail.com" className="text-[#0f1e3d] hover:underline">
+                    <span className="font-bold text-slate-800 block">Email Correspondence</span>
+                    <a href="mailto:avishkarrealty1@gmail.com" className="text-slate-600 hover:text-[#d4af37] block mt-0.5">
                       avishkarrealty1@gmail.com
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#e4c272]/30 rounded-lg flex items-center justify-center shrink-0">
-                    <i className="fas fa-clock text-[#e4c272] text-xl"></i>
+                <div className="flex items-start gap-3.5">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#d4af37] flex items-center justify-center shrink-0 text-base">
+                    <i className="fas fa-clock"></i>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-[#0f1e3d] mb-1">Business Hours</h3>
-                    <p className="text-gray-600">
-                      Mon - Fri: 9:00 AM - 6:00 PM<br />
-                      Sat: 10:00 AM - 4:00 PM<br />
-                      Sun: Closed
-                    </p>
+                    <span className="font-bold text-slate-800 block">Business Hours</span>
+                    <p className="text-slate-600 mt-0.5">Monday – Sunday: 9:30 AM – 7:30 PM</p>
                   </div>
                 </div>
               </div>
 
-              {/* Social Media */}
-              <div className="mt-8">
-                <h3 className="font-semibold text-secondary mb-4">Follow Us</h3>
-
-
-                <div className="flex gap-3">
-
-                  {/* Facebook */}
-                  <a
-                    href="https://www.facebook.com/avishkar.realty.in"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 bg-[#1877F2] text-white rounded-lg flex items-center justify-center hover:scale-110 transition"
-                  >
-                    <i className="fab fa-facebook-f text-lg"></i>
-                  </a>
-
-                  {/* Instagram */}
-                  <a
-                    href="https://www.instagram.com/ajay_prajapati_1709"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 bg-linear-to-r from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white rounded-lg flex items-center justify-center hover:scale-110 transition"
-                  >
-                    <i className="fab fa-instagram text-lg"></i>
-                  </a>
-
-                </div>
+              {/* Direct WhatsApp Action Button */}
+              <div className="mt-8 pt-6 border-t border-slate-100">
+                <a
+                  href="https://wa.me/917041395595?text=Hello%20Avishkar%20Realty,%20I%20am%20interested%20in%20consulting%20regarding%20Ahmedabad%20properties."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs tracking-wide transition-all shadow-md flex items-center justify-center gap-2"
+                >
+                  <i className="fab fa-whatsapp text-base"></i>
+                  <span>Chat Directly on WhatsApp</span>
+                </a>
               </div>
             </div>
+          </div>
 
-            {/* Contact Form */}
-            <div className="lg:col-span-2">
-              <div className="bg-white rounded-2xl shadow-sm p-8">
-                <h2 className="text-3xl font-bold text-[#0f1e3d] mb-6">Send Us a Message</h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* CRM Connected Contact Form (7 cols) */}
+          <div className="lg:col-span-7">
+            <div className="bg-white/90 backdrop-blur-xl border border-white/80 rounded-3xl p-8 sm:p-10 shadow-xl">
+              <div className="mb-6">
+                <span className="text-xs font-bold text-[#d4af37] uppercase tracking-wider block mb-1">
+                  Online Inquiry Form
+                </span>
+                <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+                  Send Us a Direct Message
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                  Enquiries are immediately logged into our CRM system and assigned to a specialized executive.
+                </p>
+              </div>
+
+              {isSuccess ? (
+                <div className="p-8 text-center bg-emerald-50 border border-emerald-200 rounded-2xl animate-in fade-in">
+                  <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i className="fas fa-check"></i>
+                  </div>
+                  <h3 className="text-xl font-bold text-emerald-900">Message Received & Logged!</h3>
+                  <p className="text-xs sm:text-sm text-emerald-700 mt-2 max-w-md mx-auto">
+                    Your request has been successfully recorded in our CRM. A representative from Avishkar Realty will contact you shortly.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setIsSuccess(false)}
+                    className="mt-6 px-6 py-2.5 rounded-full bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700"
+                  >
+                    Submit Another Inquiry
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+                  {errorMessage && (
+                    <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl">
+                      {errorMessage}
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Your Name *</label>
+                      <label className="block font-bold text-slate-700 mb-1">Your Full Name *</label>
                       <input
                         type="text"
                         name="name"
+                        required
+                        placeholder="e.g. Ketan Shah"
                         value={formData.name}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
-                        placeholder="Rajesh Kumar"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:border-[#d4af37] text-sm"
                       />
                     </div>
+
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Your Email *</label>
+                      <label className="block font-bold text-slate-700 mb-1">Phone Number (WhatsApp) *</label>
                       <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
+                        type="tel"
+                        name="phone"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
-                        placeholder="rajesh@example.com"
+                        placeholder="+91 98765 43210"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:border-[#d4af37] text-sm"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                      <label className="block font-bold text-slate-700 mb-1">Email Address</label>
                       <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
+                        type="email"
+                        name="email"
+                        placeholder="ketan@example.com"
+                        value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
-                        placeholder="+91 98765 43210"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:border-[#d4af37] text-sm"
                       />
                     </div>
+
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
+                      <label className="block font-bold text-slate-700 mb-1">Subject / Requirement</label>
                       <select
                         name="subject"
                         value={formData.subject}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:border-[#d4af37] text-sm cursor-pointer"
                       >
-                        <option value="">Select a subject</option>
-                        <option value="general">General Inquiry</option>
-                        <option value="buying">Buying a Property</option>
-                        <option value="selling">Selling a Property</option>
-                        <option value="renting">Renting a Property</option>
-                        <option value="support">Support</option>
+                        <option value="Buy Residential Property">Buy Residential Property (2/3/4 BHK)</option>
+                        <option value="Commercial Investment">Commercial / Office Space</option>
+                        <option value="New Project Consultation">New Project Consultation</option>
+                        <option value="Sell or Lease Property">Sell or Lease a Property</option>
+                        <option value="General Inquiry">General Consultation</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
+                    <label className="block font-bold text-slate-700 mb-1">Your Message & Requirements</label>
                     <textarea
                       name="message"
+                      rows={4}
+                      placeholder="Please share details such as preferred location, budget, or specific project name..."
                       value={formData.message}
                       onChange={handleChange}
-                      required
-                      rows={6}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0f1e3d] focus:ring-2 focus:ring-[#0f1e3d]/20"
-                      placeholder="Tell us how we can help you..."
-                    ></textarea>
+                      className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:border-[#d4af37] text-sm resize-none"
+                    />
                   </div>
 
-                  {/* <button
-                    type="submit"
-                    className="w-full bg-[#0f1e3d] text-[#e4c272] border border-[#e4c272] px-8 py-4 rounded-lg font-semibold hover:bg-[#e4c272] hover:text-[#0f1e3d] hover:border-[#0f1e3d] transition-colors text-lg"
-                  >
-                    <i className="fas fa-paper-plane mr-2"></i>
-                    Send Message
-                  </button> */}
-                  <button
-                    type="submit"
-                    className="w-full bg-[#0f1e3d] text-[#e4c272] border border-[#e4c272] px-8 py-4 rounded-lg font-semibold hover:bg-[#e4c272] hover:text-[#0f1e3d] hover:border-[#0f1e3d] transition-colors text-lg"
-                  >
-                    <i className="fas fa-paper-plane mr-2"></i>
-                    Send Message
-                  </button>
-
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-4 rounded-xl bg-[#0b1528] hover:bg-[#162544] text-[#e4c272] font-bold text-xs tracking-wider uppercase transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <i className="fas fa-spinner fa-spin"></i>
+                          <span>Connecting to CRM...</span>
+                        </>
+                      ) : (
+                        <>
+                          <i className="fas fa-paper-plane"></i>
+                          <span>Submit Official Inquiry</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </form>
-              </div>
+              )}
             </div>
-
-
           </div>
         </div>
-      </section>
 
+        {/* Embedded Interactive Map */}
+        <div className="mt-14 rounded-3xl overflow-hidden shadow-lg border border-slate-200 h-96 relative">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.364239851722!2d72.53521627589943!3d23.083758314055273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e83a435091437%3A0x932f0cf445bf9686!2sAvishkar%20realty!5e0!3m2!1sen!2sin!4v1743513344603!5m2!1sen!2sin"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Avishkar Realty Office Location"
+          ></iframe>
+        </div>
+      </main>
 
       <Information />
       <Footer />
-    </>
+    </div>
   );
 }

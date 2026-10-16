@@ -1,251 +1,200 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About Us", href: "/about-us" },
+    { name: "Properties", href: "/properties" },
+    { name: "Projects", href: "/project" },
+    { name: "List Property", href: "/list-your-property" },
+    { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/contact" },
+  ];
+
+  const isActive = (path: string) => {
+    if (path === "/" && pathname === "/") return true;
+    if (path !== "/" && pathname.startsWith(path)) return true;
+    return false;
+  };
 
   return (
     <>
-      {/* Top Bar */}
-      {/* <div className="bg-[#E3572B] text-white py-2.5 text-sm">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-2">
-            <div className="flex gap-6">
-              <a
-                href="mailto:info@veerrealstate.com"
-                className="flex items-center gap-2 transition-colors"
-              >
-                <i className="fas fa-envelope"></i>
-                avishkarrealty1@gmail.com
-              </a>
-              <a
-                href="tel:+917041395595"
-                className="flex items-center gap-2 transition-colors"
-              >
-                <i className="fas fa-phone"></i>
-                +91 70413 95595
-              </a>
-            </div>
-            <div className="flex gap-6">
-              <Link
-                href="/admin"
-                className="flex items-center gap-2 transition-colors"
-              >
-                <i className="fas fa-user"></i>
-                About /
-              </Link>
-              <Link
-                href="/admin/dashboard"
-                className="flex items-center gap-2 transition-colors"
-              >
-                <i className="fas fa-tachometer-alt"></i>
-                My Account /
-              </Link>
-              <Link
-                href="/admin/dashboard"
-                className="flex items-center gap-2 transition-colors"
-              >
-                <i className="fas fa-tachometer-alt"></i>
-                Contact
-              </Link>
-              <div className="flex gap-3">
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-orange-600  hover:text-white transition"
-                >
-                  <i className="fab fa-facebook-f text-sm"></i>
-                </a>
+      {/* Top Notification Bar */}
+      <div className="bg-[#0b1528] text-xs text-slate-300 py-2 border-b border-white/10 hidden sm:block">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
+          <div className="flex items-center gap-6">
+            <a
+              href="tel:+917041395595"
+              className="flex items-center gap-2 hover:text-[#e4c272] transition-colors"
+            >
+              <i className="fas fa-phone-alt text-[#e4c272] text-[10px]"></i>
+              <span>+91 70413 95595</span>
+            </a>
+            <a
+              href="mailto:avishkarrealty1@gmail.com"
+              className="flex items-center gap-2 hover:text-[#e4c272] transition-colors"
+            >
+              <i className="fas fa-envelope text-[#e4c272] text-[10px]"></i>
+              <span>avishkarrealty1@gmail.com</span>
+            </a>
+            <span className="hidden md:flex items-center gap-1.5 text-slate-400">
+              <i className="fas fa-map-marker-alt text-[#e4c272] text-[10px]"></i>
+              <span>Ahmedabad, Gujarat</span>
+            </span>
+          </div>
 
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-orange-600 hover:text-white transition"
-                >
-                  <i className="fab fa-instagram text-sm"></i>
-                </a>
-              </div>
-
-              <link
-                rel="stylesheet"
-                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-              />
-            </div>
+          <div className="flex items-center gap-4">
+            <span className="text-[#e4c272] font-medium tracking-wide">
+              <i className="fas fa-shield-alt mr-1"></i> RERA Approved Partner
+            </span>
+            <div className="h-3 w-px bg-white/20"></div>
+            <Link
+              href="/admin/dashboard"
+              className="flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors"
+            >
+              <i className="fas fa-lock text-[#e4c272] text-[10px]"></i>
+              <span>Admin Portal</span>
+            </Link>
           </div>
         </div>
-      </div> */}
+      </div>
 
-      {/* Main Header */}
-      <header className="bg-[#0f1e3d] shadow-md sticky top-0 z-50 transition-all">
-        <div className="max-w-7xl mx-auto px-4 ">
-          <nav className="flex items-center justify-between py-4 md:py-10 ">
-            {/* Logo */}
-            <Link href="/" className="text-2xl font-bold text-secondary ">
-              {/* Veer<span className="text-primary">RealEstate</span> */}
-              <img src="/images/logo.png" alt="logo" className="h-10 md:h-16 w-auto object-contain" />
+      {/* Main Glass Header */}
+      <header
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-[#0b1528]/90 backdrop-blur-md shadow-lg border-b border-white/10 py-3"
+            : "bg-[#0f1e3d]/95 backdrop-blur-sm py-4 border-b border-white/5"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <nav className="flex items-center justify-between">
+            {/* Brand Logo */}
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative">
+                <img
+                  src="/images/logo.png"
+                  alt="Avishkar Realty"
+                  className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
             </Link>
 
-            {/* Desktop Menu */}
-            <ul className="hidden lg:flex items-center gap-8">
-              <li>
-                <Link
-                  href="/"
-                  className="block text-white text-light font-lg hover:text-[#e4c272] transition-colors"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about-us"
-                  className="block text-white text-light font-lg hover:text-[#e4c272] transition-colors"
-                >
-                  About Us
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/properties"
-                  className="block text-white text-light font-lg hover:text-[#e4c272] transition-colors"
-                >
-                  Properties
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="/project"
-                  className="block text-white text-light font-lg hover:text-[#e4c272] transition-colors"
-                >
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog"
-                  className="block text-white text-light font-lg hover:text-[#e4c272] transition-colors"
-                >
-                  Blog
-                </Link>
-              </li>
-              {/* <li>
-                <Link
-                  href="/contact"
-                  className="block text-white text-light font-lg hover:text-[#e4c272] transition-colors"
-                >
-                  Contact
-                </Link>
-              </li> */}
+            {/* Desktop Navigation */}
+            <ul className="hidden lg:flex items-center gap-1 xl:gap-2">
+              {navLinks.map((link) => {
+                const active = isActive(link.href);
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className={`px-3.5 py-2 rounded-lg text-sm font-medium tracking-wide transition-all duration-200 relative ${
+                        active
+                          ? "text-[#e4c272] bg-white/5 font-semibold"
+                          : "text-slate-200 hover:text-white hover:bg-white/5"
+                      }`}
+                    >
+                      {link.name}
+                      {active && (
+                        <span className="absolute bottom-0 left-3.5 right-3.5 h-0.5 bg-[#e4c272] rounded-full"></span>
+                      )}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
 
-            <div className="flex items-center gap-2 md:gap-4">
-              {/* Search Icon */}
-              <Link href="/properties" className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#e4c272] flex items-center justify-center text-[#e4c272] hover:text-[#12233D] hover:bg-[#e4c272]">
-                <i className="fas fa-search text-base md:text-lg hover:bg-[#e4c272]"></i>
-              </Link>
-
-              {/* Add Properties Button */}
-              <a
-                href="/contact"
-                className="
-    flex items-center gap-2
-    bg-[#12233D] text-[#e4c272]
-    px-4 py-2 md:px-6 md:py-3 rounded-full
-    text-sm md:text-base font-light
-    border border-[#e4c272]
-    transition-all duration-300
-    hover:bg-[#e4c272]
-    hover:text-[#12233D]
-  "
-              >
-                <i className="fas fa-phone"></i>
-                <span className="hidden md:inline">Contact Us</span>
-              </a>
-            </div>
-
-            {/* CTA Button */}
-            {/* <div className="hidden lg:flex items-center gap-4">
+            {/* Right Action Buttons */}
+            <div className="flex items-center gap-3">
               <Link
                 href="/properties"
-                className="bg-primary text-white px-6 py-2.5 rounded-lg font-medium hover:bg-primary-dark transition-all hover:-translate-y-0.5 hover:shadow-md"
+                className="w-10 h-10 rounded-full border border-white/15 bg-white/5 text-[#e4c272] flex items-center justify-center hover:bg-[#e4c272] hover:text-[#0b1528] transition-all duration-300 shadow-sm"
+                title="Search Properties"
               >
-                Browse Properties
+                <i className="fas fa-search text-sm"></i>
               </Link>
-            </div> */}
 
-            {/* Mobile Menu Toggle */}
-            <button
-              className="lg:hidden text-2xl text-[#e4c272]"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              <i
-                className={`fas ${mobileMenuOpen ? "fa-times" : "fa-bars"}`}
-              ></i>
-            </button>
+              <Link
+                href="/contact"
+                className="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-[#d4af37] to-[#e4c272] text-[#0b1528] px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide hover:shadow-lg hover:shadow-[#d4af37]/20 hover:brightness-105 transition-all duration-300"
+              >
+                <i className="fas fa-calendar-check text-xs"></i>
+                <span>Enquire Now</span>
+              </Link>
+
+              {/* Mobile Menu Toggle Button */}
+              <button
+                type="button"
+                className="lg:hidden w-10 h-10 rounded-lg bg-white/5 border border-white/15 text-slate-200 flex items-center justify-center text-lg hover:text-[#e4c272] transition-colors"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle Navigation"
+              >
+                <i className={`fas ${mobileMenuOpen ? "fa-times" : "fa-bars"}`}></i>
+              </button>
+            </div>
           </nav>
 
-          {/* Mobile Menu */}
+          {/* Mobile Glass Navigation Drawer */}
           {mobileMenuOpen && (
-            <div className="lg:hidden py-4 border-t">
-              <ul className="flex flex-col gap-4">
-                <li>
-                  <Link
-                    href="/"
-                    className="block text-[#e4c272] hover:text-[#e4c272] font-medium transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/properties"
-                    className="block text-[#e4c272] hover:text-[#e4c272] font-medium transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Properties
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/about-us"
-                    className="block text-[#e4c272] hover:text-[#e4c272] font-medium transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/blog"
-                    className="block text-[#e4c272] hover:text-primary font-medium transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className="block text-[#e4c272] hover:text-primary font-medium transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/properties"
-                    className="block bg-[#e4c272] text-[#12233D] px-6 py-2.5 rounded-lg font-medium text-center hover:bg-primary-dark transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Browse Properties
-                  </Link>
-                </li>
+            <div className="lg:hidden mt-4 pt-4 pb-6 border-t border-white/10 animate-in fade-in slide-in-from-top-2 duration-200">
+              <ul className="flex flex-col gap-2">
+                {navLinks.map((link) => {
+                  const active = isActive(link.href);
+                  return (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`block px-4 py-2.5 rounded-xl text-base font-medium transition-all ${
+                          active
+                            ? "bg-white/10 text-[#e4c272] font-semibold"
+                            : "text-slate-200 hover:bg-white/5 hover:text-white"
+                        }`}
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
+
+              <div className="mt-4 pt-4 border-t border-white/10 flex flex-col gap-3">
+                <a
+                  href="tel:+917041395595"
+                  className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/5 text-[#e4c272] border border-white/10 text-sm font-medium"
+                >
+                  <i className="fas fa-phone-alt"></i>
+                  <span>Call +91 70413 95595</span>
+                </a>
+                <Link
+                  href="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#e4c272] text-[#0b1528] text-sm font-bold shadow-md"
+                >
+                  <i className="fas fa-calendar-check"></i>
+                  <span>Book Free Consultation</span>
+                </Link>
+              </div>
             </div>
           )}
         </div>

@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  devIndicators: false,
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
@@ -35,7 +36,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'www.jalaramrealestate.com',
-      }
+      },
     ],
   },
 };

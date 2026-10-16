@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import { validateAdminSession } from '@/lib/auth';
 
-// GET single property
+// GET single property (Public)
 export async function GET(
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
@@ -17,17 +18,20 @@ export async function GET(
 
         return NextResponse.json(rows[0]);
     } catch (error) {
-        console.error('Database error:', error);
+        console.error('Database error in GET /api/properties/[id]:', error);
         return NextResponse.json({ error: 'Failed to fetch property' }, { status: 500 });
     }
 }
 
-// PUT update property
+// PUT update property (Protected - Admin only)
 export async function PUT(
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { user, errorResponse } = await validateAdminSession(request, ['admin', 'super_admin']);
+        if (errorResponse) return errorResponse;
+
         const { id } = await params;
         const body = await request.json();
         const {
@@ -43,28 +47,40 @@ export async function PUT(
       WHERE id = ?`,
             [
                 title, price, location, type, status, bedrooms, bathrooms, area,
-                featured, image, description, yearBuilt, parking, id
+                featured ? 1 : 0, image, description, yearBuilt, parking, id
             ]
         );
 
         return NextResponse.json({ id, ...body });
     } catch (error) {
-        console.error('Database error:', error);
+        console.error('Database error in PUT /api/properties/[id]:', error);
         return NextResponse.json({ error: 'Failed to update property' }, { status: 500 });
     }
 }
 
-// DELETE property
+// DELETE property (Protected - Admin only)
 export async function DELETE(
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { user, errorResponse } = await validateAdminSession(request, ['admin', 'super_admin']);
+        if (errorResponse) return errorResponse;
+
         const { id } = await params;
+
+        // Log deletion into audit_logs before removing
+        try {
+            await pool.query(
+                'INSERT INTO audit_logs (action, target_type, target_id, details) VALUES (?, ?, ?, ?)',
+                ['DELETE_PROPERTY', 'property', id, `Property ID ${id} deleted by ${user?.name}`]
+            );
+        } catch {}
+
         await pool.query('DELETE FROM properties WHERE id = ?', [id]);
         return NextResponse.json({ message: 'Property deleted successfully' });
     } catch (error) {
-        console.error('Database error:', error);
+        console.error('Database error in DELETE /api/properties/[id]:', error);
         return NextResponse.json({ error: 'Failed to delete property' }, { status: 500 });
     }
 }
