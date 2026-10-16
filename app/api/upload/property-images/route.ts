@@ -64,7 +64,16 @@ export async function POST(request: NextRequest) {
 
     // 2. Parse FormData
     const formData = await request.formData();
-    const files = formData.getAll('files') as File[];
+    const rawFiles = formData.getAll('files');
+    const files = (
+      rawFiles.length > 0
+        ? rawFiles
+        : formData.getAll('images').length > 0
+          ? formData.getAll('images')
+          : formData.getAll('file').length > 0
+            ? formData.getAll('file')
+            : formData.getAll('image')
+    ) as File[];
 
     if (!files || files.length === 0) {
       return NextResponse.json(

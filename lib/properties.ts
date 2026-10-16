@@ -3,18 +3,21 @@ export interface Property {
     title: string;
     price: number;
     location: string;
-    type: 'Villa' | 'Apartment' | 'House' | 'Condo' | 'Land' | 'Retail';
-    status: 'For Sale' | 'For Rent';
+    type: 'Villa' | 'Apartment' | 'House' | 'Condo' | 'Land' | 'Retail' | string;
+    status: 'For Sale' | 'For Rent' | string;
     bedrooms: number;
     bathrooms: number;
     area: number;
-    category: 'Residential' | 'Commercial' | 'Industrial';
+    category: 'Residential' | 'Commercial' | 'Industrial' | 'Plot / Land' | string;
     featured: boolean;
     image: string;
     description: string;
     yearBuilt?: number;
     parking?: number;
     amenities?: string[];
+    areaUnit?: string;
+    transaction?: string;
+    images?: string;
 }
 
 export const sampleProperties: Property[] = [

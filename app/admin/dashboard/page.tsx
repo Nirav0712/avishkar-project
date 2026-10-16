@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { parseYouTubeUrl, parseInstagramUrl } from '@/lib/video';
+import { formatPrice } from '@/lib/properties';
 
 // Types
 interface Lead {
@@ -72,6 +73,9 @@ interface Property {
   description?: string;
   yearBuilt?: number;
   parking?: number;
+  areaUnit?: string;
+  transaction?: string;
+  images?: string;
 }
 
 interface Project {
@@ -201,6 +205,9 @@ export default function AdminDashboardPage() {
   const [showAddDealModal, setShowAddDealModal] = useState(false);
   const [showPropertyModal, setShowPropertyModal] = useState(false);
   const [editingProperty, setEditingProperty] = useState<Property | null>(null);
+  const [savingProperty, setSavingProperty] = useState(false);
+  const [uploadingPropertyImage, setUploadingPropertyImage] = useState(false);
+  const propertyFileInputRef = useRef<HTMLInputElement>(null);
   const [showProjectModal, setShowProjectModal] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [deleteModal, setDeleteModal] = useState<{ type: 'lead' | 'property' | 'project'; id: number; title: string } | null>(null);
@@ -735,10 +742,70 @@ export default function AdminDashboardPage() {
     }
   };
 
+  // Upload Property Image from device
+  const handleUploadPropertyImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    try {
+      setUploadingPropertyImage(true);
+      const formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append('images', files[i]);
+        formData.append('files', files[i]);
+      }
+
+      const res = await fetch('/api/upload/property-images', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (res.ok && data.urls && data.urls.length > 0) {
+        setPropertyForm((prev) => ({
+          ...prev,
+          image: data.urls[0],
+        }));
+        showToast('Property photo uploaded successfully!');
+      } else {
+        showToast(data.error || 'Failed to upload photo', 'error');
+      }
+    } catch (err: any) {
+      showToast(err.message || 'Error uploading photo', 'error');
+    } finally {
+      setUploadingPropertyImage(false);
+      if (propertyFileInputRef.current) {
+        propertyFileInputRef.current.value = '';
+      }
+    }
+  };
+
   // Save Property
   const handleSaveProperty = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (savingProperty) return;
+
+    const cleanTitle = (propertyForm.title || '').trim();
+    const cleanLocation = (propertyForm.location || '').trim();
+    const numericPrice = Number(propertyForm.price);
+
+    if (!cleanTitle || cleanTitle.length < 3) {
+      showToast('Please enter a valid property title (at least 3 characters)', 'error');
+      return;
+    }
+
+    if (isNaN(numericPrice) || numericPrice <= 0) {
+      showToast('Please enter a valid property price or monthly rent', 'error');
+      return;
+    }
+
+    if (!cleanLocation) {
+      showToast('Please enter the property location', 'error');
+      return;
+    }
+
     try {
+      setSavingProperty(true);
       const url = editingProperty
         ? `/api/properties/${editingProperty.id}`
         : '/api/properties';
@@ -747,19 +814,29 @@ export default function AdminDashboardPage() {
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(propertyForm),
+        credentials: 'include',
+        body: JSON.stringify({
+          ...propertyForm,
+          title: cleanTitle,
+          location: cleanLocation,
+          price: numericPrice,
+        }),
       });
 
+      const data = await res.json().catch(() => ({}));
+
       if (res.ok) {
-        showToast(editingProperty ? 'Property updated!' : 'Property added!');
+        showToast(editingProperty ? 'Property updated successfully!' : 'Property added successfully!');
         setShowPropertyModal(false);
         setEditingProperty(null);
         fetchProperties();
       } else {
-        showToast('Failed to save property', 'error');
+        showToast(data.error || 'Failed to save property. Please check the inputs.', 'error');
       }
-    } catch {
-      showToast('Error saving property', 'error');
+    } catch (err: any) {
+      showToast(err.message || 'Error saving property', 'error');
+    } finally {
+      setSavingProperty(false);
     }
   };
 
@@ -801,14 +878,15 @@ export default function AdminDashboardPage() {
       if (deleteModal.type === 'property') url = `/api/properties/${deleteModal.id}`;
       if (deleteModal.type === 'project') url = `/api/projects/${deleteModal.id}`;
 
-      const res = await fetch(url, { method: 'DELETE' });
+      const res = await fetch(url, { method: 'DELETE', credentials: 'include' });
+      const data = await res.json().catch(() => ({}));
       if (res.ok) {
         showToast(`${deleteModal.title} deleted successfully`);
         if (deleteModal.type === 'lead') fetchLeads();
         if (deleteModal.type === 'property') fetchProperties();
         if (deleteModal.type === 'project') fetchProjects();
       } else {
-        showToast('Failed to delete item', 'error');
+        showToast(data.error || 'Failed to delete item', 'error');
       }
     } catch {
       showToast('Error during deletion', 'error');
@@ -2406,7 +2484,7 @@ export default function AdminDashboardPage() {
                         </p>
 
                         <div className="text-lg font-bold text-white mb-4">
-                          ₹{(Number(prop.price) / 10000000).toFixed(2)} Cr
+                          {formatPrice(Number(prop.price) || 0)}
                         </div>
 
                         <div className="grid grid-cols-3 gap-2 py-3 border-y border-white/10 text-center text-xs text-gray-300 mb-4">
@@ -2428,7 +2506,10 @@ export default function AdminDashboardPage() {
                           <button
                             onClick={() => {
                               setEditingProperty(prop);
-                              setPropertyForm(prop);
+                              setPropertyForm({
+                                ...prop,
+                                featured: Boolean(prop.featured),
+                              });
                               setShowPropertyModal(true);
                             }}
                             className="flex-1 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-white transition flex items-center justify-center gap-1.5"
@@ -3327,8 +3408,8 @@ export default function AdminDashboardPage() {
                   <input
                     type="number"
                     required
-                    value={propertyForm.price || 0}
-                    onChange={(e) => setPropertyForm({ ...propertyForm, price: Number(e.target.value) })}
+                    value={propertyForm.price !== undefined && propertyForm.price !== 0 ? propertyForm.price : ''}
+                    onChange={(e) => setPropertyForm({ ...propertyForm, price: e.target.value === '' ? 0 : Number(e.target.value) })}
                     placeholder="15000000"
                     className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-xs focus:outline-none focus:border-[#d4af37]"
                   />
@@ -3360,6 +3441,7 @@ export default function AdminDashboardPage() {
                   >
                     <option value="Residential">Residential</option>
                     <option value="Commercial">Commercial</option>
+                    <option value="Industrial">Industrial</option>
                     <option value="Plot / Land">Plot / Land</option>
                   </select>
                 </div>
@@ -3392,8 +3474,11 @@ export default function AdminDashboardPage() {
                     <option value="Apartment">Apartment</option>
                     <option value="Villa">Villa</option>
                     <option value="Penthouse">Penthouse</option>
+                    <option value="House">House</option>
+                    <option value="Condo">Condo</option>
                     <option value="Office">Office</option>
                     <option value="Shop">Shop</option>
+                    <option value="Land">Land</option>
                   </select>
                 </div>
 
@@ -3403,8 +3488,8 @@ export default function AdminDashboardPage() {
                   </label>
                   <input
                     type="number"
-                    value={propertyForm.area || 0}
-                    onChange={(e) => setPropertyForm({ ...propertyForm, area: Number(e.target.value) })}
+                    value={propertyForm.area !== undefined && propertyForm.area !== 0 ? propertyForm.area : ''}
+                    onChange={(e) => setPropertyForm({ ...propertyForm, area: e.target.value === '' ? 0 : Number(e.target.value) })}
                     placeholder="1800"
                     className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-xs focus:outline-none focus:border-[#d4af37]"
                   />
@@ -3418,8 +3503,9 @@ export default function AdminDashboardPage() {
                   </label>
                   <input
                     type="number"
-                    value={propertyForm.bedrooms || 0}
-                    onChange={(e) => setPropertyForm({ ...propertyForm, bedrooms: Number(e.target.value) })}
+                    value={propertyForm.bedrooms !== undefined && propertyForm.bedrooms !== 0 ? propertyForm.bedrooms : ''}
+                    onChange={(e) => setPropertyForm({ ...propertyForm, bedrooms: e.target.value === '' ? 0 : Number(e.target.value) })}
+                    placeholder="3"
                     className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-xs focus:outline-none focus:border-[#d4af37]"
                   />
                 </div>
@@ -3429,8 +3515,9 @@ export default function AdminDashboardPage() {
                   </label>
                   <input
                     type="number"
-                    value={propertyForm.bathrooms || 0}
-                    onChange={(e) => setPropertyForm({ ...propertyForm, bathrooms: Number(e.target.value) })}
+                    value={propertyForm.bathrooms !== undefined && propertyForm.bathrooms !== 0 ? propertyForm.bathrooms : ''}
+                    onChange={(e) => setPropertyForm({ ...propertyForm, bathrooms: e.target.value === '' ? 0 : Number(e.target.value) })}
+                    placeholder="3"
                     className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-xs focus:outline-none focus:border-[#d4af37]"
                   />
                 </div>
@@ -3440,8 +3527,9 @@ export default function AdminDashboardPage() {
                   </label>
                   <input
                     type="number"
-                    value={propertyForm.parking || 0}
-                    onChange={(e) => setPropertyForm({ ...propertyForm, parking: Number(e.target.value) })}
+                    value={propertyForm.parking !== undefined && propertyForm.parking !== 0 ? propertyForm.parking : ''}
+                    onChange={(e) => setPropertyForm({ ...propertyForm, parking: e.target.value === '' ? 0 : Number(e.target.value) })}
+                    placeholder="1"
                     className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-xs focus:outline-none focus:border-[#d4af37]"
                   />
                 </div>
@@ -3449,15 +3537,58 @@ export default function AdminDashboardPage() {
 
               <div>
                 <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">
-                  Primary Image URL
+                  Property Description
                 </label>
-                <input
-                  type="url"
-                  value={propertyForm.image || ''}
-                  onChange={(e) => setPropertyForm({ ...propertyForm, image: e.target.value })}
-                  placeholder="https://images.unsplash.com/photo-..."
-                  className="w-full px-3.5 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-xs focus:outline-none focus:border-[#d4af37]"
+                <textarea
+                  rows={3}
+                  value={propertyForm.description || ''}
+                  onChange={(e) => setPropertyForm({ ...propertyForm, description: e.target.value })}
+                  placeholder="Provide property highlights, furnishings, amenities, orientation, or unique features..."
+                  className="w-full px-3.5 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-xs focus:outline-none focus:border-[#d4af37] resize-none"
                 />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">
+                  Primary Property Image
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={propertyForm.image || ''}
+                    onChange={(e) => setPropertyForm({ ...propertyForm, image: e.target.value })}
+                    placeholder="https://images.unsplash.com/... or upload photo"
+                    className="flex-1 px-3.5 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-xs focus:outline-none focus:border-[#d4af37]"
+                  />
+                  <input
+                    type="file"
+                    ref={propertyFileInputRef}
+                    accept="image/png,image/jpeg,image/webp"
+                    className="hidden"
+                    onChange={handleUploadPropertyImage}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => propertyFileInputRef.current?.click()}
+                    disabled={uploadingPropertyImage}
+                    className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-xs font-semibold text-gray-200 transition flex items-center gap-1.5 whitespace-nowrap"
+                  >
+                    <i className={`fa-solid ${uploadingPropertyImage ? 'fa-spinner fa-spin text-[#d4af37]' : 'fa-arrow-up-from-bracket'}`} />
+                    <span>{uploadingPropertyImage ? 'Uploading...' : 'Upload Photo'}</span>
+                  </button>
+                </div>
+                {propertyForm.image && (
+                  <div className="mt-2 relative w-24 h-16 rounded-lg overflow-hidden border border-white/20">
+                    <img
+                      src={propertyForm.image}
+                      alt="Property Preview"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80';
+                      }}
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="flex items-center gap-2">
@@ -3477,15 +3608,24 @@ export default function AdminDashboardPage() {
                 <button
                   type="button"
                   onClick={() => setShowPropertyModal(false)}
-                  className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-gray-300 transition"
+                  disabled={savingProperty}
+                  className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-gray-300 transition disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#e4c272] text-[#0b1528] font-bold text-xs shadow-lg shadow-[#d4af37]/20 hover:brightness-110 transition"
+                  disabled={savingProperty || uploadingPropertyImage}
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#e4c272] text-[#0b1528] font-bold text-xs shadow-lg shadow-[#d4af37]/20 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center gap-2"
                 >
-                  Save Property
+                  {savingProperty ? (
+                    <>
+                      <i className="fa-solid fa-circle-notch fa-spin text-xs" />
+                      <span>Saving Property...</span>
+                    </>
+                  ) : (
+                    <span>{editingProperty ? 'Update Property' : 'Save Property'}</span>
+                  )}
                 </button>
               </div>
             </form>
